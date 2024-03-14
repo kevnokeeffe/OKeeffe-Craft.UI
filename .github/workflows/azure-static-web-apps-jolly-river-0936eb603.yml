@@ -17,9 +17,6 @@ jobs:
     env:
       NODE_VERSION: "20.x"
     steps:
-      - name: Install apt-utils
-        run: sudo apt-get update && sudo apt-get install -y apt-utils
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -30,6 +27,9 @@ jobs:
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+
+      - name: Install apt-utils
+        run: sudo apt-get update && sudo apt-get install -y apt-utils
 
       - name: Build And Deploy
         id: builddeploy
