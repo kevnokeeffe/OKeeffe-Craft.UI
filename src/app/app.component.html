@@ -1,5 +1,15 @@
 <!-- * * * * * * * * * * Placeholder  * * * * * * * * * * * * -->
-<app-placeholder-home-page></app-placeholder-home-page>
+<!-- <app-placeholder-home-page></app-placeholder-home-page> -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<button mat-button [routerLink]="['/']" routerLinkActive="router-link-active">
+  Home
+</button>
+<button
+  mat-button
+  [routerLink]="['/home']"
+  routerLinkActive="router-link-active"
+>
+  Test
+</button>
 
 <router-outlet />
