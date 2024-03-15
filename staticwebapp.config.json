@@ -1,9 +1,15 @@
 {
-    "trailingSlash": "auto",
-    "routes": [
-      {
-        "route": "/*",
-        "allowedRoles":["anonymous"]
-      }
-    ]
+  "routes": [
+    {
+      "route": "/*",
+      "serve": "/",
+      "statusCode": 200
+    }
+  ],
+  "platformErrorOverrides": [
+    {
+      "errorType": "NotFound",
+      "serve": "/index.html"
+    }
+  ]
 }
