@@ -6,19 +6,11 @@
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/static/js/*", "/static/css/*", "*.json"]
+    "rewrite": "/index.html"
   },
-  "platformErrorOverrides": [
-    {
-      "errorType": "NotFound",
-      "serve": "/index.html"
-    }
-  ],
-  "responseOverrides": {
-    "404": {
-      "rewrite": "/index.html",
-      "statusCode": 200
-    }
+  "mimeTypes": {
+    ".json": "text/json",
+    ".js": "text/javascript",
+    ".css": "text/css"
   }
 }
