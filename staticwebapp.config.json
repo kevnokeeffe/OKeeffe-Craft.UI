@@ -1,15 +1,17 @@
 {
   "routes": [
     {
-      "route": "/*",
-      "serve": "/",
-      "statusCode": 200
+        "route": "/*",
+        "rewrite": "/index.html"
     }
   ],
-  "platformErrorOverrides": [
-    {
-      "errorType": "NotFound",
-      "serve": "/index.html"
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
     }
-  ]
+  }
 }
