@@ -41,7 +41,7 @@ jobs:
           app_location: "/"
           api_location: ""
           output_location: "dist/okeeffe-craft/browser"
-          config_file_location: "src/okeeffe-craft/browser/staticwebapp.config.json"
+          config_file_location: "staticwebapp.config.json"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
