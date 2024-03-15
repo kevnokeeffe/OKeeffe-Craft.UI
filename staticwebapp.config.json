@@ -1,13 +1,10 @@
 {
   "routes": [
     {
-        "route": "/*",
-        "rewrite": "/index.html"
+      "route": "/*",
+      "rewrite": "/index.html"
     }
   ],
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  },
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html",
