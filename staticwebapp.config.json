@@ -5,6 +5,16 @@
       "rewrite": "/index.html"
     }
   ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/static/js/*", "/static/css/*", "*.json"]
+  },
+  "platformErrorOverrides": [
+    {
+      "errorType": "NotFound",
+      "serve": "/index.html"
+    }
+  ],
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html",
