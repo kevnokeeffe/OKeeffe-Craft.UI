@@ -1,0 +1,11 @@
+{
+  "environment": "production",
+  "settingsLoaded": true,
+  "api": {
+    "base": "https://localhost:4000",
+    "endpoints": {}
+  },
+  "images": {
+    "signature": "https://bafybeidk25bpvkyftveezfrswsdwnv5pugkza6lwasb6eq5ggu4nde4r3q.ipfs.nftstorage.link/Signature.svg"
+  }
+}

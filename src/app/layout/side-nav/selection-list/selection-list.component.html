@@ -1,0 +1,54 @@
+<div class="container">
+  <div>
+    <mat-selection-list class="selection-list">
+      <mat-list-item class="mat-list-item" disabled
+        ><mat-icon matListItemIcon class="material-symbols-rounded">
+          login</mat-icon
+        ><span>Log in</span></mat-list-item
+      >
+      <mat-list-item class="mat-list-item" disabled
+        ><mat-icon matListItemIcon class="material-symbols-outlined">
+          person_add</mat-icon
+        ><span>Register</span></mat-list-item
+      >
+      <mat-list-item class="mat-list-item" disabled
+        ><mat-icon matListItemIcon class="material-symbols-rounded">
+          face</mat-icon
+        ><span>AML Assistant</span></mat-list-item
+      >
+    </mat-selection-list>
+  </div>
+  <div>
+    <mat-divider [ngStyle]="{ opacity: '.6' }"></mat-divider>
+    <mat-selection-list class="selection-list-footer">
+      <mat-list-item class="mat-list-item" [matMenuTriggerFor]="documentsMenu"
+        ><mat-icon matListItemIcon class="material-symbols-rounded">
+          description</mat-icon
+        ><span>Documentation</span></mat-list-item
+      >
+      <mat-list-item class="mat-list-item-settings" disabled
+        ><mat-icon matListItemIcon class="material-symbols-rounded">
+          settings</mat-icon
+        ><span>Settings</span></mat-list-item
+      >
+    </mat-selection-list>
+  </div>
+</div>
+
+<!-- TODO Create sub component -->
+<ng-container>
+  <mat-menu #documentsMenu="matMenu" xPosition="after" class="menu">
+    <button mat-menu-item (click)="navigateToGithub()">
+      <mat-icon>developer_board</mat-icon>
+      <span>Github</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>hub</mat-icon>
+      <span>Swagger</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>memory</mat-icon>
+      <span>API Documentation</span>
+    </button>
+  </mat-menu>
+</ng-container>

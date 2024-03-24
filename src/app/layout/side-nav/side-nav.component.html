@@ -1,0 +1,22 @@
+<mat-drawer-container class="container" autosize [hasBackdrop]="false">
+  <mat-drawer #drawer class="sidenav" mode="over">
+    <div class="sidenav-header">
+      <button
+        mat-icon-button
+        (click)="drawer.toggle()"
+        [ngStyle]="{ marginTop: '.5rem', marginLeft: '.5rem' }"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <app-signature
+        [ngStyle]="{ marginTop: '.5rem', marginLeft: '1rem' }"
+        height="50px"
+      ></app-signature>
+    </div>
+    <app-selection-list></app-selection-list>
+  </mat-drawer>
+  <div class="sidenav-content">
+    <app-toolbar [drawer]="drawer"></app-toolbar>
+    <router-outlet />
+  </div>
+</mat-drawer-container>

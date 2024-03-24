@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PlaceholderHomePageComponent } from './placeholder-home-page/placeholder-home-page.component';
-import { MatButton } from '@angular/material/button'; // Add this import statement
+import { LayoutComponent } from './layout/layout/layout.component';
+import { ConfigurationService } from './configuration/store/configuration.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    PlaceholderHomePageComponent,
-    MatButton,
-    RouterModule,
-  ],
+  imports: [PlaceholderHomePageComponent, LayoutComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private configurationService: ConfigurationService) {
+    console.log('AppComponent.constructor');
+    this.configurationService.initialLoad();
+  }
+}
