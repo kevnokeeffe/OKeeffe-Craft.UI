@@ -1,0 +1,40 @@
+<mat-form-field
+  [appearance]="appearance"
+  [ngStyle]="
+    hint ? { width: '100%', marginBottom: '.25rem' } : { width: '100%' }
+  "
+>
+  <mat-label>{{ label }}</mat-label>
+  @if(prefixIcon){ <mat-icon matPrefix [fontIcon]="prefixIcon"></mat-icon> }
+  @if(type !== 'textarea'){
+  <input
+    matInput
+    [type]="type === 'password' ? (hide ? 'password' : 'text') : type"
+    [placeholder]="placeholder"
+    [formControl]="control"
+  />} @if(type === 'textarea'){
+  <textarea
+    matInput
+    [placeholder]="placeholder"
+    [formControl]="control"
+  ></textarea
+  >} @if(showPasswordVisibility){
+  <button
+    mat-icon-button
+    matSuffix
+    (click)="toggleVisibility()"
+    type="button"
+    [ngStyle]="{ marginRight: '.25rem' }"
+  >
+    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+  </button>
+  } @if(suffixIcon&&!showPasswordVisibility){
+  <mat-icon matSuffix [fontIcon]="suffixIcon"></mat-icon> }
+  <mat-hint>{{ hint }}</mat-hint>
+  <ng-container *ngIf="control.invalid && control.touched">
+    <mat-divider [ngStyle]="{ margin: '.3rem' }"></mat-divider>
+    <mat-error *ngFor="let error of getErrors()">
+      {{ error }}
+    </mat-error>
+  </ng-container>
+</mat-form-field>
