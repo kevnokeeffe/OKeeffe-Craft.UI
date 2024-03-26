@@ -6,4 +6,15 @@
   height: calc(90% - 0.5rem);
   width: 90%;
   margin-left: 1rem;
+  .selection-list,
+  .selection-list-footer {
+    .mat-list-item {
+      @media screen and (min-width: 600px) {
+        height: 3rem;
+      }
+      @media screen and (max-width: 600px) {
+        height: 2rem;
+      }
+    }
+  }
 }

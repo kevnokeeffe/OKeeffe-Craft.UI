@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { getBaseEndpoint } from '../configuration/store/configuration.selectors';
+import { AuthenticationService } from '../authentication/store/authentication.service';
 
 /**
  * Extends HTTP Interceptor and modifies request to add API credentials
@@ -19,9 +20,12 @@ import { getBaseEndpoint } from '../configuration/store/configuration.selectors'
 export class ApiInterceptor implements HttpInterceptor {
   private base: any;
 
-  constructor(private store: Store<any>) {
-    console.log('API Interceptor: Constructed');
+  constructor(
+    private store: Store<any>,
+    private authenticationService: AuthenticationService
+  ) {
     this.store.select(getBaseEndpoint).subscribe((base) => (this.base = base));
+    console.log('API Interceptor initialized');
   }
 
   /**
@@ -34,10 +38,12 @@ export class ApiInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Only set authentication header if request is being sent to api
-    if (request.url.startsWith(this.base)) {
+    const user = this.authenticationService.userValue;
+    const isLoggedIn = user.jwtToken;
+    if (isLoggedIn && request.url.startsWith(this.base)) {
       request = request.clone({
         setHeaders: {
-          //Authorization: `Bearer ${this.authenticationService.getToken()}`,
+          Authorization: `Bearer ${user.jwtToken}`,
         },
       });
     }

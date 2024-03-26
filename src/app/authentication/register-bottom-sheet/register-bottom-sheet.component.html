@@ -1,4 +1,79 @@
-<p>register-bottom-sheet works!</p>
-<button mat-flat-button type="button" (click)="closeBottomSheet($event)">
-  Close
-</button>
+<div class="bottom-sheet-container">
+  <div class="bottom-sheet-header">
+    <div class="bottom-sheet-title">Create account</div>
+    <div class="bottom-sheet-subtitle">
+      Sign up to delve deeper into our features and become an integral part of
+      our community.
+    </div>
+  </div>
+  <div class="bottom-sheet-content">
+    <form class="register-content-form" [formGroup]="registerForm">
+      <app-form-field
+        [control]="registerForm.controls['fullName']"
+        label="Name"
+        appearance="outline"
+        [errors]="{
+          required: 'Name is required',
+          minlength: 'Name must be at least 3 characters long'
+        }"
+        placeholder="Enter your name"
+      ></app-form-field>
+      <app-form-field
+        [control]="registerForm.controls['email']"
+        label="Email"
+        appearance="outline"
+        [errors]="{ required: 'Email is required', email: 'Email is invalid' }"
+        placeholder="Enter your email address"
+      ></app-form-field>
+      <app-form-field
+        appearance="outline"
+        [control]="registerForm.controls['password']"
+        label="Password"
+        type="password"
+        [showPasswordVisibility]="true"
+        [errors]="{
+          required: 'Password is required',
+          minlength: 'Password must be at least 6 characters long'
+        }"
+        placeholder="Enter your password"
+      ></app-form-field>
+      <app-form-field
+        appearance="outline"
+        [control]="registerForm.controls['confirmPassword']"
+        label="Confirm password"
+        type="password"
+        [showPasswordVisibility]="true"
+        [errors]="{
+          required: 'Confirm password is required',
+          passwordMatch: 'Passwords do not match.'
+        }"
+        placeholder="Re-enter your password"
+      ></app-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        class="register-form-button button"
+        type="submit"
+      >
+        Sign up
+      </button>
+    </form>
+    <div class="register-buttons">
+      <div class="register-actions">
+        <div class="action-btn">
+          <button
+            mat-button
+            class="action-btn-link"
+            color="primary"
+            (click)="openLoginBottomSheet()"
+          >
+            Log in
+          </button>
+        </div>
+      </div>
+      <button mat-flat-button type="button" (click)="closeBottomSheet($event)">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

@@ -8,12 +8,14 @@
   @if(prefixIcon){ <mat-icon matPrefix [fontIcon]="prefixIcon"></mat-icon> }
   @if(type !== 'textarea'){
   <input
+    [autocomplete]="autocomplete"
     matInput
     [type]="type === 'password' ? (hide ? 'password' : 'text') : type"
     [placeholder]="placeholder"
     [formControl]="control"
   />} @if(type === 'textarea'){
   <textarea
+    [autocomplete]="autocomplete"
     matInput
     [placeholder]="placeholder"
     [formControl]="control"

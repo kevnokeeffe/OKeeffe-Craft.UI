@@ -8,7 +8,6 @@ export class ConfigurationDataService {
   constructor(protected api: ApiClient, protected store: Store<any>) {}
 
   load(): Observable<ConfigurationSettingsModel> {
-    console.log('Loading configuration settings');
     return this.api.http.get<ConfigurationSettingsModel>(environment.settings);
   }
 }

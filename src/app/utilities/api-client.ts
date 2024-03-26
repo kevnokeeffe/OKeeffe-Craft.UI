@@ -52,9 +52,10 @@ export class ApiClient {
   public constructor(public http: HttpClient, public store: Store) {
     // If you don't want to use the extended versions in some cases you can access the public property and use the original one.
     // for ex. this.httpClient.http.get(...)
-    console.log('API Client: Constructed');
     this.store.select(getBaseEndpoint).subscribe((base: any) => {
-      this.api = base;
+      if (base) {
+        this.api = base;
+      }
     });
   }
 
@@ -64,11 +65,15 @@ export class ApiClient {
    * Otherwise, paths are appended to the baseUrl set in environment config
    * @param endpoint - relative endpoint to parse
    */
-  private getFullEndPoint(endpoint: string) {
-    if (!endpoint) {
-      console.error('API Client: No endpoint supplied');
+  private getFullEndPoint(endpoint: string): string {
+    // Check if this.baseUrl is defined before calling concat
+    if (this.api) {
+      return this.api.concat(endpoint);
+    } else {
+      // Handle the case where this.baseUrl is undefined
+      console.error('baseUrl is undefined');
+      return endpoint;
     }
-    return this.api.concat(endpoint);
   }
 
   /**

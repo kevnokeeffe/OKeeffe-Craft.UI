@@ -1,9 +1,19 @@
 {
   "environment": "production",
-  "settingsLoaded": true,
   "api": {
-    "base": "https://localhost:4000",
-    "endpoints": {}
+    "baseUrl": "https://localhost:4000",
+    "endpoints": {
+      "authentication": {
+        "authenticate": "/Accounts/authenticate",
+        "register": "/Accounts/register",
+        "forgotPassword": "/Accounts/forgot-password",
+        "resetPassword": "/Accounts/reset-password",
+        "verifyEmail": "/Accounts/verify-email",
+        "resendVerificationEmail": "/Accounts/resend-verificationEmail",
+        "refreshToken": "/Accounts/refresh-token",
+        "revokeToken": "/Accounts/revoke-token"
+      }
+    }
   },
   "images": {
     "signature": "https://bafybeidk25bpvkyftveezfrswsdwnv5pugkza6lwasb6eq5ggu4nde4r3q.ipfs.nftstorage.link/Signature.svg"

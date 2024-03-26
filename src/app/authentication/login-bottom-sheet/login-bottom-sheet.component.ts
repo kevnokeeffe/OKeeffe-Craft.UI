@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -14,6 +14,13 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterBottomSheetComponent } from '../register-bottom-sheet/register-bottom-sheet.component';
 import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sheet/forgot-password-bottom-sheet.component';
+import { Store } from '@ngrx/store';
+import { AuthenticationActions } from '../store/authentication.actions';
+import { AuthenticateRequestModel } from '../models/authentication-request.model';
+import { getAuthenticationSuccess } from '../store/authentication.selectors';
+import { Subscription } from 'rxjs';
+import { Utils } from '../../utilities/utils';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -23,30 +30,60 @@ import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sh
     FormFieldComponent,
     ReactiveFormsModule,
     MatButtonModule,
+    MatProgressBarModule,
   ],
   templateUrl: './login-bottom-sheet.component.html',
   styleUrl: './login-bottom-sheet.component.scss',
 })
-export class LoginBottomSheetComponent {
+export class LoginBottomSheetComponent implements OnDestroy {
   loginForm: UntypedFormGroup;
+  loginSubscription: Subscription | undefined;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<LoginBottomSheetComponent>,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private _store: Store<any>
   ) {
     this.loginForm = new UntypedFormGroup({
-      email: new UntypedFormControl({ value: '', disabled: false }, [
-        Validators.email,
-        Validators.required,
-      ]),
-      password: new UntypedFormControl({ value: '', disabled: false }, [
+      email: new UntypedFormControl(
+        { value: 'kevokeeffe@gmail.com', disabled: false },
+        [Validators.email, Validators.required]
+      ),
+      password: new UntypedFormControl({ value: '123456', disabled: false }, [
         Validators.required,
       ]),
     });
+  }
+  ngOnDestroy(): void {
+    if (this.loginSubscription) Utils.Unsubscribe(this.loginSubscription);
   }
 
   closeBottomSheet(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
+  }
+
+  authenticate(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    const emailValue = this.loginForm.get('email')?.value;
+    const passwordValue = this.loginForm.get('password')?.value;
+    if (emailValue === null || passwordValue === null) {
+      return;
+    }
+    const authenticate: AuthenticateRequestModel = {
+      email: emailValue,
+      password: passwordValue,
+    };
+    this._store.dispatch(AuthenticationActions.authenticate({ authenticate }));
+    this.loginSubscription = this._store
+      .select(getAuthenticationSuccess)
+      .pipe()
+      .subscribe((success) => {
+        if (success) {
+          this._bottomSheetRef.dismiss();
+        }
+      });
   }
 
   openRegisterBottomSheet(): void {

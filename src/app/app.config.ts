@@ -1,4 +1,9 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  inject,
+  isDevMode,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -7,9 +12,11 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { configurationReducer } from './configuration/store/configuration.reducer';
 import { ConfigurationEffects } from './configuration/store/configuration.effects';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApiClient } from './utilities/api-client';
-import { ApiInterceptor } from './utilities/api-interceptor';
+import { authenticationReducer } from './authentication/store/authentication.reducer';
+import { AuthenticationEffects } from './authentication/store/authentication.effects';
+import { tokenInterceptor } from './utilities/token-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,11 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore({
       configuration: configurationReducer,
+      authentication: authenticationReducer,
     }),
-    provideEffects(ConfigurationEffects),
+    provideEffects(ConfigurationEffects, AuthenticationEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideHttpClient(),
-    ApiClient,
-    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    provideHttpClient(withInterceptors([tokenInterceptor])),
+    {
+      provide: ApiClient,
+      useClass: ApiClient,
+    },
   ],
 };

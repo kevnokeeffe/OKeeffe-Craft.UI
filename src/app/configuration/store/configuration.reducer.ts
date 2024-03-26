@@ -7,10 +7,14 @@ export const configurationReducer = createReducer(
   on(ConfigurationActions.loadConfigurationSettings, (state) => state),
   on(
     ConfigurationActions.loadConfigurationSettingsSuccess,
-    (state, { payload }) => ({ ...state, ...payload })
+    (state, { payload }) => ({
+      ...state,
+      ...payload,
+      configurationLoaded: true,
+    })
   ),
   on(
     ConfigurationActions.loadConfigurationSettingsFailed,
-    (state, { error }) => ({ ...state, error })
+    (state, { error }) => ({ ...state, error, configurationLoaded: false })
   )
 );

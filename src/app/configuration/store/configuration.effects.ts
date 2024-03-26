@@ -6,7 +6,7 @@ import { ConfigurationActions } from './configuration.actions';
 
 @Injectable()
 export class ConfigurationEffects {
-  loadMovies$ = createEffect(() =>
+  loadSettings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ConfigurationActions.loadConfigurationSettings),
       exhaustMap(() =>

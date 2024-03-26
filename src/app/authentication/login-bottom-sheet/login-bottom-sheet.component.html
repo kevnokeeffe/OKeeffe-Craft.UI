@@ -1,11 +1,16 @@
 <div class="bottom-sheet-container">
   <div class="bottom-sheet-header">
     <div class="bottom-sheet-title">Log in</div>
-    <!-- <div class="bottom-sheet-subtitle">Please login to your account</div> -->
+    <div class="bottom-sheet-subtitle">Welcome back, let's get started.</div>
   </div>
   <div class="bottom-sheet-content">
-    <form class="login-content-form" [formGroup]="loginForm">
+    <form
+      class="login-content-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="authenticate()"
+    >
       <app-form-field
+        [autocomplete]="true"
         [control]="loginForm.controls['email']"
         label="Email"
         appearance="outline"
@@ -13,6 +18,7 @@
         placeholder="Enter your email address"
       ></app-form-field>
       <app-form-field
+        [autocomplete]="true"
         appearance="outline"
         [control]="loginForm.controls['password']"
         label="Password"
@@ -27,7 +33,7 @@
         class="login-form-button button"
         type="submit"
       >
-        Login
+        Log in
       </button>
     </form>
     <div class="login-buttons">
@@ -37,6 +43,7 @@
             mat-button
             class="action-btn-link"
             color="primary"
+            type="button"
             (click)="openForgotPasswordBottomSheet()"
           >
             Forgot password?
@@ -47,6 +54,7 @@
             mat-button
             class="action-btn-link"
             color="primary"
+            type="button"
             (click)="openRegisterBottomSheet()"
           >
             Create account

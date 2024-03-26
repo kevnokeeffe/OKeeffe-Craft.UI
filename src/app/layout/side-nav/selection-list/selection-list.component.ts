@@ -1,4 +1,4 @@
-import { NgStyle } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDivider } from '@angular/material/divider';
@@ -10,6 +10,10 @@ import { IconDefinition, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { LoginBottomSheetComponent } from '../../../authentication/login-bottom-sheet/login-bottom-sheet.component';
 import { RegisterBottomSheetComponent } from '../../../authentication/register-bottom-sheet/register-bottom-sheet.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Store } from '@ngrx/store';
+import { getIsAuthenticated } from '../../../authentication/store/authentication.selectors';
+import { Observable } from 'rxjs';
+import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 
 @Component({
   selector: 'app-selection-list',
@@ -22,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     FaIconComponent,
     MatTooltipModule,
+    AsyncPipe,
   ],
   templateUrl: './selection-list.component.html',
   styleUrl: './selection-list.component.scss',
@@ -29,8 +34,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class SelectionListComponent {
   faGithub: IconDefinition = faGithub;
   isTooltipVisible: boolean = true; // replace with your actual condition
+  isAuthenticated$: Observable<boolean> | undefined;
 
-  constructor(private _bottomSheet: MatBottomSheet) {}
+  constructor(private _bottomSheet: MatBottomSheet, private store: Store<any>) {
+    this.isAuthenticated$ = this.store.select(getIsAuthenticated);
+  }
 
   navigateToGithub() {
     window.open('https://github.com/kevnokeeffe', '_blank');
@@ -48,5 +56,9 @@ export class SelectionListComponent {
 
   openRegisterBottomSheet(): void {
     this._bottomSheet.open(RegisterBottomSheetComponent);
+  }
+
+  logout() {
+    this.store.dispatch(AuthenticationActions.logout({ authenticated: false }));
   }
 }

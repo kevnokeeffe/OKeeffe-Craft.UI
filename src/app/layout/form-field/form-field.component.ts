@@ -43,6 +43,7 @@ export class FormFieldComponent {
   @Input() prefixIcon: string | undefined;
   @Input() suffixIcon: string | undefined;
   @Input() showPasswordVisibility: boolean = false;
+  @Input() autocomplete: boolean = false;
 
   hide: boolean = true;
 

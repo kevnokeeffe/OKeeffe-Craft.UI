@@ -8,7 +8,6 @@ export interface ConfigurationState extends ConfigurationSettingsModel {
 
 export const initialConfigurationState: ConfigurationState = {
   configurationLoaded: false,
-  settingsLoaded: false,
   environment: null,
   error: null,
   api: null,

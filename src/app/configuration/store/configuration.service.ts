@@ -16,7 +16,6 @@ export class ConfigurationService extends ConfigurationDataService {
   }
 
   initialLoad() {
-    console.log('ConfigurationService.initialLoad');
     this.store.dispatch(ConfigurationActions.loadConfigurationSettings());
   }
 }

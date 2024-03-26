@@ -8,6 +8,17 @@ export const getBaseEndpoint = createSelector(getConfigurationState, (state) =>
   state && state.api ? state.api.baseUrl : null
 );
 
+export const getConfigurationLoaded = createSelector(
+  getConfigurationState,
+  (state) =>
+    state && state.configurationLoaded ? state.configurationLoaded : false
+);
+
+export const getAuthenticationEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.authentication : null)
+);
+
 export const getSignatureUrl = createSelector(getConfigurationState, (state) =>
   state && state.images ? state.images.signature : null
 );

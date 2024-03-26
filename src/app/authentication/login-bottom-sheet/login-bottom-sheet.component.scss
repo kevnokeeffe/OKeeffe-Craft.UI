@@ -1,19 +1,19 @@
 .login-actions {
   display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
+  flex-direction: row;
   .action-btn {
     display: flex;
     justify-content: center;
     width: 100%;
     .action-btn-link {
+      flex: 0 0 100%;
+      height: 56px;
       text-decoration: underline;
       width: fit-content;
       padding-left: 1rem;
       padding-right: 1rem;
+      font-size: 1.2em;
+      font-weight: 400;
     }
   }
-}
-.login-form-button {
-  //margin-top: 1rem;
 }

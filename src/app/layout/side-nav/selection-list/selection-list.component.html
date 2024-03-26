@@ -1,6 +1,7 @@
 <div class="container">
   <div>
     <mat-selection-list class="selection-list">
+      @if(!(isAuthenticated$ | async)){
       <mat-list-item class="mat-list-item" (click)="openLoginBottomSheet()"
         ><mat-icon matListItemIcon class="material-symbols-rounded">
           login</mat-icon
@@ -9,11 +10,14 @@
       <mat-list-item class="mat-list-item" (click)="openRegisterBottomSheet()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           person_add</mat-icon
-        ><span>Register</span></mat-list-item
-      >
+        ><span>Create account</span></mat-list-item
+      ><mat-divider
+        [ngStyle]="{ opacity: '.6', marginBottom: '.5rem', marginTop: '.5rem' }"
+      ></mat-divider
+      >}
       <mat-list-item
         class="mat-list-item"
-        disabled
+        [disabled]="!(isAuthenticated$ | async)"
         [matTooltip]="getTooltipText()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           space_dashboard</mat-icon
@@ -21,11 +25,11 @@
       >
       <mat-list-item
         class="mat-list-item"
-        disabled
+        [disabled]="!(isAuthenticated$ | async)"
         [matTooltip]="getTooltipText()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           robot_2</mat-icon
-        ><span>AML Assistant</span></mat-list-item
+        ><span>AI assistants</span></mat-list-item
       >
     </mat-selection-list>
   </div>
@@ -38,21 +42,32 @@
         ><span>Documentation</span></mat-list-item
       >
       <mat-list-item
-        class="mat-list-item-settings"
-        disabled
+        class="mat-list-item"
+        [disabled]="!(isAuthenticated$ | async)"
         [matTooltip]="getTooltipText()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           settings</mat-icon
         ><span>Settings</span></mat-list-item
       >
       <mat-list-item
-        class="mat-list-item-settings"
-        disabled
+        class="mat-list-item"
+        [disabled]="!(isAuthenticated$ | async)"
         [matTooltip]="getTooltipText()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           account_circle</mat-icon
         ><span>Account</span></mat-list-item
       >
+      @if((isAuthenticated$ | async)) {
+      <mat-divider
+        [ngStyle]="{ opacity: '.6', marginBottom: '.5rem', marginTop: '.5rem' }"
+      ></mat-divider>
+      <mat-list-item class="mat-list-item" (click)="logout()"
+        ><mat-icon matListItemIcon class="material-symbols-rounded">
+          logout</mat-icon
+        ><span>Log out</span></mat-list-item
+      >
+
+      }
     </mat-selection-list>
   </div>
 </div>
@@ -66,9 +81,13 @@
       ></mat-icon>
       <span>Github</span>
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="apiDocumentation">
+    <button
+      mat-menu-item
+      [matMenuTriggerFor]="apiDocumentation"
+      [disabled]="!(isAuthenticated$ | async)"
+    >
       <mat-icon class="material-symbols-outlined">hub</mat-icon>
-      <span>API Documentation</span>
+      <span>API documentation</span>
     </button>
   </mat-menu>
 </ng-container>
@@ -76,6 +95,6 @@
 <mat-menu #apiDocumentation="matMenu">
   <button mat-menu-item>
     <mat-icon class="material-symbols-outlined">data_object</mat-icon
-    ><span>Swagger Docs</span>
+    ><span>Swagger docs</span>
   </button>
 </mat-menu>
