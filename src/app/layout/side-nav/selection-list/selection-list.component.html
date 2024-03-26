@@ -66,7 +66,6 @@
           logout</mat-icon
         ><span>Log out</span></mat-list-item
       >
-
       }
     </mat-selection-list>
   </div>
@@ -75,7 +74,7 @@
 <!-- TODO Create sub component -->
 <ng-container>
   <mat-menu #documentsMenu="matMenu" xPosition="after" class="menu">
-    <button mat-menu-item (click)="navigateToGithub()">
+    <button mat-menu-item [matMenuTriggerFor]="gitHubDocumentation">
       <mat-icon [ngStyle]="{ marginTop: '-.4rem' }"
         ><fa-icon [icon]="faGithub"></fa-icon
       ></mat-icon>
@@ -96,5 +95,16 @@
   <button mat-menu-item>
     <mat-icon class="material-symbols-outlined">data_object</mat-icon
     ><span>Swagger docs</span>
+  </button>
+</mat-menu>
+
+<mat-menu #gitHubDocumentation="matMenu">
+  <button mat-menu-item (click)="navigateToGithub('ui')">
+    <mat-icon class="material-symbols-outlined">web</mat-icon
+    ><span>User interface</span>
+  </button>
+  <button mat-menu-item (click)="navigateToGithub('api')">
+    <mat-icon class="material-symbols-outlined">api</mat-icon
+    ><span>Application programming interface</span>
   </button>
 </mat-menu>

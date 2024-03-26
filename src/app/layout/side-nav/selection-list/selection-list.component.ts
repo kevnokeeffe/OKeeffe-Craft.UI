@@ -40,25 +40,29 @@ export class SelectionListComponent {
     this.isAuthenticated$ = this.store.select(getIsAuthenticated);
   }
 
-  navigateToGithub() {
-    window.open('https://github.com/kevnokeeffe', '_blank');
+  public navigateToGithub(item: string = 'api' || 'ui'): void {
+    if (item === 'api')
+      window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.Api', '_blank');
+    if (item === 'ui')
+      window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.UI', '_blank');
+    else return;
   }
 
-  getTooltipText() {
+  public getTooltipText(): string {
     return this.isTooltipVisible
       ? 'You need to be logged in to use this feature'
       : '';
   }
 
-  openLoginBottomSheet(): void {
+  public openLoginBottomSheet(): void {
     this._bottomSheet.open(LoginBottomSheetComponent);
   }
 
-  openRegisterBottomSheet(): void {
+  public openRegisterBottomSheet(): void {
     this._bottomSheet.open(RegisterBottomSheetComponent);
   }
 
-  logout() {
+  public logout() {
     this.store.dispatch(AuthenticationActions.logout({ authenticated: false }));
   }
 }
