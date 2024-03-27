@@ -51,6 +51,7 @@
       >
       <mat-list-item
         class="mat-list-item"
+        (click)="openAccount()"
         [disabled]="!(isAuthenticated$ | async)"
         [matTooltip]="getTooltipText()"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
@@ -80,31 +81,20 @@
       ></mat-icon>
       <span>Github</span>
     </button>
-    <button
-      mat-menu-item
-      [matMenuTriggerFor]="apiDocumentation"
-      [disabled]="!(isAuthenticated$ | async)"
-    >
-      <mat-icon class="material-symbols-outlined">hub</mat-icon>
-      <span>API documentation</span>
+    <button mat-menu-item>
+      <mat-icon class="material-symbols-outlined">data_object</mat-icon
+      ><span>Swagger</span>
     </button>
   </mat-menu>
 </ng-container>
 
-<mat-menu #apiDocumentation="matMenu">
-  <button mat-menu-item>
-    <mat-icon class="material-symbols-outlined">data_object</mat-icon
-    ><span>Swagger docs</span>
-  </button>
-</mat-menu>
-
 <mat-menu #gitHubDocumentation="matMenu">
   <button mat-menu-item (click)="navigateToGithub('ui')">
     <mat-icon class="material-symbols-outlined">web</mat-icon
-    ><span>User interface</span>
+    ><span>UI repository</span>
   </button>
   <button mat-menu-item (click)="navigateToGithub('api')">
     <mat-icon class="material-symbols-outlined">api</mat-icon
-    ><span>Application programming interface</span>
+    ><span>API repository</span>
   </button>
 </mat-menu>

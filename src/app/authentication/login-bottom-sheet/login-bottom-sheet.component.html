@@ -28,6 +28,7 @@
         placeholder="Enter your password"
       ></app-form-field>
       <button
+        [disabled]="loading"
         mat-raised-button
         color="primary"
         class="login-form-button button"
@@ -35,12 +36,19 @@
       >
         Log in
       </button>
+      @if(loading){
+      <app-progress-bar
+        [color]="'primary'"
+        [mode]="'indeterminate'"
+      ></app-progress-bar
+      >}
     </form>
     <div class="login-buttons">
       <div class="login-actions">
         <div class="action-btn">
           <button
             mat-button
+            [disabled]="loading"
             class="action-btn-link"
             color="primary"
             type="button"
@@ -52,6 +60,7 @@
         <div class="action-btn">
           <button
             mat-button
+            [disabled]="loading"
             class="action-btn-link"
             color="primary"
             type="button"

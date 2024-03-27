@@ -3,7 +3,7 @@
 @include mat.core();
 
 $my-primary: mat.define-palette(mat.$teal-palette, A700, A100, A200, A400);
-$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-accent: mat.define-palette(mat.$cyan-palette, A700);
 
 // The "warn" palette is optional and defaults to red if not specified.
 $my-warn: mat.define-palette(mat.$red-palette);
@@ -24,6 +24,11 @@ $white: #fff;
 
 //@include mat.core-theme($my-theme);
 @include mat.all-component-themes($my-theme);
+
+:root {
+  //--primary-color: #{mat-color($my-primary)};
+  // Define other colors as needed
+}
 
 .mat-mdc-raised-button .mdc-button__label {
   color: $white;
@@ -53,7 +58,7 @@ body {
         text-align: start;
         font-size: 1.2em;
         font-weight: 400;
-        padding-bottom: 1rem;
+        padding-bottom: 1.5rem;
       }
     }
   }
@@ -71,7 +76,7 @@ body {
         text-align: start;
         font-size: 1.2em;
         font-weight: 400;
-        padding-bottom: 1rem;
+        padding-bottom: 1.5rem;
       }
     }
   }

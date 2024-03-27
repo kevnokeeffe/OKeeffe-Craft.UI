@@ -14,6 +14,9 @@ import { Store } from '@ngrx/store';
 import { getIsAuthenticated } from '../../../authentication/store/authentication.selectors';
 import { Observable } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
+import { ReusableBottomSheetComponent } from '../../reusable-bottom-sheet/reusable-bottom-sheet.component';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 
 @Component({
   selector: 'app-selection-list',
@@ -64,5 +67,9 @@ export class SelectionListComponent {
 
   public logout() {
     this.store.dispatch(AuthenticationActions.logout({ authenticated: false }));
+  }
+
+  public openAccount() {
+    this._bottomSheet.open(AccountBottomSheetComponent);
   }
 }

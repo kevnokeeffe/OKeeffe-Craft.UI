@@ -20,7 +20,8 @@ import { AuthenticateRequestModel } from '../models/authentication-request.model
 import { getAuthenticationSuccess } from '../store/authentication.selectors';
 import { Subscription } from 'rxjs';
 import { Utils } from '../../utilities/utils';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
+import { ProgressSpinnerComponent } from '../../layout/progress-spinner/progress-spinner.component';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -30,7 +31,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormFieldComponent,
     ReactiveFormsModule,
     MatButtonModule,
-    MatProgressBarModule,
+    ProgressBarComponent,
   ],
   templateUrl: './login-bottom-sheet.component.html',
   styleUrl: './login-bottom-sheet.component.scss',
@@ -38,6 +39,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class LoginBottomSheetComponent implements OnDestroy {
   loginForm: UntypedFormGroup;
   loginSubscription: Subscription | undefined;
+  loading: boolean = false;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<LoginBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet,
@@ -53,16 +55,13 @@ export class LoginBottomSheetComponent implements OnDestroy {
       ]),
     });
   }
-  ngOnDestroy(): void {
-    if (this.loginSubscription) Utils.Unsubscribe(this.loginSubscription);
-  }
 
-  closeBottomSheet(event: MouseEvent): void {
+  public closeBottomSheet(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
   }
 
-  authenticate(): void {
+  public authenticate(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -71,6 +70,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
     if (emailValue === null || passwordValue === null) {
       return;
     }
+    this.loading = true;
     const authenticate: AuthenticateRequestModel = {
       email: emailValue,
       password: passwordValue,
@@ -82,16 +82,22 @@ export class LoginBottomSheetComponent implements OnDestroy {
       .subscribe((success) => {
         if (success) {
           this._bottomSheetRef.dismiss();
+          this.loading = false;
         }
       });
   }
 
-  openRegisterBottomSheet(): void {
+  public openRegisterBottomSheet(): void {
     this._bottomSheetRef.dismiss();
     this._bottomSheet.open(RegisterBottomSheetComponent);
   }
-  openForgotPasswordBottomSheet(): void {
+
+  public openForgotPasswordBottomSheet(): void {
     this._bottomSheetRef.dismiss();
     this._bottomSheet.open(ForgotPasswordBottomSheetComponent);
+  }
+
+  ngOnDestroy(): void {
+    if (this.loginSubscription) Utils.Unsubscribe(this.loginSubscription);
   }
 }
