@@ -10,4 +10,14 @@
     [ngStyle]="{ marginLeft: '1rem', marginTop: '.5rem' }"
     height="50px"
   ></app-signature>
+  <span class="spacer"></span>
+  <mat-icon
+    [color]="(weatherForcast$ | async) ? 'primary' : 'warn'"
+    class="material-symbols-outlined"
+    matTooltipPosition="left"
+    [matTooltip]="
+      (weatherForcast$ | async) ? 'API Connected' : 'API Disconnected'
+    "
+    >{{ (weatherForcast$ | async) ? "cloud" : "cloud_off" }}</mat-icon
+  >
 </mat-toolbar>

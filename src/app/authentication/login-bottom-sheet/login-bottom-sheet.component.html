@@ -36,12 +36,7 @@
       >
         Log in
       </button>
-      @if(loading){
-      <app-progress-bar
-        [color]="'primary'"
-        [mode]="'indeterminate'"
-      ></app-progress-bar
-      >}
+      @if(loading){<app-progress-bar></app-progress-bar>}
     </form>
     <div class="login-buttons">
       <div class="login-actions">

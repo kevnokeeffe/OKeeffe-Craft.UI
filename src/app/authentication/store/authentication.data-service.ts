@@ -1,7 +1,10 @@
 import { Store } from '@ngrx/store';
 import { ApiClient } from '../../utilities/api-client';
 import { AuthenticationEndpointsModel } from '../../configuration/models/configuration.settings.model';
-import { getAuthenticationEndpoints } from '../../configuration/store/configuration.selectors';
+import {
+  getAuthenticationEndpoints,
+  getWeatherForcastEndpoint,
+} from '../../configuration/store/configuration.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AuthenticateResponseModel } from '../models/authenticate-response.model';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
@@ -10,6 +13,7 @@ import { AuthenticationActions } from './authentication.actions';
 
 export class AuthenticationDataService {
   authenticationEndpoints: AuthenticationEndpointsModel | undefined;
+  weatherForcastEndpoint: string | undefined;
   private userSubject: BehaviorSubject<any | null> | undefined;
   public user: Observable<any | null>;
   public destroy$ = new Subject<void>();
@@ -22,6 +26,14 @@ export class AuthenticationDataService {
       .subscribe((endpoints) => {
         if (endpoints) {
           this.authenticationEndpoints = endpoints;
+        }
+      });
+    this.store
+      .select(getWeatherForcastEndpoint)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((endpoint) => {
+        if (endpoint) {
+          this.weatherForcastEndpoint = endpoint;
         }
       });
   }
@@ -48,6 +60,10 @@ export class AuthenticationDataService {
           return response;
         })
       );
+  }
+
+  getWeatherForcast(): Observable<any> {
+    return this.api.get<any>(this.weatherForcastEndpoint ?? '');
   }
 
   refreshToken() {

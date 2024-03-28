@@ -3,55 +3,51 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: calc(100vh); // Subtract the height of the toolbar
+    height: calc(100vh);
     .left_section {
       width: 61.8%;
-      //border: 1px solid black;
       .home_header {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100%; // Subtract the height of the toolbar
+        height: 100%;
         text-align: center;
-        //background-color: #f8f9fa;
-        //border-bottom: 1px solid #dee2e6;
-
         h1 {
-          font-size: 2.5em;
+          font-size: 5em;
+          color: var(--darkBlue);
           margin-bottom: 0.5em;
-          // color: #007bff; // Give the title a unique style
+          font-family: "Nunito", sans-serif;
         }
-
         p {
-          font-size: 1.2em;
+          font-size: 1.4em;
           color: #6c757d;
+          font-family: "Nunito", sans-serif;
         }
       }
     }
     .right_section {
-      //background: #374c61;
-      // background-color: #00bfa5;
       width: 38.2%;
-      display: flex; // Enable flexbox
-      justify-content: center; // Center children horizontally
+      display: flex;
+      justify-content: center;
       align-items: center;
+      background-color: var(--white);
       .logo {
-        height: 400px;
+        max-width: 600px;
       }
     }
   }
   .home_content {
-    //padding: 20px;
     text-align: center;
+    background-color: var(--primary-color);
     .content_top {
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      //box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       padding: 30px;
-      //background: #374c61;
-      //background-color: var(--primary-color);
-      h2 {
-        color: #fff;
-        font-size: 2em;
+
+      .label {
+        color: var(--white);
+        font-size: 2.6em;
+        font-family: "Nunito", sans-serif;
       }
     }
 

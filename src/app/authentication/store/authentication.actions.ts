@@ -22,5 +22,10 @@ export const AuthenticationActions = createActionGroup({
     refreshTokenSuccess: emptyProps(),
     refreshTokenFailed: props<{ error: any }>(),
     isAuthenticated: props<{ authenticated: boolean }>(),
+    weatherForcast: emptyProps(),
+    weatherForcastSuccess: props<{
+      payload: ServiceResponseModel<string>;
+    }>(),
+    weatherForcastFailed: props<{ error: any }>(),
   },
 });

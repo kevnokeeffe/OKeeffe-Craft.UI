@@ -14,3 +14,9 @@ export const getIsAuthenticated = createSelector(
   getAuthenticationState,
   (state) => (state && state.isAuthenticated ? state.isAuthenticated : false)
 );
+
+export const getWeatherForecastSuccess = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.weatherForcastSuccess ? state.weatherForcastSuccess : false
+);

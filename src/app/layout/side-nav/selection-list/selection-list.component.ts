@@ -14,8 +14,6 @@ import { Store } from '@ngrx/store';
 import { getIsAuthenticated } from '../../../authentication/store/authentication.selectors';
 import { Observable } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
-import { ReusableBottomSheetComponent } from '../../reusable-bottom-sheet/reusable-bottom-sheet.component';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 
 @Component({
@@ -51,9 +49,15 @@ export class SelectionListComponent {
     else return;
   }
 
-  public getTooltipText(): string {
-    return this.isTooltipVisible
-      ? 'You need to be logged in to use this feature'
+  public getTooltipText(
+    text?: string,
+    isAuthenticated?: boolean | null
+  ): string {
+    if (text) {
+      return text;
+    }
+    return !isAuthenticated
+      ? 'You need to be logged in to use this feature.'
       : '';
   }
 

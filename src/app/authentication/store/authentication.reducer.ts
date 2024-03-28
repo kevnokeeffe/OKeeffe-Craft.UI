@@ -46,5 +46,20 @@ export const authenticationReducer = createReducer(
   on(AuthenticationActions.isAuthenticated, (state, { authenticated }) => ({
     ...state,
     isAuthenticated: authenticated,
+  })),
+  on(AuthenticationActions.weatherForcast, (state) => state),
+  on(AuthenticationActions.weatherForcastSuccess, (state, { payload }) => {
+    console.log('payload', payload);
+    return {
+      ...state,
+      weatherForcastSuccess: payload.success,
+      weatherForcastMessage: payload.message,
+      weatherForcastData: payload.data,
+    };
+  }),
+  on(AuthenticationActions.weatherForcastFailed, (state, { error }) => ({
+    ...state,
+    weatherForcastSuccess: false,
+    error,
   }))
 );

@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @include mat.core();
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 $my-primary: mat.define-palette(mat.$teal-palette, A700, A100, A200, A400);
-$my-accent: mat.define-palette(mat.$cyan-palette, A700);
+$my-accent: mat.define-palette(mat.$cyan-palette, 900);
 
 // The "warn" palette is optional and defaults to red if not specified.
 $my-warn: mat.define-palette(mat.$red-palette);
@@ -20,18 +20,18 @@ $my-theme: mat.define-light-theme(
   )
 );
 
-$white: #fff;
-
-//@include mat.core-theme($my-theme);
-@include mat.all-component-themes($my-theme);
-
 :root {
-  //--primary-color: #{mat-color($my-primary)};
-  // Define other colors as needed
+  --primary-color: #{map-get(map-get($my-theme, color), primary, default)};
+  --accent-color: #{map-get(map-get($my-theme, color), accent, default)};
+  --warn-color: #{map-get(map-get($my-theme, color), warn, default)};
+  --white: #fff;
+  --darkBlue: #162836;
 }
 
+@include mat.all-component-themes($my-theme);
+
 .mat-mdc-raised-button .mdc-button__label {
-  color: $white;
+  color: var(--white);
   font-size: 1.2em;
 }
 

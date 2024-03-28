@@ -57,6 +57,25 @@ export class AuthenticationEffects {
     )
   );
 
+  weatherForcast$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.weatherForcast.type),
+      exhaustMap(() =>
+        this.authenticationService.getWeatherForcast().pipe(
+          map((response) => ({
+            type: AuthenticationActions.weatherForcastSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.weatherForcastFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private authenticationService: AuthenticationService

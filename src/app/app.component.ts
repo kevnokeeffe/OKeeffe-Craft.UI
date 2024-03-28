@@ -7,7 +7,16 @@ import { Store } from '@ngrx/store';
 import { getConfigurationLoaded } from './configuration/store/configuration.selectors';
 import { AuthenticationActions } from './authentication/store/authentication.actions';
 import { Utils } from './utilities/utils';
-import { Subscription } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  filter,
+  interval,
+  merge,
+  takeUntil,
+  takeWhile,
+} from 'rxjs';
+import { getWeatherForecastSuccess } from './authentication/store/authentication.selectors';
 
 @Component({
   selector: 'app-root',
@@ -17,21 +26,56 @@ import { Subscription } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnDestroy {
-  private subscription: Subscription | undefined;
+  private getConfigurationLoadedSubscription: Subscription | undefined;
+  private stopSubject = new Subject<void>();
+  private shouldContinue = true;
   constructor(
     private configurationService: ConfigurationService,
     private store: Store<any>
   ) {
-    this.configurationService.initialLoad();
-    this.subscription = this.store.select(getConfigurationLoaded).subscribe({
-      next: (loaded) => {
-        if (loaded) {
-          this.store.dispatch(AuthenticationActions.refreshToken());
-        }
-      },
-    });
+    this.loadConfigurationActions();
   }
+
+  private loadConfigurationActions(): void {
+    this.configurationService.initialLoad();
+    this.getConfigurationLoadedSubscription = this.store
+      .select(getConfigurationLoaded)
+      .subscribe({
+        next: (loaded) => {
+          if (loaded) {
+            this.store.dispatch(AuthenticationActions.refreshToken());
+            this.getWeatherforcast();
+          }
+        },
+      });
+  }
+
+  private getWeatherforcast(): void {
+    this.store.dispatch(AuthenticationActions.weatherForcast());
+    this.store
+      .select(getWeatherForecastSuccess)
+      .pipe(filter((success) => !success)) // Only proceed when the subscription is false
+      .subscribe(() => {
+        console.log('Getting weather forecast');
+        interval(10000) // 10 seconds
+          .pipe(takeWhile(() => this.shouldContinue))
+          .subscribe(() => {
+            console.log('Dispatching weather forecast');
+            this.store.dispatch(AuthenticationActions.weatherForcast());
+          });
+      });
+
+    // Set the timeout
+    setTimeout(() => {
+      this.shouldContinue = false;
+    }, 600000); // 10 minutes
+  }
+
   ngOnDestroy(): void {
-    Utils.Unsubscribe(this.subscription || []);
+    if (this.getConfigurationLoadedSubscription) {
+      Utils.Unsubscribe(this.getConfigurationLoadedSubscription);
+    }
+    this.stopSubject.next();
+    this.stopSubject.complete();
   }
 }

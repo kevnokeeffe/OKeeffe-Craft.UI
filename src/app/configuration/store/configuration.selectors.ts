@@ -22,3 +22,11 @@ export const getAuthenticationEndpoints = createSelector(
 export const getSignatureUrl = createSelector(getConfigurationState, (state) =>
   state && state.images ? state.images.signature : null
 );
+
+export const getWeatherForcastEndpoint = createSelector(
+  getConfigurationState,
+  (state) =>
+    state && state.api
+      ? state.api.endpoints.weatherForcast.getWeatherForcast
+      : null
+);

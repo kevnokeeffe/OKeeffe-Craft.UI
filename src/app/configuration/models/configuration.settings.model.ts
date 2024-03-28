@@ -12,6 +12,7 @@ export interface ApiModel {
 
 export interface ApiEndpointModel {
   authentication: AuthenticationEndpointsModel;
+  weatherForcast: WeatherForcastEndpointsModel;
 }
 
 export interface ImagesModel {
@@ -27,4 +28,8 @@ export interface AuthenticationEndpointsModel {
   resendVerificationEmail: string;
   refreshToken: string;
   revokeToken: string;
+}
+
+export interface WeatherForcastEndpointsModel {
+  getWeatherForcast: string;
 }

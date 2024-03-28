@@ -12,6 +12,9 @@
         "resendVerificationEmail": "/Accounts/resend-verificationEmail",
         "refreshToken": "/Accounts/refresh-token",
         "revokeToken": "/Accounts/revoke-token"
+      },
+      "weatherForcast": {
+        "getWeatherForcast": "/WeatherForecast/WeatherForecast"
       }
     }
   },

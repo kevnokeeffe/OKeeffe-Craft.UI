@@ -13,7 +13,7 @@ import {
   styleUrl: './progress-bar.component.scss',
 })
 export class ProgressBarComponent {
-  @Input() color: string = 'primary' || 'accent' || 'warn';
-  @Input() mode: ProgressBarMode =
-    'indeterminate' || 'determinate' || 'buffer' || 'query';
+  @Input() color: string = 'accent';
+  @Input() marginTop: string = '-4px';
+  @Input() mode: ProgressBarMode = 'indeterminate';
 }
