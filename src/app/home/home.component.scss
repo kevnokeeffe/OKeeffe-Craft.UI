@@ -1,9 +1,14 @@
+[appViewportAnimation] {
+  position: relative; // This might be necessary for z-index to work
+  z-index: 0; /* Adjust as needed */
+}
+
 .container {
   .header_section {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: calc(100vh);
+    height: calc(101vh);
     .left_section {
       width: 61.8%;
       .home_header {
@@ -32,31 +37,9 @@
       justify-content: center;
       align-items: center;
       background-color: var(--white);
+
       .logo {
         max-width: 600px;
-      }
-    }
-  }
-  .home_content {
-    text-align: center;
-    background-color: var(--primary-color);
-    .content_top {
-      //box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      padding: 30px;
-
-      .label {
-        color: var(--white);
-        font-size: 2.6em;
-        font-family: "Nunito", sans-serif;
-      }
-    }
-
-    div {
-      display: flex;
-      justify-content: center;
-      div {
-        width: 500px;
-        font-size: 1.2em;
       }
     }
   }
