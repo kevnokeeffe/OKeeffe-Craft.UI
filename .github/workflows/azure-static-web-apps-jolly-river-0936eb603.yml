@@ -28,6 +28,12 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build angular application
+        run: npm run build --configuration=production
+
       - name: Install apt-utils
         run: sudo apt-get update && sudo apt-get install -y apt-utils
 
