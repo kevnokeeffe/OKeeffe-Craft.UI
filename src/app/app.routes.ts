@@ -9,8 +9,8 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./placeholder-home-page/placeholder-home-page.component').then(
-        (m) => m.PlaceholderHomePageComponent
+      import('./layout/side-nav/side-nav.component').then(
+        (m) => m.SideNavComponent
       ),
   },
   {
