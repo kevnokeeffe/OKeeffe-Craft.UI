@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PlaceholderHomePageComponent } from './placeholder-home-page/placeholder-home-page.component';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { ConfigurationService } from './configuration/store/configuration.service';
 import { Store } from '@ngrx/store';
@@ -21,7 +20,7 @@ import { getWeatherForecastSuccess } from './authentication/store/authentication
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PlaceholderHomePageComponent, LayoutComponent, RouterModule],
+  imports: [LayoutComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
