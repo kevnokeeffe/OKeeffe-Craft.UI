@@ -1,9 +1,10 @@
 .toolbar {
   position: fixed; // Add this line
   top: 0;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  z-index: 1000; // Add this line
+  background-color: var(--white);
+  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+  z-index: 1000;
 }
 .spacer {
   flex: 1 1 auto;

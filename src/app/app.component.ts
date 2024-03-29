@@ -7,13 +7,16 @@ import { getConfigurationLoaded } from './configuration/store/configuration.sele
 import { AuthenticationActions } from './authentication/store/authentication.actions';
 import { Utils } from './utilities/utils';
 import {
+  EMPTY,
   Subject,
   Subscription,
   filter,
   interval,
-  merge,
+  switchMap,
   takeUntil,
   takeWhile,
+  tap,
+  timer,
 } from 'rxjs';
 import { getWeatherForecastSuccess } from './authentication/store/authentication.selectors';
 
@@ -50,24 +53,33 @@ export class AppComponent implements OnDestroy {
   }
 
   private getWeatherforcast(): void {
-    this.store.dispatch(AuthenticationActions.weatherForcast());
+    const tenMinutes = 600000; // 10 minutes in milliseconds
+
+    // Create an observable that completes after 10 minutes
+    const stopAfterTenMinutes$ = timer(tenMinutes);
+
     this.store
       .select(getWeatherForecastSuccess)
-      .pipe(filter((success) => !success)) // Only proceed when the subscription is false
-      .subscribe(() => {
-        console.log('Getting weather forecast');
-        interval(10000) // 10 seconds
-          .pipe(takeWhile(() => this.shouldContinue))
-          .subscribe(() => {
-            console.log('Dispatching weather forecast');
-            this.store.dispatch(AuthenticationActions.weatherForcast());
-          });
-      });
-
-    // Set the timeout
-    setTimeout(() => {
-      this.shouldContinue = false;
-    }, 600000); // 10 minutes
+      .pipe(
+        switchMap((success) => {
+          if (!success) {
+            return interval(1000).pipe(
+              tap(() =>
+                this.store.dispatch(AuthenticationActions.weatherForcast())
+              ),
+              takeUntil(stopAfterTenMinutes$),
+              takeUntil(
+                this.store
+                  .select(getWeatherForecastSuccess)
+                  .pipe(filter((success) => success))
+              )
+            );
+          } else {
+            return EMPTY;
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

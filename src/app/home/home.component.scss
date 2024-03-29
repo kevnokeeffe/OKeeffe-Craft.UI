@@ -1,8 +1,3 @@
-[appViewportAnimation] {
-  position: relative; // This might be necessary for z-index to work
-  z-index: 0; /* Adjust as needed */
-}
-
 .container {
   .header_section {
     display: flex;
@@ -34,7 +29,7 @@
     .right_section {
       width: 38.2%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background-color: var(--white);
 

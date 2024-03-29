@@ -7,6 +7,9 @@ $my-accent: mat.define-palette(mat.$cyan-palette, 900);
 
 // The "warn" palette is optional and defaults to red if not specified.
 $my-warn: mat.define-palette(mat.$red-palette);
+$my-typography: mat.define-typography-config(
+  $font-family: "'Nunito', sans-serif",
+);
 
 $my-theme: mat.define-light-theme(
   (
@@ -15,7 +18,7 @@ $my-theme: mat.define-light-theme(
       accent: $my-accent,
       warn: $my-warn,
     ),
-    typography: mat.define-typography-config(),
+    typography: $my-typography,
     density: 0,
   )
 );
@@ -117,4 +120,8 @@ body {
 
 .fade-out {
   animation: fadeOut 1s forwards;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

@@ -49,7 +49,7 @@ export const authenticationReducer = createReducer(
   })),
   on(AuthenticationActions.weatherForcast, (state) => state),
   on(AuthenticationActions.weatherForcastSuccess, (state, { payload }) => {
-    console.log('payload', payload);
+    console.log(payload);
     return {
       ...state,
       weatherForcastSuccess: payload.success,
