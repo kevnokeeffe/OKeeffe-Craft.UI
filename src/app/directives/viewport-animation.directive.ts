@@ -7,18 +7,18 @@ import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
 export class ViewportAnimationDirective implements OnInit {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
   ngOnInit() {
+    const element = this.el.nativeElement;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          this.renderer.addClass(this.el.nativeElement, 'fade-in');
-          this.renderer.removeClass(this.el.nativeElement, 'fade-out');
-          observer.unobserve(entry.target);
+          this.renderer.addClass(element, 'fade-in');
+          observer.disconnect(); // Stop observing all entries
         } else {
-          this.renderer.addClass(this.el.nativeElement, 'fade-out');
-          this.renderer.removeClass(this.el.nativeElement, 'fade-in');
+          this.renderer.removeClass(element, 'fade-in');
         }
       });
     });
-    observer.observe(this.el.nativeElement);
+
+    observer.observe(element);
   }
 }

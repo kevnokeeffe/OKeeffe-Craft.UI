@@ -1,7 +1,7 @@
 <div class="container">
   <div>
     <mat-selection-list class="selection-list">
-      @if(!(isAuthenticated$ | async)){
+      @if(!isAuthenticated){
       <mat-list-item
         [disabled]="!isApiConnected"
         class="mat-list-item"
@@ -14,7 +14,7 @@
         "
         ><mat-icon matListItemIcon class="material-symbols-rounded">
           login</mat-icon
-        ><span>Log in</span></mat-list-item
+        ><span>Log In</span></mat-list-item
       >
       <mat-list-item
         [disabled]="!isApiConnected"
@@ -30,28 +30,32 @@
         (click)="isApiConnected ? openRegisterBottomSheet() : null"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           person_add</mat-icon
-        ><span>Create account</span></mat-list-item
+        ><span>Create Account</span></mat-list-item
       ><mat-divider
         [ngStyle]="{ opacity: '.6', marginBottom: '.5rem', marginTop: '.5rem' }"
       ></mat-divider
       >}
       <mat-list-item
         class="mat-list-item"
-        [disabled]="!(isAuthenticated$ | async)"
+        [disabled]="!isAuthenticated"
         matTooltipPosition="right"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated$ | async)"
+        [routerLink]="isAuthenticated ? ['/dashboard'] : null"
+        routerLinkActive="router-link-active"
+        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           space_dashboard</mat-icon
         ><span>Dashboard</span></mat-list-item
       >
       <mat-list-item
         class="mat-list-item"
-        [disabled]="!(isAuthenticated$ | async)"
+        [disabled]="!isAuthenticated"
         matTooltipPosition="right"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated$ | async)"
+        [routerLink]="isAuthenticated ? ['/assistants'] : null"
+        routerLinkActive="router-link-active"
+        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           robot_2</mat-icon
-        ><span>AI assistants</span></mat-list-item
+        ><span>AI Assistants</span></mat-list-item
       >
     </mat-selection-list>
   </div>
@@ -65,31 +69,36 @@
       >
       <mat-list-item
         class="mat-list-item"
-        [disabled]="!(isAuthenticated$ | async)"
+        (click)="
+          isApiConnected && isAuthenticated ? openSettingsBottomSheet() : null
+        "
+        [disabled]="!isAuthenticated"
         matTooltipPosition="right"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated$ | async)"
+        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           settings</mat-icon
         ><span>Settings</span></mat-list-item
       >
       <mat-list-item
         class="mat-list-item"
-        (click)="isApiConnected ? openAccount() : null"
-        [disabled]="!(isAuthenticated$ | async)"
+        (click)="
+          isApiConnected && isAuthenticated ? openAccountBottomSheet() : null
+        "
+        [disabled]="!isAuthenticated"
         matTooltipPosition="right"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated$ | async)"
+        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           account_circle</mat-icon
         ><span>Account</span></mat-list-item
       >
-      @if((isAuthenticated$ | async)) {
+      @if((isAuthenticated)) {
       <mat-divider
         [ngStyle]="{ opacity: '.6', marginBottom: '.5rem', marginTop: '.5rem' }"
       ></mat-divider>
       <mat-list-item class="mat-list-item" (click)="logout()"
         ><mat-icon matListItemIcon class="material-symbols-rounded">
           logout</mat-icon
-        ><span>Log out</span></mat-list-item
+        ><span>Log Out</span></mat-list-item
       >
       }
     </mat-selection-list>
@@ -130,7 +139,7 @@
     "
   >
     <mat-icon class="material-symbols-outlined">web</mat-icon
-    ><span>UI repository</span>
+    ><span>UI Repository</span>
   </button>
   <button
     mat-menu-item
@@ -143,6 +152,6 @@
     "
   >
     <mat-icon class="material-symbols-outlined">api</mat-icon
-    ><span>API repository</span>
+    ><span>API Repository</span>
   </button>
 </mat-menu>

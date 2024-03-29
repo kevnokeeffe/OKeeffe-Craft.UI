@@ -19,6 +19,8 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 import { Utils } from '../../../utilities/utils';
+import { RouterModule } from '@angular/router';
+import { SettingsBottomSheetComponent } from '../../../settings/settings-bottom-sheet/settings-bottom-sheet.component';
 
 @Component({
   selector: 'app-selection-list',
@@ -32,6 +34,7 @@ import { Utils } from '../../../utilities/utils';
     FaIconComponent,
     MatTooltipModule,
     AsyncPipe,
+    RouterModule,
   ],
   templateUrl: './selection-list.component.html',
   styleUrl: './selection-list.component.scss',
@@ -39,12 +42,20 @@ import { Utils } from '../../../utilities/utils';
 export class SelectionListComponent implements OnDestroy {
   faGithub: IconDefinition = faGithub;
   isTooltipVisible: boolean = true; // replace with your actual condition
-  isAuthenticated$: Observable<boolean> | undefined;
+  isAuthenticated: boolean | undefined;
   isApiConnected: boolean | undefined;
   isApiConnectedSubscription: Subscription | undefined;
+  isAuthenticatedSubscription: Subscription | undefined;
 
   constructor(private _bottomSheet: MatBottomSheet, private store: Store<any>) {
-    this.isAuthenticated$ = this.store.select(getIsAuthenticated);
+    this.isAuthenticatedSubscription = this.store
+      .select(getIsAuthenticated)
+      .pipe()
+      .subscribe({
+        next: (value) => {
+          this.isAuthenticated = value;
+        },
+      });
     this.isApiConnectedSubscription = this.store
       .select(getWeatherForecastSuccess)
       .pipe()
@@ -58,6 +69,9 @@ export class SelectionListComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (this.isApiConnectedSubscription) {
       Utils.Unsubscribe(this.isApiConnectedSubscription);
+    }
+    if (this.isAuthenticatedSubscription) {
+      Utils.Unsubscribe(this.isAuthenticatedSubscription);
     }
   }
 
@@ -89,11 +103,15 @@ export class SelectionListComponent implements OnDestroy {
     this._bottomSheet.open(RegisterBottomSheetComponent);
   }
 
+  public openSettingsBottomSheet(): void {
+    this._bottomSheet.open(SettingsBottomSheetComponent);
+  }
+
   public logout() {
     this.store.dispatch(AuthenticationActions.logout({ authenticated: false }));
   }
 
-  public openAccount() {
+  public openAccountBottomSheet() {
     this._bottomSheet.open(AccountBottomSheetComponent);
   }
 }

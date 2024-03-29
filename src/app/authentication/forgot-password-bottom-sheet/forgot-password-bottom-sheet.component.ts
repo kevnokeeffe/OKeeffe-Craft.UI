@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormFieldComponent } from '../../layout/form-field/form-field.component';
 import { RegisterBottomSheetComponent } from '../register-bottom-sheet/register-bottom-sheet.component';
 import { LoginBottomSheetComponent } from '../login-bottom-sheet/login-bottom-sheet.component';
+import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-forgot-password-bottom-sheet',
@@ -23,12 +24,14 @@ import { LoginBottomSheetComponent } from '../login-bottom-sheet/login-bottom-sh
     FormFieldComponent,
     ReactiveFormsModule,
     MatButtonModule,
+    ProgressBarComponent,
   ],
   templateUrl: './forgot-password-bottom-sheet.component.html',
   styleUrl: './forgot-password-bottom-sheet.component.scss',
 })
 export class ForgotPasswordBottomSheetComponent {
   forgotPasswordForm: UntypedFormGroup;
+  loading: boolean = false;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<ForgotPasswordBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet
@@ -53,5 +56,10 @@ export class ForgotPasswordBottomSheetComponent {
   openLoginBottomSheet(): void {
     this._bottomSheetRef.dismiss();
     this._bottomSheet.open(LoginBottomSheetComponent);
+  }
+
+  sendResetPasswordEmail(): void {
+    this.loading = true;
+    this.forgotPasswordForm.disable();
   }
 }

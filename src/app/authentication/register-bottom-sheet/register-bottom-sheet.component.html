@@ -53,7 +53,15 @@
         }"
         placeholder="Re-enter your password"
       ></app-form-field>
+      <div [ngStyle]="{ paddingBottom: '.6rem' }">
+        <app-slide-toggle
+          [disabled]="loading"
+          [control]="registerForm.controls['acceptTerms']"
+          label="I agree to the terms and conditions"
+        ></app-slide-toggle>
+      </div>
       <button
+        [disabled]="loading"
         mat-raised-button
         color="primary"
         class="register-form-button button"
@@ -61,11 +69,13 @@
       >
         Sign up
       </button>
+      @if(loading){<app-progress-bar></app-progress-bar>}
     </form>
     <div class="register-buttons">
       <div class="register-actions">
         <div class="action-btn">
           <button
+            [disabled]="loading"
             mat-button
             class="action-btn-link"
             color="primary"

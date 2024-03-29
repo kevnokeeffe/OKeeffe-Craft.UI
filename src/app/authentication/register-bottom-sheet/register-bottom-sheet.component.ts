@@ -14,6 +14,9 @@ import {
 } from '@angular/forms';
 import { LoginBottomSheetComponent } from '../login-bottom-sheet/login-bottom-sheet.component';
 import { Utils } from '../../utilities/utils';
+import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
+import { SlideToggleComponent } from '../../layout/slide-toggle/slide-toggle.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-register-bottom-sheet',
@@ -23,34 +26,42 @@ import { Utils } from '../../utilities/utils';
     MatButtonModule,
     FormFieldComponent,
     ReactiveFormsModule,
+    ProgressBarComponent,
+    SlideToggleComponent,
+    NgStyle,
   ],
   templateUrl: './register-bottom-sheet.component.html',
   styleUrl: './register-bottom-sheet.component.scss',
 })
 export class RegisterBottomSheetComponent {
   registerForm: UntypedFormGroup;
+  loading: boolean = false;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<RegisterBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet
   ) {
     this.registerForm = new UntypedFormGroup(
       {
-        fullName: new UntypedFormControl({ value: '', disabled: false }, [
-          Validators.required,
-        ]),
-        email: new UntypedFormControl({ value: '', disabled: false }, [
-          Validators.email,
-          Validators.required,
-        ]),
-        password: new UntypedFormControl({ value: '', disabled: false }, [
+        fullName: new UntypedFormControl(
+          { value: "Kevin O'Keeffe", disabled: false },
+          [Validators.required]
+        ),
+        email: new UntypedFormControl(
+          {
+            value: this.getRandomSixDigitNumber() + '@test.com',
+            disabled: false,
+          },
+          [Validators.email, Validators.required]
+        ),
+        password: new UntypedFormControl({ value: '123456', disabled: false }, [
           Validators.required,
           Validators.minLength(6),
         ]),
         confirmPassword: new UntypedFormControl(
-          { value: '', disabled: false },
+          { value: '123456', disabled: false },
           [Validators.required, Validators.minLength(6)]
         ),
-        acceptTerms: new UntypedFormControl({ value: '', disabled: false }, [
+        acceptTerms: new UntypedFormControl({ value: true, disabled: false }, [
           Validators.requiredTrue,
         ]),
       },
@@ -64,6 +75,8 @@ export class RegisterBottomSheetComponent {
     if (this.registerForm.invalid) {
       return;
     }
+    this.loading = true;
+    this.registerForm.disable();
     console.log(this.registerForm.value);
   }
 
@@ -75,5 +88,9 @@ export class RegisterBottomSheetComponent {
   public closeBottomSheet(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
+  }
+
+  private getRandomSixDigitNumber(): number {
+    return Math.floor(100000 + Math.random() * 900000);
   }
 }

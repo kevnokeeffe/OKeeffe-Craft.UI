@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { getSignatureUrl } from '../../../configuration/store/configuration.selectors';
 import { Observable } from 'rxjs';
 import { AsyncPipe, NgIf, NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signature',
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgStyle],
+  imports: [NgIf, AsyncPipe, NgStyle, RouterLink],
   templateUrl: './signature.component.html',
   styleUrl: './signature.component.scss',
 })

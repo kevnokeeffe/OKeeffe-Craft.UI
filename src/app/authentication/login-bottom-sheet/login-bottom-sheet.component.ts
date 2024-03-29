@@ -71,6 +71,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
       return;
     }
     this.loading = true;
+    this.loginForm.disable();
     const authenticate: AuthenticateRequestModel = {
       email: emailValue,
       password: passwordValue,
@@ -83,6 +84,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
         if (success) {
           this._bottomSheetRef.dismiss();
           this.loading = false;
+          this.loginForm.enable();
         }
       });
   }
