@@ -1,0 +1,21 @@
+footer {
+  background-color: var(--darkBlue);
+  height: 200px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  p {
+    color: var(--white);
+    text-align: center;
+    padding-top: 50px;
+    font-size: 1.4em;
+    font-family: "Nunito", sans-serif;
+    button {
+      font-family: "Nunito", sans-serif;
+      color: var(--white);
+      font-size: 1.2em;
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+}

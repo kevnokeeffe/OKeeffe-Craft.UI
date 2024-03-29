@@ -1,1 +1,20 @@
-<p>footer works!</p>
+<footer>
+  <p
+    matTooltipPosition="above"
+    [matTooltip]="
+      !(isApiConnected$ | async)
+        ? 'Unable to contact, connection to the API failed.'
+        : ''
+    "
+  >
+    <button
+      mat-button
+      (click)="openContactBottomSheet()"
+      [disabled]="!(isApiConnected$ | async)"
+    >
+      <span>Contact</span>
+    </button>
+  </p>
+
+  <p>&copy; 2024 Kevin O'Keeffe. All rights reserved.</p>
+</footer>

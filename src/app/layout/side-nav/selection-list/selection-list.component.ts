@@ -11,7 +11,10 @@ import { LoginBottomSheetComponent } from '../../../authentication/login-bottom-
 import { RegisterBottomSheetComponent } from '../../../authentication/register-bottom-sheet/register-bottom-sheet.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Store } from '@ngrx/store';
-import { getIsAuthenticated } from '../../../authentication/store/authentication.selectors';
+import {
+  getIsAuthenticated,
+  getWeatherForecastSuccess,
+} from '../../../authentication/store/authentication.selectors';
 import { Observable } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
@@ -36,9 +39,11 @@ export class SelectionListComponent {
   faGithub: IconDefinition = faGithub;
   isTooltipVisible: boolean = true; // replace with your actual condition
   isAuthenticated$: Observable<boolean> | undefined;
+  isApiConnected$: Observable<boolean> | undefined;
 
   constructor(private _bottomSheet: MatBottomSheet, private store: Store<any>) {
     this.isAuthenticated$ = this.store.select(getIsAuthenticated);
+    this.isApiConnected$ = this.store.select(getWeatherForecastSuccess);
   }
 
   public navigateToGithub(item: string = 'api' || 'ui'): void {
