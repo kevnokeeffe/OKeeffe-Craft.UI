@@ -12,7 +12,10 @@
       (click)="openContactBottomSheet()"
       [disabled]="!(isApiConnected$ | async)"
     >
-      <span>Contact</span>
+      <div class="btn_content">
+        <img id="logo" src="../../../assets/images/logo.png" />
+        <div id="txt">Contact</div>
+      </div>
     </button>
   </p>
 

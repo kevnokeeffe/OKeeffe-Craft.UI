@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getWeatherForecastSuccess } from '../../authentication/store/authentication.selectors';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FadeDirective } from '../../directives/fade.directive';
+import { GrowDirective } from '../../directives/grow.directive';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -20,6 +22,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SignatureComponent,
     AsyncPipe,
     MatTooltipModule,
+    FadeDirective,
+    GrowDirective,
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',

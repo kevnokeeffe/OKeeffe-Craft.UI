@@ -62,6 +62,10 @@ export class AuthenticationDataService {
       );
   }
 
+  register(): Observable<any> {
+    return this.api.post<any>(this.authenticationEndpoints?.register ?? '', {});
+  }
+
   getWeatherForcast(): Observable<any> {
     return this.api.get<any>(this.weatherForcastEndpoint ?? '');
   }

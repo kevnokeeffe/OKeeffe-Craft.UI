@@ -60,6 +60,13 @@ export class RegisterBottomSheetComponent {
     );
   }
 
+  public submit(): void {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    console.log(this.registerForm.value);
+  }
+
   public openLoginBottomSheet(): void {
     this._bottomSheetRef.dismiss();
     this._bottomSheet.open(LoginBottomSheetComponent);

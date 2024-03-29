@@ -25,7 +25,6 @@ export class ApiInterceptor implements HttpInterceptor {
     private authenticationService: AuthenticationService
   ) {
     this.store.select(getBaseEndpoint).subscribe((base) => (this.base = base));
-    console.log('API Interceptor initialized');
   }
 
   /**

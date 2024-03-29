@@ -1,5 +1,5 @@
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,9 +15,10 @@ import {
   getIsAuthenticated,
   getWeatherForecastSuccess,
 } from '../../../authentication/store/authentication.selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
+import { Utils } from '../../../utilities/utils';
 
 @Component({
   selector: 'app-selection-list',
@@ -35,15 +36,29 @@ import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sh
   templateUrl: './selection-list.component.html',
   styleUrl: './selection-list.component.scss',
 })
-export class SelectionListComponent {
+export class SelectionListComponent implements OnDestroy {
   faGithub: IconDefinition = faGithub;
   isTooltipVisible: boolean = true; // replace with your actual condition
   isAuthenticated$: Observable<boolean> | undefined;
-  isApiConnected$: Observable<boolean> | undefined;
+  isApiConnected: boolean | undefined;
+  isApiConnectedSubscription: Subscription | undefined;
 
   constructor(private _bottomSheet: MatBottomSheet, private store: Store<any>) {
     this.isAuthenticated$ = this.store.select(getIsAuthenticated);
-    this.isApiConnected$ = this.store.select(getWeatherForecastSuccess);
+    this.isApiConnectedSubscription = this.store
+      .select(getWeatherForecastSuccess)
+      .pipe()
+      .subscribe({
+        next: (value) => {
+          this.isApiConnected = value;
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.isApiConnectedSubscription) {
+      Utils.Unsubscribe(this.isApiConnectedSubscription);
+    }
   }
 
   public navigateToGithub(item: string = 'api' || 'ui'): void {

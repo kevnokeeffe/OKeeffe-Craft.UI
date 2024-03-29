@@ -3,12 +3,12 @@
     <mat-selection-list class="selection-list">
       @if(!(isAuthenticated$ | async)){
       <mat-list-item
-        [disabled]="!(isApiConnected$ | async)"
+        [disabled]="!isApiConnected"
         class="mat-list-item"
-        (click)="openLoginBottomSheet()"
+        (click)="isApiConnected ? openLoginBottomSheet() : null"
         matTooltipPosition="right"
         [matTooltip]="
-          !(isApiConnected$ | async)
+          !isApiConnected
             ? getTooltipText('Unable to log in, connection to the API failed.')
             : ''
         "
@@ -17,17 +17,17 @@
         ><span>Log in</span></mat-list-item
       >
       <mat-list-item
-        [disabled]="!(isApiConnected$ | async)"
+        [disabled]="!isApiConnected"
         matTooltipPosition="right"
         [matTooltip]="
-          !(isApiConnected$ | async)
+          !isApiConnected
             ? getTooltipText(
                 'Unable to create account, connection to the API failed.'
               )
             : ''
         "
         class="mat-list-item"
-        (click)="openRegisterBottomSheet()"
+        (click)="isApiConnected ? openRegisterBottomSheet() : null"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           person_add</mat-icon
         ><span>Create account</span></mat-list-item
@@ -74,7 +74,7 @@
       >
       <mat-list-item
         class="mat-list-item"
-        (click)="openAccount()"
+        (click)="isApiConnected ? openAccount() : null"
         [disabled]="!(isAuthenticated$ | async)"
         matTooltipPosition="right"
         [matTooltip]="getTooltipText(undefined, isAuthenticated$ | async)"

@@ -7,7 +7,11 @@
     </div>
   </div>
   <div class="bottom-sheet-content">
-    <form class="register-content-form" [formGroup]="registerForm">
+    <form
+      class="register-content-form"
+      [formGroup]="registerForm"
+      (ngSubmit)="submit()"
+    >
       <app-form-field
         [control]="registerForm.controls['fullName']"
         label="Name"
@@ -65,6 +69,7 @@
             mat-button
             class="action-btn-link"
             color="primary"
+            type="button"
             (click)="openLoginBottomSheet()"
           >
             Log in

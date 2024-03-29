@@ -28,16 +28,35 @@
       .subtitle_txt {
         text-align: center;
         color: var(--white);
-        font-size: 1.8em;
+
         line-height: 2rem;
-        width: 40%;
+        @media screen and (min-width: 1600px) {
+          width: 40%;
+          font-size: 1.8em;
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          width: 60%;
+          font-size: 1.8em;
+        }
+        @media screen and (max-width: 800px) {
+          width: 80%;
+          font-size: 1.6em;
+        }
         font-family: "Nunito", sans-serif;
       }
     }
   }
 
   .line_break {
-    padding-top: 8rem;
+    @media screen and (min-width: 1600px) {
+      padding-top: 8rem;
+    }
+    @media screen and (max-width: 1600px) and (min-width: 800px) {
+      padding-top: 8rem;
+    }
+    @media screen and (max-width: 800px) {
+      padding-top: 6rem;
+    }
     width: 100%;
     display: flex;
     justify-content: center;
@@ -50,12 +69,31 @@
 
   .content_primary {
     display: flex;
-    flex-direction: row;
     height: 100%;
-    margin-top: 8rem;
+    @media screen and (min-width: 1600px) {
+      margin-top: 8rem;
+      flex-direction: row;
+    }
+    @media screen and (max-width: 1600px) and (min-width: 800px) {
+      margin-top: 8rem;
+      flex-direction: row;
+    }
+    @media screen and (max-width: 800px) {
+      margin-top: 2rem;
+      flex-direction: column;
+    }
     .content_left {
-      width: 61.8%;
+      @media screen and (min-width: 1600px) {
+        width: 61.8%;
+      }
+      @media screen and (max-width: 1600px) and (min-width: 800px) {
+        width: 61.8%;
+      }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
       .content_title {
+        font-size: 2.2em;
         padding-top: 60px;
         padding-bottom: 2rem;
         color: var(--white);
@@ -64,23 +102,60 @@
       }
       .content_text {
         color: var(--white);
-        font-size: 1.4em;
         font-family: "Nunito", sans-serif;
-        line-height: 2rem;
         display: flex;
         justify-content: center;
-        p {
-          text-align: start;
-          width: 60%;
+        @media screen and (min-width: 1600px) {
+          font-size: 1.4em;
+          line-height: 2rem;
+          p {
+            text-align: start;
+            width: 60%;
+          }
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          font-size: 1.4em;
+          line-height: 2rem;
+          p {
+            text-align: start;
+            width: 80%;
+          }
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 1.4em;
+          line-height: 1.8rem;
+          p {
+            text-align: start;
+            width: 80%;
+          }
         }
       }
     }
     .content_right {
-      width: 38.2%;
       display: flex;
-      justify-content: flex-start;
+      @media screen and (min-width: 1600px) {
+        width: 38.2%;
+        justify-content: flex-start;
+      }
+      @media screen and (max-width: 1600px) and (min-width: 800px) {
+        width: 38.2%;
+        justify-content: flex-start;
+      }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+        margin-top: 2rem;
+        justify-content: center;
+      }
       .logo {
-        max-width: 340px;
+        @media screen and (min-width: 1600px) {
+          max-width: 340px;
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          max-width: 240px;
+        }
+        @media screen and (max-width: 800px) {
+          max-width: 140px;
+        }
         height: fit-content;
         align-self: center;
       }
@@ -89,21 +164,58 @@
 
   .content_accent {
     display: flex;
-    flex-direction: row;
     height: 100%;
-    margin-top: 8rem;
+    @media screen and (min-width: 1600px) {
+      margin-top: 8rem;
+      flex-direction: row;
+    }
+    @media screen and (max-width: 1600px) and (min-width: 800px) {
+      margin-top: 8rem;
+      flex-direction: row;
+    }
+    @media screen and (max-width: 800px) {
+      margin-top: 2rem;
+      flex-direction: column;
+    }
     .content_left {
-      width: 38.2%;
       display: flex;
-      justify-content: flex-end;
+      @media screen and (min-width: 1600px) {
+        width: 38.2%;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 1600px) and (min-width: 800px) {
+        width: 38.2%;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+        margin-top: 2rem;
+        justify-content: center;
+      }
       .logo {
-        max-width: 340px;
+        @media screen and (min-width: 1600px) {
+          max-width: 340px;
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          max-width: 240px;
+        }
+        @media screen and (max-width: 800px) {
+          max-width: 140px;
+        }
         height: fit-content;
         align-self: center;
       }
     }
     .content_right {
-      width: 61.8%;
+      @media screen and (min-width: 1600px) {
+        width: 61.8%;
+      }
+      @media screen and (max-width: 1600px) and (min-width: 800px) {
+        width: 61.8%;
+      }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
 
       .content_title {
         padding-top: 60px;
@@ -111,17 +223,38 @@
         color: var(--white);
         font-size: 2.2em;
         font-family: "Nunito", sans-serif;
+        @media screen and (max-width: 800px) {
+          line-height: 2rem;
+        }
       }
       .content_text {
         color: var(--white);
-        font-size: 1.4em;
         font-family: "Nunito", sans-serif;
-        line-height: 2rem;
         display: flex;
         justify-content: center;
-        p {
-          text-align: start;
-          width: 60%;
+        @media screen and (min-width: 1600px) {
+          font-size: 1.4em;
+          line-height: 2rem;
+          p {
+            text-align: start;
+            width: 60%;
+          }
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          font-size: 1.4em;
+          line-height: 2rem;
+          p {
+            text-align: start;
+            width: 80%;
+          }
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 1.4em;
+          line-height: 1.8rem;
+          p {
+            text-align: start;
+            width: 80%;
+          }
         }
       }
     }
@@ -146,13 +279,24 @@
     .subtitle {
       display: flex;
       justify-content: center;
+
       p {
         text-align: center;
         color: var(--white);
-        font-size: 1.6em;
         line-height: 2rem;
-        width: 60%;
         font-family: "Nunito", sans-serif;
+        @media screen and (min-width: 1600px) {
+          width: 60%;
+          font-size: 1.6em;
+        }
+        @media screen and (max-width: 1600px) and (min-width: 800px) {
+          width: 60%;
+          font-size: 1.6em;
+        }
+        @media screen and (max-width: 800px) {
+          width: 80%;
+          font-size: 1.4em;
+        }
       }
     }
   }

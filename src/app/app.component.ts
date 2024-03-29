@@ -29,8 +29,7 @@ import { getWeatherForecastSuccess } from './authentication/store/authentication
 })
 export class AppComponent implements OnDestroy {
   private getConfigurationLoadedSubscription: Subscription | undefined;
-  private stopSubject = new Subject<void>();
-  private shouldContinue = true;
+  private getWeatherForecastSuccessSubscription: Subscription | undefined;
   constructor(
     private configurationService: ConfigurationService,
     private store: Store<any>
@@ -58,7 +57,7 @@ export class AppComponent implements OnDestroy {
     // Create an observable that completes after 10 minutes
     const stopAfterTenMinutes$ = timer(tenMinutes);
 
-    this.store
+    this.getWeatherForecastSuccessSubscription = this.store
       .select(getWeatherForecastSuccess)
       .pipe(
         switchMap((success) => {
@@ -86,7 +85,8 @@ export class AppComponent implements OnDestroy {
     if (this.getConfigurationLoadedSubscription) {
       Utils.Unsubscribe(this.getConfigurationLoadedSubscription);
     }
-    this.stopSubject.next();
-    this.stopSubject.complete();
+    if (this.getWeatherForecastSuccessSubscription) {
+      Utils.Unsubscribe(this.getWeatherForecastSuccessSubscription);
+    }
   }
 }

@@ -4,9 +4,10 @@
     (click)="toggleDrawer()"
     aria-label="Example icon-button with menu icon"
   >
-    <mat-icon>menu</mat-icon>
+    <mat-icon appGrow>menu</mat-icon>
   </button>
   <app-signature
+    appFade
     [ngStyle]="{ marginLeft: '1rem', marginTop: '.5rem' }"
     height="50px"
   ></app-signature>
