@@ -7,7 +7,7 @@
   }
   @media screen and (max-width: 800px) {
     padding: 1rem;
-    padding-top: 6rem;
+    padding-top: 5rem;
   }
   .header {
     .title {
@@ -15,6 +15,9 @@
       font-size: 2em;
       font-weight: 600;
       color: var(--darkBlue);
+      @media screen and (max-width: 800px) {
+        line-height: 2rem;
+      }
     }
     .subtitle {
       margin-top: 1rem;
@@ -25,7 +28,15 @@
     }
   }
   .content {
-    padding-top: 4rem;
+    @media screen and (min-width: 1600px) {
+      padding-top: 4rem;
+    }
+    @media screen and (max-width: 1600px) and (min-width: 800px) {
+      padding-top: 4rem;
+    }
+    @media screen and (max-width: 800px) {
+      padding-top: 2rem;
+    }
     display: flex;
     justify-content: center;
     .assistant_container {

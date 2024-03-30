@@ -19,7 +19,9 @@ export class GrowDirective implements OnInit {
     const factory = this.builder.build([
       style({ transform: 'scale(0.1)' }),
       animate('0.4s', style({ transform: 'scale(1.4)' })),
-      animate('0.4s', style({ transform: 'scale(1)' })),
+      animate('0.1s', style({ transform: 'scale(1) rotate(-3deg)' })),
+      animate('0.1s', style({ transform: 'scale(1) rotate(3deg)' })),
+      animate('0.1s', style({ transform: 'scale(1) rotate(0)' })),
     ]);
 
     this.player = factory.create(this.el.nativeElement);
