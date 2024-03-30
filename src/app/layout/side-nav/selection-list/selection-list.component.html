@@ -40,7 +40,6 @@
         [disabled]="!isAuthenticated"
         matTooltipPosition="right"
         [routerLink]="isAuthenticated ? ['/dashboard'] : null"
-        routerLinkActive="router-link-active"
         [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           space_dashboard</mat-icon
@@ -51,7 +50,6 @@
         [disabled]="!isAuthenticated"
         matTooltipPosition="right"
         [routerLink]="isAuthenticated ? ['/assistants'] : null"
-        routerLinkActive="router-link-active"
         [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           robot_2</mat-icon
