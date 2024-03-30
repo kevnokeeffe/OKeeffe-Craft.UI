@@ -44,6 +44,25 @@ export class AuthenticationEffects {
     )
   );
 
+  veriftyEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.verifyEmail.type),
+      exhaustMap((model) =>
+        this.authenticationService.verifyEmail(model).pipe(
+          map((response) => ({
+            type: AuthenticationActions.verifyEmailSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.verifyEmailFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
   refreshToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthenticationActions.refreshToken.type),
@@ -55,6 +74,44 @@ export class AuthenticationEffects {
           catchError(() =>
             of({
               type: AuthenticationActions.refreshTokenFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
+  resetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.resetPassword.type),
+      exhaustMap((model) =>
+        this.authenticationService.resetPassword(model).pipe(
+          map((response) => ({
+            type: AuthenticationActions.resetPasswordSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.resetPasswordFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
+  forgotPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.forgotPassword.type),
+      exhaustMap((model) =>
+        this.authenticationService.forgotPassword(model).pipe(
+          map((response) => ({
+            type: AuthenticationActions.forgotPasswordSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.forgotPasswordFailed.type,
             })
           )
         )

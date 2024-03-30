@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .card {
+    max-width: 400px;
+    .img_container {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      img {
+        width: 200px;
+        align-self: center;
+      }
+    }
+    h4 {
+      text-align: center;
+    }
+  }
+
+  .header-image {
+    background-image: url("../../../assets/images/email.png");
+    background-size: cover;
+  }
+}

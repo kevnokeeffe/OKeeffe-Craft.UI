@@ -13,6 +13,9 @@ import { AuthenticationActions } from './authentication.actions';
 import { Router } from '@angular/router';
 import { RegisterRequestModel } from '../models/register-request.model';
 import { AccountResponseModel } from '../../accounts/models/account-response.model';
+import { VerifyEmailModel } from '../models/verify-email.model';
+import { ResetPasswordRequestModel } from '../models/reset-password-request.model';
+import { ForgotPasswordModel } from '../models/forgot-password.model';
 
 export class AuthenticationDataService {
   authenticationEndpoints: AuthenticationEndpointsModel | undefined;
@@ -64,7 +67,6 @@ export class AuthenticationDataService {
               this.startRefreshTokenTimer();
             }
           }
-          this.route.navigate(['/']);
           return response;
         })
       );
@@ -81,11 +83,23 @@ export class AuthenticationDataService {
     );
   }
 
+  verifyEmail(model: any): Observable<ServiceResponseModel<string>> {
+    const verifyEmailEndpoint = this.authenticationEndpoints?.verifyEmail;
+    console.log(verifyEmailEndpoint);
+    if (!verifyEmailEndpoint) {
+      throw new Error('Verify email endpoint is undefined.');
+    }
+    return this.api.post<ServiceResponseModel<string>>(
+      verifyEmailEndpoint,
+      model.model
+    );
+  }
+
   getWeatherForcast(): Observable<any> {
     return this.api.get<any>(this.weatherForcastEndpoint ?? '');
   }
 
-  refreshToken() {
+  refreshToken(): Observable<any> {
     const refreshToken = { token: AuthUtils.getRefreshToken() };
     return this.api
       .post<any>(this.authenticationEndpoints?.refreshToken ?? '', refreshToken)
@@ -110,6 +124,20 @@ export class AuthenticationDataService {
       );
   }
 
+  resetPassword(model: any): Observable<any> {
+    return this.api.post<any>(
+      this.authenticationEndpoints?.resetPassword ?? '',
+      model.model
+    );
+  }
+
+  forgotPassword(model: any): Observable<any> {
+    return this.api.post<any>(
+      this.authenticationEndpoints?.forgotPassword ?? '',
+      model.model
+    );
+  }
+
   logout(): Observable<any> {
     const token = AuthUtils.getRefreshToken();
     return this.api
@@ -124,6 +152,7 @@ export class AuthenticationDataService {
           if (this.userSubject) {
             this.userSubject.next(null);
           }
+          this.route.navigate(['/']);
           return res;
         })
       );

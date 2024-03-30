@@ -60,5 +60,45 @@ export const authenticationReducer = createReducer(
     ...state,
     weatherForcastSuccess: false,
     error,
+  })),
+  on(AuthenticationActions.verifyEmail, (state) => state),
+  on(AuthenticationActions.verifyEmailSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      verifyEmailResponse: payload,
+    };
+  }),
+  on(AuthenticationActions.verifyEmailFailed, (state, { error }) => ({
+    ...state,
+    verifyEmailResponse: null,
+    error,
+  })),
+  on(AuthenticationActions.resetPassword, (state) => state),
+  on(AuthenticationActions.resetPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      resetPasswordResponse: payload,
+    };
+  }),
+  on(AuthenticationActions.resetPasswordFailed, (state, { error }) => ({
+    ...state,
+    resetPasswordResponse: null,
+    error,
+  })),
+  on(AuthenticationActions.forgotPassword, (state) => state),
+  on(AuthenticationActions.forgotPasswordSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      forgotPasswordResponse: payload,
+    };
+  }),
+  on(AuthenticationActions.forgotPasswordFailed, (state, { error }) => ({
+    ...state,
+    forgotPasswordResponse: null,
+    error,
+  })),
+  on(AuthenticationActions.clearErrors, (state) => ({
+    ...state,
+    error: null,
   }))
 );

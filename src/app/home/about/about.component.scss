@@ -80,7 +80,7 @@
     }
     @media screen and (max-width: 800px) {
       margin-top: 2rem;
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
     .content_left {
       @media screen and (min-width: 1600px) {

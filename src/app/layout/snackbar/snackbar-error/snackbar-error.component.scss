@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  #img {
+    height: 30px;
+    margin-right: 0.4rem;
+    align-self: center;
+    margin-left: 1rem;
+  }
+  #btn {
+    color: var(--white);
+  }
+}

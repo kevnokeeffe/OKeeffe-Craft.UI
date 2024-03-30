@@ -12,11 +12,16 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { configurationReducer } from './configuration/store/configuration.reducer';
 import { ConfigurationEffects } from './configuration/store/configuration.effects';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { ApiClient } from './utilities/api-client';
 import { authenticationReducer } from './authentication/store/authentication.reducer';
 import { AuthenticationEffects } from './authentication/store/authentication.effects';
 import { tokenInterceptor } from './utilities/token-interceptor';
+import { errorInterceptorProvider } from './utilities/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,5 +38,6 @@ export const appConfig: ApplicationConfig = {
       provide: ApiClient,
       useClass: ApiClient,
     },
+    errorInterceptorProvider,
   ],
 };

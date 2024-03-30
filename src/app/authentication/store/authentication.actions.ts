@@ -4,6 +4,9 @@ import { ServiceResponseModel } from '../../models/service-response.model';
 import { AuthenticateResponseModel } from '../models/authenticate-response.model';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
 import { RegisterRequestModel } from '../models/register-request.model';
+import { VerifyEmailModel } from '../models/verify-email.model';
+import { ResetPasswordRequestModel } from '../models/reset-password-request.model';
+import { ForgotPasswordModel } from '../models/forgot-password.model';
 
 export const AuthenticationActions = createActionGroup({
   source: 'Authentication',
@@ -22,11 +25,21 @@ export const AuthenticationActions = createActionGroup({
     refreshToken: emptyProps(),
     refreshTokenSuccess: emptyProps(),
     refreshTokenFailed: props<{ error: any }>(),
+    verifyEmail: props<{ model: VerifyEmailModel }>(),
+    verifyEmailSuccess: props<{ payload: ServiceResponseModel<string> }>(),
+    verifyEmailFailed: props<{ error: any }>(),
+    resetPassword: props<{ model: ResetPasswordRequestModel }>(),
+    resetPasswordSuccess: props<{ payload: ServiceResponseModel<string> }>(),
+    resetPasswordFailed: props<{ error: any }>(),
+    forgotPassword: props<{ model: ForgotPasswordModel }>(),
+    forgotPasswordSuccess: props<{ payload: ServiceResponseModel<string> }>(),
+    forgotPasswordFailed: props<{ error: any }>(),
     isAuthenticated: props<{ authenticated: boolean }>(),
     weatherForcast: emptyProps(),
     weatherForcastSuccess: props<{
       payload: ServiceResponseModel<string>;
     }>(),
     weatherForcastFailed: props<{ error: any }>(),
+    clearErrors: emptyProps(),
   },
 });

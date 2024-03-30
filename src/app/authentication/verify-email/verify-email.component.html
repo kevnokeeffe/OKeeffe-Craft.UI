@@ -1,0 +1,72 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>Email Verification</mat-card-title>
+      <mat-card-subtitle>Verify Your Email Address</mat-card-subtitle>
+    </mat-card-header>
+    <div class="img_container">
+      @if(verificationResponse?.success){
+      <img
+        mat-card-image
+        src="../../../assets/images/success.png"
+        alt="Success Image"
+      />
+      }@else if(verificationResponse?.success===false) {
+      <img
+        mat-card-image
+        src="../../../assets/images/fail.png"
+        alt="Fail Image"
+      />
+      }@else {
+      <img
+        mat-card-image
+        src="../../../assets/images/loading.png"
+        alt="Loading Image"
+      />
+      }
+    </div>
+    <mat-card-content>
+      @if(verificationResponse?.message){
+      <h4>{{ verificationResponse?.message }}</h4>
+      } @if(verificationResponse?.success){
+      <p>
+        Congratulations! Your email has been successfully verified. You're all
+        set to explore our platform. Thank you for verifying your email!
+      </p>
+      } @else if(verificationResponse?.success === false){
+      <p>
+        We're sorry, but it seems that the verification link has expired or is
+        invalid. Please ensure that you clicked on the correct link provided in
+        the email. If you continue to experience issues, please contact our
+        support team for assistance. Thank you.
+      </p>
+      } @else {
+      <p>
+        We're currently verifying your email. Please wait a moment while we
+        complete the process. Thank you for your patience.
+      </p>
+      }
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        [disabled]="!verificationResponse?.success"
+        color="primary"
+        mat-raised-button
+        (click)="verificationResponse?.success ? openLogin() : null"
+      >
+        {{
+          verificationResponse?.success
+            ? "LOG IN"
+            : verificationResponse?.success === false
+            ? "Failed!"
+            : "Verifing..."
+        }}
+      </button>
+    </mat-card-actions>
+    <mat-card-footer>
+      @if(!verificationResponse){
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>}
+    </mat-card-footer>
+  </mat-card>
+</div>

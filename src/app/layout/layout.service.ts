@@ -13,12 +13,21 @@ export class LayoutService {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(private snackbar: MatSnackBar) {}
-  openSnackBar(message: string, action: string) {
+  showMessage(message: string, action?: string) {
     this.snackbar.openFromComponent(SnackbarComponent, {
       data: { message, action: action },
       duration: 10000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
+    });
+  }
+
+  showErrorMessage(message: string, action?: string) {
+    this.snackbar.openFromComponent(SnackbarComponent, {
+      data: { message, action: action },
+      duration: 20000,
+      horizontalPosition: 'left',
+      verticalPosition: 'bottom',
     });
   }
 }

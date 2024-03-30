@@ -8,17 +8,19 @@ import { AuthenticationActions } from './authentication/store/authentication.act
 import { Utils } from './utilities/utils';
 import {
   EMPTY,
-  Subject,
   Subscription,
   filter,
   interval,
   switchMap,
   takeUntil,
-  takeWhile,
   tap,
   timer,
 } from 'rxjs';
-import { getWeatherForecastSuccess } from './authentication/store/authentication.selectors';
+import {
+  getAuthError,
+  getWeatherForecastSuccess,
+} from './authentication/store/authentication.selectors';
+import { LayoutService } from './layout/layout.service';
 
 @Component({
   selector: 'app-root',
@@ -30,11 +32,14 @@ import { getWeatherForecastSuccess } from './authentication/store/authentication
 export class AppComponent implements OnDestroy {
   private getConfigurationLoadedSubscription: Subscription | undefined;
   private getWeatherForecastSuccessSubscription: Subscription | undefined;
+  private getAuthErrorSubscription: Subscription | undefined;
   constructor(
     private configurationService: ConfigurationService,
-    private store: Store<any>
+    private store: Store<any>,
+    private layoutService: LayoutService
   ) {
     this.loadConfigurationActions();
+    this.errorListener();
   }
 
   private loadConfigurationActions(): void {
@@ -81,12 +86,26 @@ export class AppComponent implements OnDestroy {
       .subscribe();
   }
 
+  errorListener(): void {
+    this.getAuthErrorSubscription = this.store
+      .select(getAuthError)
+      .pipe(filter((error) => error))
+      .subscribe({
+        next: (error) => {
+          this.layoutService.showErrorMessage(error.message, 'Close');
+        },
+      });
+  }
+
   ngOnDestroy(): void {
     if (this.getConfigurationLoadedSubscription) {
       Utils.Unsubscribe(this.getConfigurationLoadedSubscription);
     }
     if (this.getWeatherForecastSuccessSubscription) {
       Utils.Unsubscribe(this.getWeatherForecastSuccessSubscription);
+    }
+    if (this.getAuthErrorSubscription) {
+      Utils.Unsubscribe(this.getAuthErrorSubscription);
     }
   }
 }

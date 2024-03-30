@@ -24,6 +24,20 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'verify-email',
+    loadComponent: () =>
+      import('./authentication/verify-email/verify-email.component').then(
+        (m) => m.VerifyEmailComponent
+      ),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./authentication/reset-password/reset-password.component').then(
+        (m) => m.ResetPasswordComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/',
   },

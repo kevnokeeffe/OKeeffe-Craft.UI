@@ -38,6 +38,24 @@ export const getRegistrationData = createSelector(
   (state) => (state && state.registrationData ? state.registrationData : null)
 );
 
-export const getError = createSelector(getAuthenticationState, (state) =>
+export const getAuthError = createSelector(getAuthenticationState, (state) =>
   state && state.error ? state.error : null
+);
+
+export const getVerifyEmailResponse = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.verifyEmailResponse ? state.verifyEmailResponse : null
+);
+
+export const getResetPasswordResponse = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.resetPasswordResponse ? state.resetPasswordResponse : null
+);
+
+export const getForgotPasswordResponse = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.forgotPasswordResponse ? state.forgotPasswordResponse : null
 );

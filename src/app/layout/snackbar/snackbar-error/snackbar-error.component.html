@@ -1,0 +1,13 @@
+<img id="img" src="../../../../assets/images/fail.png" />
+<span class="snack-message" matSnackBarLabel>
+  {{ data.message }}
+</span>
+<span matSnackBarActions>
+  <button
+    mat-button
+    matSnackBarAction
+    (click)="snackBarRef.dismissWithAction()"
+  >
+    <span id="btn">{{ data.action || "Close" }}</span>
+  </button>
+</span>

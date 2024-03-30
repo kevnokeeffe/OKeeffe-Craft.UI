@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -21,6 +21,8 @@ import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { getRegistrationSuccess } from '../store/authentication.selectors';
 import { LayoutService } from '../../layout/layout.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-bottom-sheet',
@@ -37,14 +39,16 @@ import { LayoutService } from '../../layout/layout.service';
   templateUrl: './register-bottom-sheet.component.html',
   styleUrl: './register-bottom-sheet.component.scss',
 })
-export class RegisterBottomSheetComponent {
+export class RegisterBottomSheetComponent implements OnDestroy {
   registerForm: UntypedFormGroup;
   loading: boolean = false;
+  getRegistrationSuccessSubscription: Subscription | undefined;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<RegisterBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet,
     private store: Store<any>,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private router: Router
   ) {
     this.registerForm = new UntypedFormGroup(
       {
@@ -76,6 +80,11 @@ export class RegisterBottomSheetComponent {
       } as any
     );
   }
+  ngOnDestroy(): void {
+    if (this.getRegistrationSuccessSubscription) {
+      this.getRegistrationSuccessSubscription.unsubscribe();
+    }
+  }
 
   public submit(): void {
     if (this.registerForm.invalid) {
@@ -86,19 +95,22 @@ export class RegisterBottomSheetComponent {
     this.store.dispatch(
       AuthenticationActions.register(this.registerForm.value)
     );
-    this.store.select(getRegistrationSuccess).subscribe({
-      next: (success) => {
-        if (success) {
-          this.loading = false;
-          this.registerForm.enable();
-          this._bottomSheetRef.dismiss();
-          this.layoutService.openSnackBar(
-            'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
-            'Close'
-          );
-        }
-      },
-    });
+    this.getRegistrationSuccessSubscription = this.store
+      .select(getRegistrationSuccess)
+      .subscribe({
+        next: (success) => {
+          if (success) {
+            this.loading = false;
+            this.registerForm.enable();
+            this._bottomSheetRef.dismiss();
+            this.layoutService.showMessage(
+              'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
+              'Close'
+            );
+            this.router.navigate(['/']);
+          }
+        },
+      });
   }
 
   public openLoginBottomSheet(): void {

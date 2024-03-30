@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import {
+  MAT_BOTTOM_SHEET_DATA,
   MatBottomSheet,
   MatBottomSheetModule,
   MatBottomSheetRef,
@@ -45,16 +46,25 @@ export class LoginBottomSheetComponent implements OnDestroy {
     private _bottomSheetRef: MatBottomSheetRef<LoginBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet,
     private _store: Store<any>,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_BOTTOM_SHEET_DATA)
+    public data: { email?: string }
   ) {
     this.loginForm = new UntypedFormGroup({
       email: new UntypedFormControl(
-        { value: 'kevokeeffe@gmail.com', disabled: false },
+        {
+          value: this.data?.email ? this.data?.email : 'kevokeeffe@gmail.com',
+          disabled: false,
+        },
         [Validators.email, Validators.required]
       ),
-      password: new UntypedFormControl({ value: '123456', disabled: false }, [
-        Validators.required,
-      ]),
+      password: new UntypedFormControl(
+        {
+          value: '123456',
+          disabled: false,
+        },
+        [Validators.required]
+      ),
     });
   }
 

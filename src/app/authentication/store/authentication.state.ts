@@ -1,3 +1,5 @@
+import { ServiceResponseModel } from '../../models/service-response.model';
+
 export interface AuthenticationState {
   isAuthenticated: boolean;
   authenticationSuccess: boolean;
@@ -10,6 +12,9 @@ export interface AuthenticationState {
   weatherForcastSuccess: boolean;
   weatherForcastMessage: string | null;
   weatherForcastData: any | null;
+  verifyEmailResponse: ServiceResponseModel<string> | null;
+  resetPasswordResponse: ServiceResponseModel<string> | null;
+  forgotPasswordResponse: ServiceResponseModel<string> | null;
 }
 
 export const initialAuthenticationState: AuthenticationState = {
@@ -24,4 +29,7 @@ export const initialAuthenticationState: AuthenticationState = {
   weatherForcastSuccess: false,
   weatherForcastMessage: null,
   weatherForcastData: null,
+  verifyEmailResponse: null,
+  resetPasswordResponse: null,
+  forgotPasswordResponse: null,
 };
