@@ -3,6 +3,7 @@ import { AccountResponseModel } from '../../accounts/models/account-response.mod
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AuthenticateResponseModel } from '../models/authenticate-response.model';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
+import { RegisterRequestModel } from '../models/register-request.model';
 
 export const AuthenticationActions = createActionGroup({
   source: 'Authentication',
@@ -12,7 +13,7 @@ export const AuthenticationActions = createActionGroup({
       payload: ServiceResponseModel<AuthenticateResponseModel>;
     }>(),
     authenticationFailed: props<{ error: any }>(),
-    register: props<{ email: string; password: string; fullName: string }>(),
+    register: props<{ model: RegisterRequestModel }>(),
     registerSuccess: props<{
       payload: ServiceResponseModel<AccountResponseModel>;
     }>(),

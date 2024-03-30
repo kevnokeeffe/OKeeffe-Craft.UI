@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs';
 import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 import { ProgressSpinnerComponent } from '../../layout/progress-spinner/progress-spinner.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -43,7 +44,8 @@ export class LoginBottomSheetComponent implements OnDestroy {
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<LoginBottomSheetComponent>,
     private _bottomSheet: MatBottomSheet,
-    private _store: Store<any>
+    private _store: Store<any>,
+    private router: Router
   ) {
     this.loginForm = new UntypedFormGroup({
       email: new UntypedFormControl(
@@ -85,6 +87,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
           this._bottomSheetRef.dismiss();
           this.loading = false;
           this.loginForm.enable();
+          this.router.navigate(['/dashboard']);
         }
       });
   }

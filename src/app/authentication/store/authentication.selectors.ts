@@ -20,3 +20,24 @@ export const getWeatherForecastSuccess = createSelector(
   (state) =>
     state && state.weatherForcastSuccess ? state.weatherForcastSuccess : false
 );
+
+export const getRegistrationSuccess = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.registrationSuccess ? state.registrationSuccess : false
+);
+
+export const getAuthenticationData = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.authenticationData ? state.authenticationData : null
+);
+
+export const getRegistrationData = createSelector(
+  getAuthenticationState,
+  (state) => (state && state.registrationData ? state.registrationData : null)
+);
+
+export const getError = createSelector(getAuthenticationState, (state) =>
+  state && state.error ? state.error : null
+);

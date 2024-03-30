@@ -25,6 +25,25 @@ export class AuthenticationEffects {
     )
   );
 
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.register.type),
+      exhaustMap((model) =>
+        this.authenticationService.register(model).pipe(
+          map((response) => ({
+            type: AuthenticationActions.registerSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.registerFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
   refreshToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthenticationActions.refreshToken.type),

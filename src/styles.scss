@@ -105,6 +105,10 @@ body {
     transform: translateY(0);
   }
 }
+.observe {
+  opacity: 0;
+  transition: opacity 1s;
+}
 
 .fade-in {
   animation: fadeIn 1s forwards;

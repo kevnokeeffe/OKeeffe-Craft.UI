@@ -10,6 +10,9 @@ import { AuthenticateResponseModel } from '../models/authenticate-response.model
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 import { AuthUtils } from '../auth-utils';
 import { AuthenticationActions } from './authentication.actions';
+import { Router } from '@angular/router';
+import { RegisterRequestModel } from '../models/register-request.model';
+import { AccountResponseModel } from '../../accounts/models/account-response.model';
 
 export class AuthenticationDataService {
   authenticationEndpoints: AuthenticationEndpointsModel | undefined;
@@ -17,7 +20,11 @@ export class AuthenticationDataService {
   private userSubject: BehaviorSubject<any | null> | undefined;
   public user: Observable<any | null>;
   public destroy$ = new Subject<void>();
-  constructor(protected api: ApiClient, protected store: Store<any>) {
+  constructor(
+    protected api: ApiClient,
+    protected store: Store<any>,
+    protected route: Router
+  ) {
     this.userSubject = new BehaviorSubject<any | null>(null);
     this.user = this.userSubject.asObservable();
     this.store
@@ -57,13 +64,21 @@ export class AuthenticationDataService {
               this.startRefreshTokenTimer();
             }
           }
+          this.route.navigate(['/']);
           return response;
         })
       );
   }
 
-  register(): Observable<any> {
-    return this.api.post<any>(this.authenticationEndpoints?.register ?? '', {});
+  register(model: RegisterRequestModel): Observable<any> {
+    const registerEndpoint = this.authenticationEndpoints?.register;
+    if (!registerEndpoint) {
+      throw new Error('Register endpoint is undefined.');
+    }
+    return this.api.post<ServiceResponseModel<AccountResponseModel>>(
+      registerEndpoint,
+      model
+    );
   }
 
   getWeatherForcast(): Observable<any> {

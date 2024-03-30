@@ -17,6 +17,10 @@ import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 import { SlideToggleComponent } from '../../layout/slide-toggle/slide-toggle.component';
 import { NgStyle } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AuthenticationActions } from '../store/authentication.actions';
+import { getRegistrationSuccess } from '../store/authentication.selectors';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-register-bottom-sheet',
@@ -38,7 +42,9 @@ export class RegisterBottomSheetComponent {
   loading: boolean = false;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<RegisterBottomSheetComponent>,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private store: Store<any>,
+    private layoutService: LayoutService
   ) {
     this.registerForm = new UntypedFormGroup(
       {
@@ -77,7 +83,22 @@ export class RegisterBottomSheetComponent {
     }
     this.loading = true;
     this.registerForm.disable();
-    console.log(this.registerForm.value);
+    this.store.dispatch(
+      AuthenticationActions.register(this.registerForm.value)
+    );
+    this.store.select(getRegistrationSuccess).subscribe({
+      next: (success) => {
+        if (success) {
+          this.loading = false;
+          this.registerForm.enable();
+          this._bottomSheetRef.dismiss();
+          this.layoutService.openSnackBar(
+            'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
+            'Close'
+          );
+        }
+      },
+    });
   }
 
   public openLoginBottomSheet(): void {
