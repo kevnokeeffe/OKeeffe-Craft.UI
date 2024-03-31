@@ -8,10 +8,8 @@ export const authenticationReducer = createReducer(
   on(AuthenticationActions.authenticateSuccess, (state, { payload }) => {
     return {
       ...state,
-      authenticationSuccess: payload.success,
       isAuthenticated: payload.success,
-      authenticationMessage: payload.message,
-      authenticationData: payload.data,
+      authenticationResponse: payload,
     };
   }),
   on(AuthenticationActions.authenticationFailed, (state, { error }) => ({

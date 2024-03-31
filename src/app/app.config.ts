@@ -21,7 +21,7 @@ import { ApiClient } from './utilities/api-client';
 import { authenticationReducer } from './authentication/store/authentication.reducer';
 import { AuthenticationEffects } from './authentication/store/authentication.effects';
 import { tokenInterceptor } from './utilities/token-interceptor';
-import { errorInterceptorProvider } from './utilities/error-interceptor';
+import { errorInterceptor } from './utilities/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,11 +33,10 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects(ConfigurationEffects, AuthenticationEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideHttpClient(withInterceptors([tokenInterceptor, errorInterceptor])),
     {
       provide: ApiClient,
       useClass: ApiClient,
     },
-    errorInterceptorProvider,
   ],
 };

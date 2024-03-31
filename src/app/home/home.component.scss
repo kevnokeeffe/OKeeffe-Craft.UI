@@ -101,12 +101,15 @@
       .logo {
         @media screen and (min-width: 1600px) {
           max-width: 600px;
+          transition: all 0.3s ease;
         }
         @media screen and (max-width: 1600px) and (min-width: 800px) {
           max-width: 300px;
+          transition: all 0.3s ease;
         }
         @media screen and (max-width: 800px) {
           max-width: 300px;
+          transition: all 0.3s ease;
         }
       }
     }

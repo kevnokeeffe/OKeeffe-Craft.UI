@@ -16,11 +16,7 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import {
-  getAuthError,
-  getWeatherForecastSuccess,
-} from './authentication/store/authentication.selectors';
-import { LayoutService } from './layout/layout.service';
+import { getWeatherForecastSuccess } from './authentication/store/authentication.selectors';
 
 @Component({
   selector: 'app-root',
@@ -35,11 +31,9 @@ export class AppComponent implements OnDestroy {
   private getAuthErrorSubscription: Subscription | undefined;
   constructor(
     private configurationService: ConfigurationService,
-    private store: Store<any>,
-    private layoutService: LayoutService
+    private store: Store<any>
   ) {
     this.loadConfigurationActions();
-    this.errorListener();
   }
 
   private loadConfigurationActions(): void {
@@ -61,13 +55,13 @@ export class AppComponent implements OnDestroy {
 
     // Create an observable that completes after 10 minutes
     const stopAfterTenMinutes$ = timer(tenMinutes);
-
+    let intervalCount = 3000;
     this.getWeatherForecastSuccessSubscription = this.store
       .select(getWeatherForecastSuccess)
       .pipe(
         switchMap((success) => {
           if (!success) {
-            return interval(1000).pipe(
+            return interval(intervalCount).pipe(
               tap(() =>
                 this.store.dispatch(AuthenticationActions.weatherForcast())
               ),
@@ -84,17 +78,6 @@ export class AppComponent implements OnDestroy {
         })
       )
       .subscribe();
-  }
-
-  errorListener(): void {
-    this.getAuthErrorSubscription = this.store
-      .select(getAuthError)
-      .pipe(filter((error) => error))
-      .subscribe({
-        next: (error) => {
-          this.layoutService.showErrorMessage(error.message, 'Close');
-        },
-      });
   }
 
   ngOnDestroy(): void {

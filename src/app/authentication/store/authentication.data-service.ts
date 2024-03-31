@@ -60,7 +60,7 @@ export class AuthenticationDataService {
         map((response) => {
           if (this.userSubject) {
             this.userSubject.next(response.data);
-            if (response.data.refreshToken) {
+            if (response.data?.refreshToken) {
               AuthUtils.saveRefreshToken(response.data.refreshToken);
             }
             if (response.data) {
@@ -85,7 +85,6 @@ export class AuthenticationDataService {
 
   verifyEmail(model: any): Observable<ServiceResponseModel<string>> {
     const verifyEmailEndpoint = this.authenticationEndpoints?.verifyEmail;
-    console.log(verifyEmailEndpoint);
     if (!verifyEmailEndpoint) {
       throw new Error('Verify email endpoint is undefined.');
     }

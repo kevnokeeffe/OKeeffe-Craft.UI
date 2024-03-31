@@ -84,7 +84,6 @@ export class SelectionListComponent implements OnDestroy {
   }
 
   public getWeatherForecast(): void {
-    console.log('Weather');
     if (this.isApiConnected) {
       this.store.dispatch(AuthenticationActions.secureWeatherForcast());
     }

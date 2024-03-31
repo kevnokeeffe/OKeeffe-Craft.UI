@@ -127,3 +127,8 @@ body {
   top: 0;
   left: 0;
 }
+
+.error-snackbar {
+  background-color: var(--warn-color);
+  background: #6c757d;
+}

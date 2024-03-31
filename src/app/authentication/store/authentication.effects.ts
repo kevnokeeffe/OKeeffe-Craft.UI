@@ -15,9 +15,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.authenticateSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.authenticationFailed.type,
+              error,
             })
           )
         )
@@ -34,9 +35,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.registerSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.registerFailed.type,
+              error,
             })
           )
         )
@@ -53,9 +55,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.verifyEmailSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.verifyEmailFailed.type,
+              error,
             })
           )
         )
@@ -71,9 +74,10 @@ export class AuthenticationEffects {
           map(() => ({
             type: AuthenticationActions.refreshTokenSuccess.type,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.refreshTokenFailed.type,
+              error,
             })
           )
         )
@@ -90,9 +94,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.resetPasswordSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.resetPasswordFailed.type,
+              error,
             })
           )
         )
@@ -109,9 +114,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.secureWeatherForcastSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.secureWeatherForcastFailed.type,
+              error,
             })
           )
         )
@@ -128,9 +134,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.forgotPasswordSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.forgotPasswordFailed.type,
+              error,
             })
           )
         )
@@ -161,9 +168,10 @@ export class AuthenticationEffects {
             type: AuthenticationActions.weatherForcastSuccess.type,
             payload: response,
           })),
-          catchError(() =>
+          catchError((error) =>
             of({
               type: AuthenticationActions.weatherForcastFailed.type,
+              error,
             })
           )
         )

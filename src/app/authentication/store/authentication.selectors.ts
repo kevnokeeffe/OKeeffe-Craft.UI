@@ -4,10 +4,10 @@ import { AuthenticationState } from './authentication.state';
 export const getAuthenticationState =
   createFeatureSelector<AuthenticationState>('authentication');
 
-export const getAuthenticationSuccess = createSelector(
+export const getAuthenticationResponse = createSelector(
   getAuthenticationState,
   (state) =>
-    state && state.authenticationSuccess ? state.authenticationSuccess : false
+    state && state.authenticationResponse ? state.authenticationResponse : false
 );
 
 export const getIsAuthenticated = createSelector(
@@ -25,12 +25,6 @@ export const getRegistrationSuccess = createSelector(
   getAuthenticationState,
   (state) =>
     state && state.registrationSuccess ? state.registrationSuccess : false
-);
-
-export const getAuthenticationData = createSelector(
-  getAuthenticationState,
-  (state) =>
-    state && state.authenticationData ? state.authenticationData : null
 );
 
 export const getRegistrationData = createSelector(

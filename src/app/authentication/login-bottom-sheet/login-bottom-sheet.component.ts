@@ -18,12 +18,12 @@ import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sh
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
-import { getAuthenticationSuccess } from '../store/authentication.selectors';
+import { getAuthenticationResponse } from '../store/authentication.selectors';
 import { Subscription } from 'rxjs';
 import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
-import { ProgressSpinnerComponent } from '../../layout/progress-spinner/progress-spinner.component';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -47,6 +47,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
     private _bottomSheet: MatBottomSheet,
     private _store: Store<any>,
     private router: Router,
+    private layoutService: LayoutService,
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: { email?: string }
   ) {
@@ -90,15 +91,27 @@ export class LoginBottomSheetComponent implements OnDestroy {
     };
     this._store.dispatch(AuthenticationActions.authenticate({ authenticate }));
     this.loginSubscription = this._store
-      .select(getAuthenticationSuccess)
+      .select(getAuthenticationResponse)
       .pipe()
-      .subscribe((success) => {
-        if (success) {
-          this._bottomSheetRef.dismiss();
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.loading = false;
+            this.loginForm.enable();
+            if (response.success) {
+              this._bottomSheetRef.dismiss();
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.layoutService.showErrorMessage(response.message);
+              this._bottomSheetRef.dismiss();
+            }
+          }
+        },
+        error: (error) => {
           this.loading = false;
+          this.layoutService.showErrorMessage(error.message);
           this.loginForm.enable();
-          this.router.navigate(['/dashboard']);
-        }
+        },
       });
   }
 

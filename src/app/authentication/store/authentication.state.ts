@@ -1,11 +1,10 @@
 import { ServiceResponseModel } from '../../models/service-response.model';
+import { AuthenticateResponseModel } from '../models/authenticate-response.model';
 
 export interface AuthenticationState {
   isAuthenticated: boolean;
-  authenticationSuccess: boolean;
+  authenticationResponse: ServiceResponseModel<AuthenticateResponseModel> | null;
   error: any | null;
-  authenticationMessage: string | null;
-  authenticationData: any | null;
   registrationSuccess: boolean;
   registrationMessage: string | null;
   registrationData: any | null;
@@ -20,10 +19,8 @@ export interface AuthenticationState {
 
 export const initialAuthenticationState: AuthenticationState = {
   isAuthenticated: false,
-  authenticationSuccess: false,
-  authenticationMessage: null,
+  authenticationResponse: null,
   error: null,
-  authenticationData: null,
   registrationSuccess: false,
   registrationMessage: null,
   registrationData: null,

@@ -1,43 +1,31 @@
 import {
-  HttpInterceptor,
   HttpRequest,
-  HttpHandler,
   HttpEvent,
-  HTTP_INTERCEPTORS,
+  HttpHandlerFn,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Injectable, Provider } from '@angular/core';
+import { inject } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { AuthenticationService } from '../authentication/store/authentication.service';
 import { LayoutService } from '../layout/layout.service';
 
-@Injectable()
-export class ErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private authService: AuthenticationService,
-    private layoutService: LayoutService
-  ) {}
-
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    console.log('ErrorInterceptor');
-    return next.handle(req).pipe(
-      catchError((err) => {
-        if ([401, 403].includes(err.status) && this.authService.userValue) {
-          // auto logout if 401 or 403 response returned from api
-          this.authService.logout();
-        }
-
-        const error = (err && err.error && err.error.message) || err.statusText;
-        this.layoutService.showErrorMessage(err.error.message);
-        return throwError(() => error);
-      })
-    );
-  }
+export function errorInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> {
+  const layoutService = inject(LayoutService);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // Handle the error here
+      if (
+        error.status === 401 ||
+        error.status === 400 ||
+        error.status === 403 ||
+        error.status === 404 ||
+        error.status === 500
+      ) {
+        layoutService.showErrorMessage('Error: ' + error.error);
+      }
+      return throwError(() => error.message);
+    })
+  );
 }
-export const errorInterceptorProvider: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: ErrorInterceptor,
-  multi: true,
-};

@@ -1,5 +1,5 @@
 export interface AuthenticateResponseModel {
-  id: number;
+  id: string;
   fullName: string;
   email: string;
   role: string;
