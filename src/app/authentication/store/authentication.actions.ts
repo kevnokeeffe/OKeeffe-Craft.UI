@@ -40,6 +40,11 @@ export const AuthenticationActions = createActionGroup({
       payload: ServiceResponseModel<string>;
     }>(),
     weatherForcastFailed: props<{ error: any }>(),
+    secureWeatherForcast: emptyProps(),
+    secureWeatherForcastSuccess: props<{
+      payload: ServiceResponseModel<any>;
+    }>(),
+    secureWeatherForcastFailed: props<{ error: any }>(),
     clearErrors: emptyProps(),
   },
 });

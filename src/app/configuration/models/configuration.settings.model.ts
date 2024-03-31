@@ -32,4 +32,5 @@ export interface AuthenticationEndpointsModel {
 
 export interface WeatherForcastEndpointsModel {
   getWeatherForcast: string;
+  getSecureWeatehrForcast: string;
 }

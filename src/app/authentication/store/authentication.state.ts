@@ -15,6 +15,7 @@ export interface AuthenticationState {
   verifyEmailResponse: ServiceResponseModel<string> | null;
   resetPasswordResponse: ServiceResponseModel<string> | null;
   forgotPasswordResponse: ServiceResponseModel<string> | null;
+  secureWeatherForcastResponse: ServiceResponseModel<any> | null;
 }
 
 export const initialAuthenticationState: AuthenticationState = {
@@ -32,4 +33,5 @@ export const initialAuthenticationState: AuthenticationState = {
   verifyEmailResponse: null,
   resetPasswordResponse: null,
   forgotPasswordResponse: null,
+  secureWeatherForcastResponse: null,
 };

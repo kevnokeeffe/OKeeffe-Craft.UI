@@ -100,6 +100,25 @@ export class AuthenticationEffects {
     )
   );
 
+  secureWeatherForcast$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.secureWeatherForcast.type),
+      exhaustMap(() =>
+        this.authenticationService.secureWeatherForcast().pipe(
+          map((response) => ({
+            type: AuthenticationActions.secureWeatherForcastSuccess.type,
+            payload: response,
+          })),
+          catchError(() =>
+            of({
+              type: AuthenticationActions.secureWeatherForcastFailed.type,
+            })
+          )
+        )
+      )
+    )
+  );
+
   forgotPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthenticationActions.forgotPassword.type),

@@ -59,3 +59,11 @@ export const getForgotPasswordResponse = createSelector(
   (state) =>
     state && state.forgotPasswordResponse ? state.forgotPasswordResponse : null
 );
+
+export const getSecureWeatherForecastResponse = createSelector(
+  getAuthenticationState,
+  (state) =>
+    state && state.secureWeatherForcastResponse
+      ? state.secureWeatherForcastResponse
+      : null
+);

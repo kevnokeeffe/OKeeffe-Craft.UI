@@ -100,5 +100,20 @@ export const authenticationReducer = createReducer(
   on(AuthenticationActions.clearErrors, (state) => ({
     ...state,
     error: null,
+  })),
+  on(AuthenticationActions.secureWeatherForcast, (state) => state),
+  on(
+    AuthenticationActions.secureWeatherForcastSuccess,
+    (state, { payload }) => {
+      return {
+        ...state,
+        secureWeatherForcastResponse: payload,
+      };
+    }
+  ),
+  on(AuthenticationActions.secureWeatherForcastFailed, (state, { error }) => ({
+    ...state,
+    secureWeatherForcastResponse: null,
+    error,
   }))
 );

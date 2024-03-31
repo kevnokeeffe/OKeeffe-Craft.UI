@@ -83,6 +83,13 @@ export class SelectionListComponent implements OnDestroy {
     else return;
   }
 
+  public getWeatherForecast(): void {
+    console.log('Weather');
+    if (this.isApiConnected) {
+      this.store.dispatch(AuthenticationActions.secureWeatherForcast());
+    }
+  }
+
   public getTooltipText(
     text?: string,
     isAuthenticated?: boolean | null

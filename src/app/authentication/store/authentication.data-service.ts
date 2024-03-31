@@ -1,9 +1,12 @@
 import { Store } from '@ngrx/store';
 import { ApiClient } from '../../utilities/api-client';
-import { AuthenticationEndpointsModel } from '../../configuration/models/configuration.settings.model';
+import {
+  AuthenticationEndpointsModel,
+  WeatherForcastEndpointsModel,
+} from '../../configuration/models/configuration.settings.model';
 import {
   getAuthenticationEndpoints,
-  getWeatherForcastEndpoint,
+  getWeatherForcastEndpoints,
 } from '../../configuration/store/configuration.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AuthenticateResponseModel } from '../models/authenticate-response.model';
@@ -13,13 +16,10 @@ import { AuthenticationActions } from './authentication.actions';
 import { Router } from '@angular/router';
 import { RegisterRequestModel } from '../models/register-request.model';
 import { AccountResponseModel } from '../../accounts/models/account-response.model';
-import { VerifyEmailModel } from '../models/verify-email.model';
-import { ResetPasswordRequestModel } from '../models/reset-password-request.model';
-import { ForgotPasswordModel } from '../models/forgot-password.model';
 
 export class AuthenticationDataService {
   authenticationEndpoints: AuthenticationEndpointsModel | undefined;
-  weatherForcastEndpoint: string | undefined;
+  weatherForcastEndpoints: WeatherForcastEndpointsModel | undefined;
   private userSubject: BehaviorSubject<any | null> | undefined;
   public user: Observable<any | null>;
   public destroy$ = new Subject<void>();
@@ -39,11 +39,11 @@ export class AuthenticationDataService {
         }
       });
     this.store
-      .select(getWeatherForcastEndpoint)
+      .select(getWeatherForcastEndpoints)
       .pipe(takeUntil(this.destroy$))
       .subscribe((endpoint) => {
         if (endpoint) {
-          this.weatherForcastEndpoint = endpoint;
+          this.weatherForcastEndpoints = endpoint;
         }
       });
   }
@@ -95,8 +95,16 @@ export class AuthenticationDataService {
     );
   }
 
+  secureWeatherForcast(): Observable<any> {
+    return this.api.get<any>(
+      this.weatherForcastEndpoints?.getSecureWeatehrForcast ?? ''
+    );
+  }
+
   getWeatherForcast(): Observable<any> {
-    return this.api.get<any>(this.weatherForcastEndpoint ?? '');
+    return this.api.get<any>(
+      this.weatherForcastEndpoints?.getWeatherForcast ?? ''
+    );
   }
 
   refreshToken(): Observable<any> {

@@ -23,10 +23,7 @@ export const getSignatureUrl = createSelector(getConfigurationState, (state) =>
   state && state.images ? state.images.signature : null
 );
 
-export const getWeatherForcastEndpoint = createSelector(
+export const getWeatherForcastEndpoints = createSelector(
   getConfigurationState,
-  (state) =>
-    state && state.api
-      ? state.api.endpoints.weatherForcast.getWeatherForcast
-      : null
+  (state) => (state && state.api ? state.api.endpoints.weatherForcast : null)
 );

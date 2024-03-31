@@ -14,7 +14,8 @@
         "revokeToken": "/Accounts/revoke-token"
       },
       "weatherForcast": {
-        "getWeatherForcast": "/WeatherForecast/WeatherForecast"
+        "getWeatherForcast": "/WeatherForecast/WeatherForecast",
+        "getSecureWeatehrForcast": "/WeatherForecast/SecureWeatherForecast"
       }
     }
   },
