@@ -1,7 +1,11 @@
 <div class="container">
   <mat-card class="card">
     <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
+      <div
+        mat-card-avatar
+        class="header-image"
+        oncontextmenu="return false;"
+      ></div>
       <mat-card-title>Email Verification</mat-card-title>
       <mat-card-subtitle>Verify Your Email Address</mat-card-subtitle>
     </mat-card-header>
@@ -11,18 +15,21 @@
         mat-card-image
         src="../../../assets/images/success.png"
         alt="Success Image"
+        oncontextmenu="return false;"
       />
       }@else if(verificationResponse?.success===false) {
       <img
         mat-card-image
         src="../../../assets/images/fail.png"
         alt="Fail Image"
+        oncontextmenu="return false;"
       />
       }@else {
       <img
         mat-card-image
         src="../../../assets/images/loading.png"
         alt="Loading Image"
+        oncontextmenu="return false;"
       />
       }
     </div>
