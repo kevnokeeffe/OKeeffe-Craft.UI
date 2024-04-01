@@ -21,7 +21,10 @@ export function errorInterceptor(
         error.status === 400 ||
         error.status === 403 ||
         error.status === 404 ||
-        error.status === 500
+        error.status === 500 ||
+        error.status === 502 ||
+        error.status === 503 ||
+        error.status === 504
       ) {
         layoutService.showErrorMessage('Error: ' + error.error);
       }

@@ -55,16 +55,6 @@
           robot_2</mat-icon
         ><span>AI Assistants</span></mat-list-item
       >
-      <!-- <mat-list-item
-        class="mat-list-item"
-        [disabled]="!isAuthenticated"
-        matTooltipPosition="right"
-        (click)="getWeatherForecast()"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
-        ><mat-icon matListItemIcon class="material-symbols-outlined">
-          rainy</mat-icon
-        ><span>Test Error Inteceptor</span></mat-list-item
-      > -->
     </mat-selection-list>
   </div>
   <div>
@@ -122,13 +112,26 @@
       ></mat-icon>
       <span>Github</span>
     </button>
+    <button
+      mat-menu-item
+      (click)="navigateToWebsite('swagger')"
+      matTooltipPosition="right"
+      [matTooltip]="
+        getTooltipText(
+          'Navigate to the Swagger API Page Linked to this Website.'
+        )
+      "
+    >
+      <mat-icon class="material-symbols-outlined">data_object</mat-icon
+      ><span>Swagger</span>
+    </button>
   </mat-menu>
 </ng-container>
 
 <mat-menu #gitHubDocumentation="matMenu">
   <button
     mat-menu-item
-    (click)="navigateToGithub('ui')"
+    (click)="navigateToWebsite('ui')"
     matTooltipPosition="right"
     [matTooltip]="
       getTooltipText('Explore the GitHub Repository for this Website\'s UI.')
@@ -139,7 +142,7 @@
   </button>
   <button
     mat-menu-item
-    (click)="navigateToGithub('api')"
+    (click)="navigateToWebsite('api')"
     matTooltipPosition="right"
     [matTooltip]="
       getTooltipText(

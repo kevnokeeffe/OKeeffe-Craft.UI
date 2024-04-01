@@ -15,7 +15,7 @@ import {
   getIsAuthenticated,
   getWeatherForecastSuccess,
 } from '../../../authentication/store/authentication.selectors';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 import { Utils } from '../../../utilities/utils';
@@ -75,18 +75,17 @@ export class SelectionListComponent implements OnDestroy {
     }
   }
 
-  public navigateToGithub(item: string = 'api' || 'ui'): void {
+  public navigateToWebsite(item: string = 'api' || 'ui' || 'swagger'): void {
     if (item === 'api')
       window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.Api', '_blank');
     if (item === 'ui')
       window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.UI', '_blank');
+    if (item === 'swagger')
+      window.open(
+        'https://okeeffecraftapi.azurewebsites.net/index.html',
+        '_blank'
+      );
     else return;
-  }
-
-  public getWeatherForecast(): void {
-    if (this.isApiConnected) {
-      this.store.dispatch(AuthenticationActions.secureWeatherForcast());
-    }
   }
 
   public getTooltipText(
