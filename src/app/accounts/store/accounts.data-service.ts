@@ -6,6 +6,8 @@ import { ApiClient } from '../../utilities/api-client';
 import { getAccountsEndpoints } from '../../configuration/store/configuration.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
+import { UpdateAccountModel } from '../models/update-account.model';
+import { Utils } from '../../utilities/utils';
 
 export class AccountsDataService {
   accountsEndpoints: AccountsEndpointsModel | undefined;
@@ -30,26 +32,43 @@ export class AccountsDataService {
       this.accountsEndpoints?.getAccounts ?? ''
     );
   }
+
   getAccount(id: string): Observable<any> {
     return this.api.get<ServiceResponseModel<AccountResponseModel>>(
-      this.accountsEndpoints?.getAccount ?? '' + id
+      Utils.InjectUrlParams(this.accountsEndpoints?.getAccount ?? '', {
+        id: id,
+      })
     );
   }
+
   createAccount(model: any): Observable<any> {
     return this.api.post<ServiceResponseModel<AccountResponseModel>>(
       this.accountsEndpoints?.createAccount ?? '',
       model
     );
   }
-  updateAccount(model: any): Observable<any> {
+
+  updateAccount(id: string, model: UpdateAccountModel): Observable<any> {
     return this.api.put<ServiceResponseModel<AccountResponseModel>>(
-      this.accountsEndpoints?.updateAccount ?? '',
+      Utils.InjectUrlParams(this.accountsEndpoints?.updateAccount ?? '', {
+        id: id,
+      }),
       model
     );
   }
+
   deleteAccount(id: string): Observable<any> {
     return this.api.delete<ServiceResponseModel<any>>(
-      this.accountsEndpoints?.deleteAccount ?? '' + id
+      Utils.InjectUrlParams(this.accountsEndpoints?.deleteAccount ?? '', {
+        id: id,
+      })
     );
+  }
+
+  confirmEnpoint(endpoint: string | undefined): boolean {
+    if (!endpoint) {
+      return false;
+    }
+    return true;
   }
 }

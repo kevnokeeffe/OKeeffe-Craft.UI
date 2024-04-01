@@ -10,6 +10,10 @@ export const getAuthenticationResponse = createSelector(
     state && state.authenticationResponse ? state.authenticationResponse : false
 );
 
+export const getAccountId = createSelector(getAuthenticationState, (state) =>
+  state && state.accountId ? state.accountId : null
+);
+
 export const getIsAuthenticated = createSelector(
   getAuthenticationState,
   (state) => (state && state.isAuthenticated ? state.isAuthenticated : false)

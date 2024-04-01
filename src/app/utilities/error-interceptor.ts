@@ -27,7 +27,7 @@ export function errorInterceptor(
         error.status === 503 ||
         error.status === 504
       ) {
-        layoutService.showErrorMessage('Error: ' + error.error);
+        layoutService.showErrorMessage('Error: ' + error.error.message);
       }
       return throwError(() => error.message);
     })

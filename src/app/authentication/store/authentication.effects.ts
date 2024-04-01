@@ -71,8 +71,9 @@ export class AuthenticationEffects {
       ofType(AuthenticationActions.refreshToken.type),
       exhaustMap(() =>
         this.authenticationService.refreshToken().pipe(
-          map(() => ({
+          map((response) => ({
             type: AuthenticationActions.refreshTokenSuccess.type,
+            payload: response,
           })),
           catchError((error) =>
             of({

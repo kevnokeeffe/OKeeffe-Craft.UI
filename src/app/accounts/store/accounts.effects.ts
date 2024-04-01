@@ -60,8 +60,8 @@ export class AccountsEffects {
   updateAccount$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AccountsActions.updateAccount),
-      switchMap(({ model }) =>
-        this.accountsService.updateAccount(model).pipe(
+      switchMap(({ id, model }) =>
+        this.accountsService.updateAccount(id, model).pipe(
           map((response) =>
             AccountsActions.updateAccountSuccess({ payload: response })
           ),

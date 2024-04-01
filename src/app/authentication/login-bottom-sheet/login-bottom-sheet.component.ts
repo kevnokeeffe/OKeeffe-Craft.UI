@@ -54,14 +54,14 @@ export class LoginBottomSheetComponent implements OnDestroy {
     this.loginForm = new UntypedFormGroup({
       email: new UntypedFormControl(
         {
-          value: this.data?.email ? this.data?.email : 'kevokeeffe@gmail.com',
+          value: this.data?.email ? this.data?.email : '',
           disabled: false,
         },
         [Validators.email, Validators.required]
       ),
       password: new UntypedFormControl(
         {
-          value: '123456',
+          value: '',
           disabled: false,
         },
         [Validators.required]

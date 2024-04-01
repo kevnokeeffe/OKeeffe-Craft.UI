@@ -22,7 +22,7 @@ export const AccountsActions = createActionGroup({
       payload: ServiceResponseModel<AccountResponseModel>;
     }>(),
     createAccountFailed: props<{ error: any }>(),
-    updateAccount: props<{ model: UpdateAccountModel }>(),
+    updateAccount: props<{ id: string; model: UpdateAccountModel }>(),
     updateAccountSuccess: props<{
       payload: ServiceResponseModel<AccountResponseModel>;
     }>(),

@@ -6,14 +6,79 @@
       oncontextmenu="return false;"
     />
     <div class="bottom-sheet-title">Account</div>
-    <div class="bottom-sheet-subtitle">No worries, we've got your back.</div>
+    <div class="bottom-sheet-subtitle">
+      Seamless Control: Edit Your Account Details with Ease.
+    </div>
   </div>
   <div class="bottom-sheet-content">
-    <form class="account-content-form"></form>
-    <div class="account-buttons">
-      <button mat-flat-button type="button" (click)="closeBottomSheet($event)">
-        Close
-      </button>
-    </div>
+    <form
+      class="account-content-form"
+      [formGroup]="accountForm"
+      (ngSubmit)="updateAccount($event)"
+    >
+      <app-form-field
+        [control]="accountForm.controls['fullName']"
+        [label]="'Name'"
+        [placeholder]="'Enter your name'"
+        [type]="'text'"
+        [errors]="{
+          minlength: 'Name must be at least 3 characters long',
+          maxlength: 'Name cannot be more than 50 characters long'
+        }"
+      ></app-form-field>
+      <app-form-field
+        [control]="accountForm.controls['email']"
+        [label]="'Email'"
+        [placeholder]="'Enter your email'"
+        [type]="'email'"
+        [errors]="{
+          email: 'Please enter a valid email address',
+          required: 'Email is required',
+          maxlength: 'Email cannot be more than 50 characters long',
+          minlength: 'Email must be at least 6 characters long'
+        }"
+      ></app-form-field>
+      <app-form-field
+        [control]="accountForm.controls['password']"
+        [label]="'New Password'"
+        [showPasswordVisibility]="true"
+        [placeholder]="'Enter new password'"
+        [type]="'password'"
+        [errors]="{
+          minlength: 'Password must be at least 6 characters long',
+          maxlength: 'Password cannot be more than 50 characters long'
+        }"
+      ></app-form-field>
+      <app-form-field
+        [control]="accountForm.controls['confirmPassword']"
+        [label]="'Confirm Password'"
+        [showPasswordVisibility]="true"
+        [placeholder]="'Confirm your new password'"
+        [type]="'text'"
+        [errors]="{
+          passwordMatch: 'Passwords must match'
+        }"
+      ></app-form-field>
+
+      <div class="account-buttons">
+        <button
+          [disabled]="accountForm.invalid || accountForm.pristine || loading"
+          class="submit_btn"
+          color="primary"
+          mat-raised-button
+          type="submit"
+        >
+          Update
+        </button>
+        @if(loading){<app-progress-bar></app-progress-bar>}
+        <button
+          mat-flat-button
+          type="button"
+          (click)="closeBottomSheet($event)"
+        >
+          Close
+        </button>
+      </div>
+    </form>
   </div>
 </div>

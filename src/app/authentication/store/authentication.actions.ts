@@ -23,7 +23,9 @@ export const AuthenticationActions = createActionGroup({
     registerFailed: props<{ error: any }>(),
     logout: props<{ authenticated: boolean }>(),
     refreshToken: emptyProps(),
-    refreshTokenSuccess: emptyProps(),
+    refreshTokenSuccess: props<{
+      payload: ServiceResponseModel<AuthenticateResponseModel>;
+    }>(),
     refreshTokenFailed: props<{ error: any }>(),
     verifyEmail: props<{ model: VerifyEmailModel }>(),
     verifyEmailSuccess: props<{ payload: ServiceResponseModel<string> }>(),
@@ -46,5 +48,8 @@ export const AuthenticationActions = createActionGroup({
     }>(),
     secureWeatherForcastFailed: props<{ error: any }>(),
     clearErrors: emptyProps(),
+    updateAuthenticationResponse: props<{
+      account: AccountResponseModel;
+    }>(),
   },
 });

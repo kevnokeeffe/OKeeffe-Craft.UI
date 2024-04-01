@@ -18,10 +18,10 @@
         "getSecureWeatehrForcast": "/WeatherForecast/SecureWeatherForecast"
       },
       "accounts": {
-        "getAccounts": "/Accounts/GetAccounts",
-        "getAccount": "/Accounts/GetAccount",
-        "updateAccount": "/Accounts/UpdateAccount",
-        "deleteAccount": "/Accounts/DeleteAccount"
+        "getAccounts": "/Accounts",
+        "getAccount": "/Accounts/{id}",
+        "updateAccount": "/Accounts/{id}",
+        "deleteAccount": "/Accounts/{id}"
       }
     }
   },

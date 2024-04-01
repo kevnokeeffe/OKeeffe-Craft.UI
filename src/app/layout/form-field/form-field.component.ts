@@ -39,11 +39,12 @@ export class FormFieldComponent {
   @Input() errors: any | undefined;
   @Input() errorMessage: string | undefined;
   @Input() hint: string | undefined;
-  @Input() appearance: MatFormFieldAppearance = 'fill';
+  @Input() appearance: MatFormFieldAppearance =
+    'outline' || 'fill' || 'standard';
   @Input() prefixIcon: string | undefined;
   @Input() suffixIcon: string | undefined;
   @Input() showPasswordVisibility: boolean = false;
-  @Input() autocomplete: boolean = false;
+  @Input() autocomplete: boolean = true;
 
   hide: boolean = true;
 

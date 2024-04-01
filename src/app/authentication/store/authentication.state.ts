@@ -2,6 +2,7 @@ import { ServiceResponseModel } from '../../models/service-response.model';
 import { AuthenticateResponseModel } from '../models/authenticate-response.model';
 
 export interface AuthenticationState {
+  accountId: string | null;
   isAuthenticated: boolean;
   authenticationResponse: ServiceResponseModel<AuthenticateResponseModel> | null;
   error: any | null;
@@ -18,6 +19,7 @@ export interface AuthenticationState {
 }
 
 export const initialAuthenticationState: AuthenticationState = {
+  accountId: null,
   isAuthenticated: false,
   authenticationResponse: null,
   error: null,

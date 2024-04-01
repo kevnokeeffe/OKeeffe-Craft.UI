@@ -108,6 +108,12 @@ export class AuthenticationDataService {
 
   refreshToken(): Observable<any> {
     const refreshToken = { token: AuthUtils.getRefreshToken() };
+    if (!refreshToken.token) {
+      return new Observable((observer) => {
+        observer.error('No refresh token found.');
+      });
+    }
+
     return this.api
       .post<any>(this.authenticationEndpoints?.refreshToken ?? '', refreshToken)
       .pipe(

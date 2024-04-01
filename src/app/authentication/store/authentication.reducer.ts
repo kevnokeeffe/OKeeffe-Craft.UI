@@ -10,6 +10,7 @@ export const authenticationReducer = createReducer(
       ...state,
       isAuthenticated: payload.success,
       authenticationResponse: payload,
+      accountId: payload.data.id,
     };
   }),
   on(AuthenticationActions.authenticationFailed, (state, { error }) => ({
@@ -36,7 +37,14 @@ export const authenticationReducer = createReducer(
     isAuthenticated: authenticated,
   })),
   on(AuthenticationActions.refreshToken, (state) => state),
-  on(AuthenticationActions.refreshTokenSuccess, (state) => state),
+  on(AuthenticationActions.refreshTokenSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      isAuthenticated: payload.success,
+      authenticationResponse: payload,
+      accountId: payload.data.id,
+    };
+  }),
   on(AuthenticationActions.refreshTokenFailed, (state, { error }) => ({
     ...state,
     error,
