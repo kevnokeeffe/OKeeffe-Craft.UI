@@ -81,10 +81,7 @@ export class SelectionListComponent implements OnDestroy {
     if (item === 'ui')
       window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.UI', '_blank');
     if (item === 'swagger')
-      window.open(
-        'https://okeeffecraftapi.azurewebsites.net/index.html',
-        '_blank'
-      );
+      window.open('https://api.kevokeeffe.ie/index.html', '_blank');
     else return;
   }
 
