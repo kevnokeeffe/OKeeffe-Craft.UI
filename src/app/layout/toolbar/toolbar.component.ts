@@ -11,6 +11,8 @@ import { getWeatherForecastSuccess } from '../../authentication/store/authentica
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FadeDirective } from '../../directives/fade.directive';
 import { GrowDirective } from '../../directives/grow.directive';
+import { FadeOutDirective } from '../../directives/fade-out.directive';
+import { MoveDirective } from '../../directives/move.directive';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -24,12 +26,15 @@ import { GrowDirective } from '../../directives/grow.directive';
     MatTooltipModule,
     FadeDirective,
     GrowDirective,
+    FadeOutDirective,
+    MoveDirective,
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
 })
 export class ToolbarComponent implements OnInit {
   @Input() drawer: MatDrawer | undefined;
+  @Input() isSmallScreen$: Observable<boolean> | undefined;
   weatherForcast$: Observable<boolean> | undefined;
 
   constructor(private store: Store) {}

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { EuRegAssistantComponent } from '../../../chat-gpt/eu-reg-assistant/eu-reg-assistant.component';
-import { MatDialog } from '@angular/material/dialog';
+import { PcpAssistantComponent } from '../../chat-gpt/pcp-assistant/pcp-assistant.component';
 
 @Component({
-  selector: 'app-assistant-eu-reg-card',
+  selector: 'app-assistant-pcp-card',
   standalone: true,
   imports: [
     MatCardModule,
@@ -15,12 +15,12 @@ import { MatDialog } from '@angular/material/dialog';
     MatButtonModule,
     MatProgressBarModule,
   ],
-  templateUrl: './assistant-eu-reg-card.component.html',
-  styleUrl: './assistant-eu-reg-card.component.scss',
+  templateUrl: './assistant-pcp-card.component.html',
+  styleUrl: './assistant-pcp-card.component.scss',
 })
-export class AssistantEuRegCardComponent {
+export class AssistantPcpCardComponent {
   constructor(private dialog: MatDialog) {}
   openAssistant() {
-    this.dialog.open(EuRegAssistantComponent);
+    this.dialog.open(PcpAssistantComponent);
   }
 }

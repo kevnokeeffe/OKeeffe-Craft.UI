@@ -1,6 +1,8 @@
 <mat-toolbar class="toolbar">
   <button
+    [appFadeOut]="drawer?.opened"
     mat-icon-button
+    [disabled]="drawer?.opened"
     (click)="toggleDrawer()"
     aria-label="Example icon-button with menu icon"
   >
@@ -8,11 +10,14 @@
   </button>
   <app-signature
     appFade
+    [appFadeOut]="drawer?.opened"
+    [disabled]="drawer?.opened"
     [ngStyle]="{ marginLeft: '1rem', marginTop: '.5rem' }"
     height="50px"
   ></app-signature>
   <span class="spacer"></span>
   <mat-icon
+    [appMove]="!(isSmallScreen$ | async) && drawer?.opened"
     [color]="(weatherForcast$ | async) ? 'primary' : 'warn'"
     class="material-symbols-outlined"
     matTooltipPosition="left"

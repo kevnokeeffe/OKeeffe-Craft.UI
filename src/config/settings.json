@@ -16,6 +16,12 @@
       "weatherForcast": {
         "getWeatherForcast": "/WeatherForecast/WeatherForecast",
         "getSecureWeatehrForcast": "/WeatherForecast/SecureWeatherForecast"
+      },
+      "accounts": {
+        "getAccounts": "/Accounts/GetAccounts",
+        "getAccount": "/Accounts/GetAccount",
+        "updateAccount": "/Accounts/UpdateAccount",
+        "deleteAccount": "/Accounts/DeleteAccount"
       }
     }
   },

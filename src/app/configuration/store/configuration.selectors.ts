@@ -19,6 +19,11 @@ export const getAuthenticationEndpoints = createSelector(
   (state) => (state && state.api ? state.api.endpoints.authentication : null)
 );
 
+export const getAccountsEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.accounts : null)
+);
+
 export const getSignatureUrl = createSelector(getConfigurationState, (state) =>
   state && state.images ? state.images.signature : null
 );

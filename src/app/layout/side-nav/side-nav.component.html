@@ -1,5 +1,11 @@
 <mat-drawer-container class="container" autosize [hasBackdrop]="false">
-  <mat-drawer #drawer class="sidenav" mode="over">
+  <mat-drawer
+    #drawer
+    class="sidenav"
+    mode="over"
+    [disableClose]="false"
+    [mode]="(isSmallScreen$ | async) ? 'over' : 'side'"
+  >
     <div class="sidenav-header">
       <button
         mat-icon-button
@@ -16,7 +22,10 @@
     <app-selection-list></app-selection-list>
   </mat-drawer>
   <div class="sidenav-content">
-    <app-toolbar [drawer]="drawer"></app-toolbar>
+    <app-toolbar
+      [isSmallScreen$]="isSmallScreen$"
+      [drawer]="drawer"
+    ></app-toolbar>
     <router-outlet />
   </div>
 </mat-drawer-container>

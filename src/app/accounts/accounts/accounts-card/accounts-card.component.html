@@ -1,0 +1,34 @@
+<mat-card class="card">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>Accounts</mat-card-title>
+    <mat-card-subtitle
+      >Empowering Users: Insights into Account Details</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <app-accounts-table></app-accounts-table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      class="btn"
+      mat-stroked-button
+      matTooltip="Create a new account"
+      matTooltipPosition="right"
+    >
+      <mat-icon color="accent" class="material-symbols-outlined"
+        >person_add</mat-icon
+      >Create Account
+    </button>
+    <button
+      disabled
+      mat-stroked-button
+      matTooltip="Export table into a .csv file"
+      matTooltipPosition="right"
+    >
+      <mat-icon color="accent" class="material-symbols-outlined"
+        >download</mat-icon
+      >Export Table
+    </button>
+  </mat-card-actions>
+</mat-card>

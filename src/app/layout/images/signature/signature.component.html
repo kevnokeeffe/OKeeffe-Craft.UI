@@ -1,9 +1,13 @@
 <div *ngIf="$signatureUrl | async as signature" oncontextmenu="return false;">
   <img
-    [ngStyle]="{ height: height, width: width }"
+    [ngStyle]="{
+      height: height,
+      width: width,
+      cursor: disabled ? 'default' : 'pointer'
+    }"
     class="signiture"
     [src]="signature"
-    routerLink="/"
+    [routerLink]="disabled ? null : '/'"
     aria-label="Signature image"
   />
 </div>

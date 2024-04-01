@@ -1,16 +1,16 @@
 <div class="container">
   <header class="header">
-    <div class="title">Welcome to the AI Assistants</div>
-    <div class="subtitle">
+    <div class="title" appFadeIn>Welcome to the AI Assistants</div>
+    <div class="subtitle" appFadeIn>
       Discover our AI-driven compliance assistants, leveraging the advanced
       capabilities of OpenAI's ChatGPT engine.
     </div>
   </header>
   <section class="content">
-    <div class="assistant_container">
-      <app-assistant-pcp-card class="card"></app-assistant-pcp-card>
+    <div class="assistant_container" appViewportAnimation>
+      <app-assistant-pcp-card></app-assistant-pcp-card>
       <div class="spacer"></div>
-      <app-assistant-eu-reg-card class="card"></app-assistant-eu-reg-card>
+      <app-assistant-eu-reg-card></app-assistant-eu-reg-card>
     </div>
   </section>
 </div>

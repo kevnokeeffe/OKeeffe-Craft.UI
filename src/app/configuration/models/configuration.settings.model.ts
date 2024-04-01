@@ -12,6 +12,7 @@ export interface ApiModel {
 
 export interface ApiEndpointModel {
   authentication: AuthenticationEndpointsModel;
+  accounts: AccountsEndpointsModel;
   weatherForcast: WeatherForcastEndpointsModel;
 }
 
@@ -28,6 +29,14 @@ export interface AuthenticationEndpointsModel {
   resendVerificationEmail: string;
   refreshToken: string;
   revokeToken: string;
+}
+
+export interface AccountsEndpointsModel {
+  getAccounts: string;
+  getAccount: string;
+  createAccount: string;
+  updateAccount: string;
+  deleteAccount: string;
 }
 
 export interface WeatherForcastEndpointsModel {

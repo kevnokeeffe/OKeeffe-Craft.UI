@@ -16,6 +16,7 @@ export class SignatureComponent {
   $signatureUrl: Observable<any> | undefined;
   @Input() height: string = '50px';
   @Input() width: string | undefined;
+  @Input() disabled: boolean | undefined = false;
 
   constructor(private store: Store) {
     this.getUrls();

@@ -1,11 +1,18 @@
 <div class="container">
   <header class="header">
-    <div class="title">Welcome to the Dashboard</div>
-    <div class="subtitle">
+    <div class="title" appFadeIn>Welcome to the Dashboard</div>
+    <div class="subtitle" appFadeIn>
       Insights at a Glance: Your Comprehensive Dashboard Solution
     </div>
   </header>
   <section class="content">
-    <div class="dashboard_container"></div>
+    <div class="dashboard_container">
+      <div class="dash_ctr_large" appViewportAnimation>
+        <app-accounts></app-accounts>
+      </div>
+      <div class="dash_ctr_small" appViewportAnimation>
+        <app-logs></app-logs>
+      </div>
+    </div>
   </section>
 </div>

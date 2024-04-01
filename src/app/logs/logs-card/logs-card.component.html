@@ -1,0 +1,24 @@
+<mat-card class="card">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>Logs</mat-card-title>
+    <mat-card-subtitle
+      >Insight into Operations: Exploring the Logs Repository</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <app-logs-tab-group></app-logs-tab-group>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      disabled
+      mat-stroked-button
+      matTooltip="Export table into a .csv file"
+      matTooltipPosition="right"
+    >
+      <mat-icon color="accent" class="material-symbols-outlined"
+        >download</mat-icon
+      >Export Table
+    </button>
+  </mat-card-actions>
+</mat-card>
