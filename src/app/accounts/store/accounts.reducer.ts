@@ -67,5 +67,6 @@ export const accountsReducer = createReducer(
   on(AccountsActions.clearErrors, (state) => ({
     ...state,
     error: null,
-  }))
+  })),
+  on(AccountsActions.clearAll, (state) => initialAccountsState)
 );

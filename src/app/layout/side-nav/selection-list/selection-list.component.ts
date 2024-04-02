@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
 import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 import { Utils } from '../../../utilities/utils';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SettingsBottomSheetComponent } from '../../../settings/settings-bottom-sheet/settings-bottom-sheet.component';
 
 @Component({
@@ -47,7 +47,11 @@ export class SelectionListComponent implements OnDestroy {
   isApiConnectedSubscription: Subscription | undefined;
   isAuthenticatedSubscription: Subscription | undefined;
 
-  constructor(private _bottomSheet: MatBottomSheet, private store: Store<any>) {
+  constructor(
+    private _bottomSheet: MatBottomSheet,
+    private store: Store<any>,
+    private router: Router
+  ) {
     this.isAuthenticatedSubscription = this.store
       .select(getIsAuthenticated)
       .pipe()
@@ -110,7 +114,7 @@ export class SelectionListComponent implements OnDestroy {
   }
 
   public logout() {
-    this.store.dispatch(AuthenticationActions.logout({ authenticated: false }));
+    this.router.navigate(['/logout']);
   }
 
   public openAccountBottomSheet() {

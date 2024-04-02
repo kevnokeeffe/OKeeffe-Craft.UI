@@ -32,9 +32,9 @@ export const authenticationReducer = createReducer(
     registrationSuccessful: false,
     error,
   })),
-  on(AuthenticationActions.logout, (state, { authenticated }) => ({
+  on(AuthenticationActions.logout, (state) => ({
     ...state,
-    isAuthenticated: authenticated,
+    isAuthenticated: false,
   })),
   on(AuthenticationActions.refreshToken, (state) => state),
   on(AuthenticationActions.refreshTokenSuccess, (state, { payload }) => {
@@ -121,5 +121,6 @@ export const authenticationReducer = createReducer(
     ...state,
     secureWeatherForcastResponse: null,
     error,
-  }))
+  })),
+  on(AuthenticationActions.clearAll, (state) => initialAuthenticationState)
 );

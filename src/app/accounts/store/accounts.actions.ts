@@ -31,5 +31,6 @@ export const AccountsActions = createActionGroup({
     deleteAccountSuccess: props<{ payload: ServiceResponseModel<string> }>(),
     deleteAccountFailed: props<{ error: any }>(),
     clearErrors: emptyProps(),
+    clearAll: emptyProps(),
   },
 });

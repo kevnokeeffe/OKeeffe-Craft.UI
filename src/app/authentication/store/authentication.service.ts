@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AuthenticationDataService } from './authentication.data-service';
 import { ApiClient } from '../../utilities/api-client';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +12,9 @@ export class AuthenticationService
 {
   constructor(
     protected override api: ApiClient,
-    protected override store: Store<any>,
-    protected override route: Router
+    protected override store: Store<any>
   ) {
-    super(api, store, route);
+    super(api, store);
   }
 
   ngOnDestroy(): void {

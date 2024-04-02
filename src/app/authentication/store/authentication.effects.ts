@@ -153,7 +153,6 @@ export class AuthenticationEffects {
         this.authenticationService.logout().pipe(
           map(() => ({
             type: AuthenticationActions.logout.type,
-            authenticated: false,
           }))
         )
       )

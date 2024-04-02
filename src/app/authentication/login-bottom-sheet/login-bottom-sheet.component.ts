@@ -99,11 +99,10 @@ export class LoginBottomSheetComponent implements OnDestroy {
             this.loading = false;
             this.loginForm.enable();
             if (response.success) {
-              this._bottomSheetRef.dismiss();
               this.router.navigate(['/dashboard']);
+              this._bottomSheetRef.dismiss();
             } else {
               this.layoutService.showErrorMessage(response.message);
-              this._bottomSheetRef.dismiss();
             }
           }
         },

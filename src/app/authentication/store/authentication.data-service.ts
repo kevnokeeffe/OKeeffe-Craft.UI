@@ -13,7 +13,6 @@ import { AuthenticateResponseModel } from '../models/authenticate-response.model
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 import { AuthUtils } from '../auth-utils';
 import { AuthenticationActions } from './authentication.actions';
-import { Router } from '@angular/router';
 import { RegisterRequestModel } from '../models/register-request.model';
 import { AccountResponseModel } from '../../accounts/models/account-response.model';
 
@@ -23,11 +22,7 @@ export class AuthenticationDataService {
   private userSubject: BehaviorSubject<any | null> | undefined;
   public user: Observable<any | null>;
   public destroy$ = new Subject<void>();
-  constructor(
-    protected api: ApiClient,
-    protected store: Store<any>,
-    protected route: Router
-  ) {
+  constructor(protected api: ApiClient, protected store: Store<any>) {
     this.userSubject = new BehaviorSubject<any | null>(null);
     this.user = this.userSubject.asObservable();
     this.store
@@ -165,7 +160,6 @@ export class AuthenticationDataService {
           if (this.userSubject) {
             this.userSubject.next(null);
           }
-          this.route.navigate(['/']);
           return res;
         })
       );
