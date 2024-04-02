@@ -116,7 +116,6 @@ export class AccountsTableComponent implements OnChanges, OnDestroy {
       .subscribe({
         next: (result) => {
           if (result) {
-            console.log('Delete account', id);
             this.store.dispatch(AccountsActions.deleteAccount({ id }));
             this.getAccountDeletedSubscription = this.store
               .select(getAccountDeleted)

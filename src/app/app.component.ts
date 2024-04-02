@@ -66,7 +66,6 @@ export class AppComponent implements OnDestroy {
           if (!success) {
             return interval(intervalCount).pipe(
               tap(() => {
-                console.log(intervalCount);
                 this.store.dispatch(AuthenticationActions.weatherForcast());
               }),
               takeUntil(stopAfterTenMinutes$),

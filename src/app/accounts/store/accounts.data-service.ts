@@ -45,7 +45,6 @@ export class AccountsDataService {
   createAccount(
     model: CreateAccountModel
   ): Observable<ServiceResponseModel<AccountResponseModel>> {
-    console.log(model);
     return this.api.post<ServiceResponseModel<AccountResponseModel>>(
       this.accountsEndpoints?.createAccount ?? '',
       model
