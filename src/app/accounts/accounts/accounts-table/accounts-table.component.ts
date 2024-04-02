@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Input,
   OnChanges,
@@ -42,7 +43,9 @@ import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/
   templateUrl: './accounts-table.component.html',
   styleUrl: './accounts-table.component.scss',
 })
-export class AccountsTableComponent implements OnChanges, OnDestroy {
+export class AccountsTableComponent
+  implements OnChanges, OnDestroy, AfterViewInit
+{
   displayedColumns: string[] = [
     'fullName',
     'email',
@@ -64,22 +67,25 @@ export class AccountsTableComponent implements OnChanges, OnDestroy {
   ) {
     this.dataSource = new MatTableDataSource(this.accounts ?? []);
   }
+
+  ngAfterViewInit(): void {
+    this.populateTable();
+  }
+
   ngOnDestroy(): void {
     this.getAccountDeletedSubscription?.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['accounts'] && changes['accounts'].currentValue) {
-      this.dataSource = new MatTableDataSource(
-        changes['accounts'].currentValue
-      );
-      if (this.paginator) {
-        this.dataSource.paginator = this.paginator;
-      }
-      if (this.sort) {
-        this.dataSource.sort = this.sort;
-      }
+      this.populateTable(changes['accounts'].currentValue);
     }
+  }
+
+  populateTable(accounts: AccountResponseModel[] = this.accounts ?? []) {
+    this.dataSource = new MatTableDataSource(accounts);
+    this.dataSource.paginator = this.paginator!;
+    this.dataSource.sort = this.sort!;
   }
 
   openEditDialog(id: string) {
