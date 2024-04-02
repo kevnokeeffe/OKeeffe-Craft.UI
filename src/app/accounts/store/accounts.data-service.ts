@@ -8,6 +8,7 @@ import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
 import { UpdateAccountModel } from '../models/update-account.model';
 import { Utils } from '../../utilities/utils';
+import { CreateAccountModel } from '../models/create-account.model';
 
 export class AccountsDataService {
   accountsEndpoints: AccountsEndpointsModel | undefined;
@@ -27,7 +28,7 @@ export class AccountsDataService {
       });
   }
 
-  getAccounts(): Observable<any> {
+  getAccounts(): Observable<ServiceResponseModel<Array<AccountResponseModel>>> {
     return this.api.get<ServiceResponseModel<Array<AccountResponseModel>>>(
       this.accountsEndpoints?.getAccounts ?? ''
     );
@@ -41,14 +42,20 @@ export class AccountsDataService {
     );
   }
 
-  createAccount(model: any): Observable<any> {
+  createAccount(
+    model: CreateAccountModel
+  ): Observable<ServiceResponseModel<AccountResponseModel>> {
+    console.log(model);
     return this.api.post<ServiceResponseModel<AccountResponseModel>>(
       this.accountsEndpoints?.createAccount ?? '',
       model
     );
   }
 
-  updateAccount(id: string, model: UpdateAccountModel): Observable<any> {
+  updateAccount(
+    id: string,
+    model: UpdateAccountModel
+  ): Observable<ServiceResponseModel<AccountResponseModel>> {
     return this.api.put<ServiceResponseModel<AccountResponseModel>>(
       Utils.InjectUrlParams(this.accountsEndpoints?.updateAccount ?? '', {
         id: id,
@@ -57,18 +64,11 @@ export class AccountsDataService {
     );
   }
 
-  deleteAccount(id: string): Observable<any> {
-    return this.api.delete<ServiceResponseModel<any>>(
+  deleteAccount(id: string): Observable<ServiceResponseModel<string>> {
+    return this.api.delete<ServiceResponseModel<string>>(
       Utils.InjectUrlParams(this.accountsEndpoints?.deleteAccount ?? '', {
         id: id,
       })
     );
-  }
-
-  confirmEnpoint(endpoint: string | undefined): boolean {
-    if (!endpoint) {
-      return false;
-    }
-    return true;
   }
 }

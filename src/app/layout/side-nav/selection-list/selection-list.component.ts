@@ -16,11 +16,10 @@ import {
   getWeatherForecastSuccess,
 } from '../../../authentication/store/authentication.selectors';
 import { Subscription } from 'rxjs';
-import { AuthenticationActions } from '../../../authentication/store/authentication.actions';
-import { AccountBottomSheetComponent } from '../../../accounts/account-bottom-sheet/account-bottom-sheet.component';
 import { Utils } from '../../../utilities/utils';
 import { Router, RouterModule } from '@angular/router';
 import { SettingsBottomSheetComponent } from '../../../settings/settings-bottom-sheet/settings-bottom-sheet.component';
+import { AccountBottomSheetComponent } from '../../../accounts/dialogs/account-bottom-sheet/account-bottom-sheet.component';
 
 @Component({
   selector: 'app-selection-list',
@@ -118,6 +117,13 @@ export class SelectionListComponent implements OnDestroy {
   }
 
   public openAccountBottomSheet() {
-    this._bottomSheet.open(AccountBottomSheetComponent);
+    this._bottomSheet.open(AccountBottomSheetComponent, {
+      data: {
+        id: null,
+        isCreate: false,
+        title: 'Account details',
+        subtitle: 'Edit your account details below.',
+      },
+    });
   }
 }

@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -7,8 +14,16 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { EditAccountDialogComponent } from '../edit-account-dialog/edit-account-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmationDialogComponent } from '../../../layout/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { AccountResponseModel } from '../../models/account-response.model';
+import { AccountsActions } from '../../store/accounts.actions';
+import { Store } from '@ngrx/store';
+import { getAccountDeleted } from '../../store/accounts.selectors';
+import { Observable, Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
 
 @Component({
   selector: 'app-accounts-table',
@@ -22,36 +37,99 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
+    AsyncPipe,
   ],
   templateUrl: './accounts-table.component.html',
   styleUrl: './accounts-table.component.scss',
 })
-export class AccountsTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
-
+export class AccountsTableComponent implements OnChanges, OnDestroy {
+  displayedColumns: string[] = [
+    'fullName',
+    'email',
+    'role',
+    'isVerified',
+    'actions',
+  ];
+  @Input() isAdmin$: Observable<boolean> | undefined;
+  dataSource: MatTableDataSource<AccountResponseModel>;
+  getAccountDeletedSubscription: Subscription | undefined;
+  @Input() accounts: AccountResponseModel[] | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  constructor(private dialog: MatDialog) {
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(
+    private dialog: MatDialog,
+    private bottomSheet: MatBottomSheet,
+    private store: Store<any>
+  ) {
+    this.dataSource = new MatTableDataSource(this.accounts ?? []);
+  }
+  ngOnDestroy(): void {
+    this.getAccountDeletedSubscription?.unsubscribe();
   }
 
-  ngAfterViewInit() {
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
-    if (this.sort) {
-      this.dataSource.sort = this.sort;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['accounts'] && changes['accounts'].currentValue) {
+      this.dataSource = new MatTableDataSource(
+        changes['accounts'].currentValue
+      );
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
+      if (this.sort) {
+        this.dataSource.sort = this.sort;
+      }
     }
   }
 
-  openEditDialog() {
-    this.dialog.open(EditAccountDialogComponent);
+  openEditDialog(id: string) {
+    this.bottomSheet
+      .open(AccountBottomSheetComponent, {
+        data: {
+          id: id,
+          isCreate: false,
+          title: 'Edit Account',
+          subtitle: 'Edit the account details below.',
+        },
+      })
+      .afterDismissed()
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.store.dispatch(AccountsActions.getAccounts());
+          }
+        },
+      });
+  }
+
+  deleteAccountDialog(id: string) {
+    this.dialog
+      .open(ConfirmationDialogComponent, {
+        data: {
+          id: id,
+          title: 'Delete Account',
+          message: 'Are you sure you want to delete this account?',
+          color: 'warn',
+        },
+      })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            console.log('Delete account', id);
+            this.store.dispatch(AccountsActions.deleteAccount({ id }));
+            this.getAccountDeletedSubscription = this.store
+              .select(getAccountDeleted)
+              .subscribe({
+                next: (deleted) => {
+                  if (deleted) {
+                    this.store.dispatch(AccountsActions.getAccounts());
+                  }
+                },
+              });
+          }
+        },
+      });
   }
 
   applyFilter(event: Event) {
@@ -63,59 +141,3 @@ export class AccountsTableComponent implements AfterViewInit {
     }
   }
 }
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-}
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];

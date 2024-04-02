@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AuthenticationState } from './authentication.state';
+import { UserRoles } from '../models/user-roles.enum';
 
 export const getAuthenticationState =
   createFeatureSelector<AuthenticationState>('authentication');
@@ -64,4 +65,10 @@ export const getSecureWeatherForecastResponse = createSelector(
     state && state.secureWeatherForcastResponse
       ? state.secureWeatherForcastResponse
       : null
+);
+
+export const getIsAdmin = createSelector(getAuthenticationState, (state) =>
+  state && state.authenticationResponse?.data.role
+    ? state.authenticationResponse.data.role === UserRoles.Admin
+    : false
 );

@@ -1,13 +1,13 @@
 <div class="bottom-sheet-container">
   <div class="bottom-sheet-header">
-    <img
+    <!-- <img
       class="logo-img"
       src="../../../assets/images/logo.png"
       oncontextmenu="return false;"
-    />
-    <div class="bottom-sheet-title">Account</div>
+    /> -->
+    <div class="bottom-sheet-title">{{ data.title }}</div>
     <div class="bottom-sheet-subtitle">
-      Seamless Control: Edit Your Account Details with Ease.
+      {{ data.subtitle }}
     </div>
   </div>
   <div class="bottom-sheet-content">
@@ -23,7 +23,8 @@
         [type]="'text'"
         [errors]="{
           minlength: 'Name must be at least 3 characters long',
-          maxlength: 'Name cannot be more than 50 characters long'
+          maxlength: 'Name cannot be more than 50 characters long',
+          required: 'Name is required'
         }"
       ></app-form-field>
       <app-form-field
@@ -46,7 +47,8 @@
         [type]="'password'"
         [errors]="{
           minlength: 'Password must be at least 6 characters long',
-          maxlength: 'Password cannot be more than 50 characters long'
+          maxlength: 'Password cannot be more than 50 characters long',
+          required: 'Password is required'
         }"
       ></app-form-field>
       <app-form-field
@@ -67,8 +69,11 @@
           color="primary"
           mat-raised-button
           type="submit"
+          (click)="
+            data.isCreate ? createAccount($event) : updateAccount($event)
+          "
         >
-          Update
+          {{ data.isCreate ? "Create" : "Update" }}
         </button>
         @if(loading){<app-progress-bar></app-progress-bar>}
         <button

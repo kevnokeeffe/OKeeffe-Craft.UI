@@ -21,7 +21,8 @@
         "getAccounts": "/Accounts",
         "getAccount": "/Accounts/{id}",
         "updateAccount": "/Accounts/{id}",
-        "deleteAccount": "/Accounts/{id}"
+        "deleteAccount": "/Accounts/{id}",
+        "createAccount": "/Accounts"
       }
     }
   },

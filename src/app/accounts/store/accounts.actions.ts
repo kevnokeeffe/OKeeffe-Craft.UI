@@ -32,5 +32,6 @@ export const AccountsActions = createActionGroup({
     deleteAccountFailed: props<{ error: any }>(),
     clearErrors: emptyProps(),
     clearAll: emptyProps(),
+    clearAccount: emptyProps(),
   },
 });

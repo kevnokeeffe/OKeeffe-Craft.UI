@@ -7,28 +7,29 @@
     >
   </mat-card-header>
   <mat-card-content>
-    <app-accounts-table></app-accounts-table>
+    <app-accounts-table
+      [isAdmin$]="isAdmin$"
+      [accounts]="accounts"
+    ></app-accounts-table>
   </mat-card-content>
   <mat-card-actions>
     <button
       class="btn"
+      color="accent"
+      [disabled]="!(isAdmin$ | async)"
       mat-stroked-button
       matTooltip="Create a new account"
       matTooltipPosition="right"
+      type="button"
+      (click)="createAccount()"
     >
-      <mat-icon color="accent" class="material-symbols-outlined"
-        >person_add</mat-icon
-      >Create Account
+      <mat-icon class="material-symbols-outlined">person_add</mat-icon>Create
+      Account
     </button>
-    <!-- <button
-      disabled
-      mat-stroked-button
-      matTooltip="Export table into a .csv file"
-      matTooltipPosition="right"
-    >
-      <mat-icon color="accent" class="material-symbols-outlined"
-        >download</mat-icon
-      >Export Table
-    </button> -->
   </mat-card-actions>
+  <mat-card-footer>
+    @if(loading){
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    }
+  </mat-card-footer>
 </mat-card>

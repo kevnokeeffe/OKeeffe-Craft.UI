@@ -57,7 +57,7 @@ export const accountsReducer = createReducer(
     return {
       ...state,
       account: null,
-      accountDeleted: false,
+      accountDeleted: payload.success,
     };
   }),
   on(AccountsActions.deleteAccountFailed, (state, { error }) => ({
@@ -68,5 +68,10 @@ export const accountsReducer = createReducer(
     ...state,
     error: null,
   })),
-  on(AccountsActions.clearAll, (state) => initialAccountsState)
+  on(AccountsActions.clearAll, (state) => initialAccountsState),
+  on(AccountsActions.clearAccount, (state) => ({
+    ...state,
+    account: null,
+    accountLoaded: false,
+  }))
 );

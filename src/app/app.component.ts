@@ -43,7 +43,6 @@ export class AppComponent implements OnDestroy {
       .subscribe({
         next: (loaded) => {
           if (loaded) {
-            this.store.dispatch(AuthenticationActions.refreshToken());
             this.getWeatherforcast();
           }
         },
@@ -51,20 +50,25 @@ export class AppComponent implements OnDestroy {
   }
 
   private getWeatherforcast(): void {
-    const tenMinutes = 600000; // 10 minutes in milliseconds
+    const tenMinutes = 300000; // 5 minutes in milliseconds
 
-    // Create an observable that completes after 10 minutes
+    // Create an observable that completes after 5 minutes
     const stopAfterTenMinutes$ = timer(tenMinutes);
     let intervalCount = 3000;
     this.getWeatherForecastSuccessSubscription = this.store
       .select(getWeatherForecastSuccess)
       .pipe(
+        tap((success) => {
+          if (success)
+            this.store.dispatch(AuthenticationActions.refreshToken());
+        }),
         switchMap((success) => {
           if (!success) {
             return interval(intervalCount).pipe(
-              tap(() =>
-                this.store.dispatch(AuthenticationActions.weatherForcast())
-              ),
+              tap(() => {
+                console.log(intervalCount);
+                this.store.dispatch(AuthenticationActions.weatherForcast());
+              }),
               takeUntil(stopAfterTenMinutes$),
               takeUntil(
                 this.store
