@@ -13,11 +13,19 @@ export interface ApiModel {
 export interface ApiEndpointModel {
   authentication: AuthenticationEndpointsModel;
   accounts: AccountsEndpointsModel;
+  logs: LogsEndpointsModel;
   weatherForcast: WeatherForcastEndpointsModel;
 }
 
 export interface ImagesModel {
   signature: string;
+}
+
+export interface LogsEndpointsModel {
+  getActivityLogs: string;
+  getActivityLog: string;
+  getErrorLogs: string;
+  getErrorLog: string;
 }
 
 export interface AuthenticationEndpointsModel {

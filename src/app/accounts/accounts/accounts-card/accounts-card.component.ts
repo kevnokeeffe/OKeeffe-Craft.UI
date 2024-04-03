@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AccountsTableComponent } from '../accounts-table/accounts-table.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 import { AccountResponseModel } from '../../models/account-response.model';
@@ -22,7 +21,6 @@ import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/
     MatButtonModule,
     AccountsTableComponent,
     MatIconModule,
-    MatTooltipModule,
     MatProgressBar,
     AsyncPipe,
   ],

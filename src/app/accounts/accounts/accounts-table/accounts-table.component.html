@@ -36,17 +36,13 @@
             color="accent"
             mat-icon-button
             (click)="openEditDialog(row.id)"
-            matTooltipPosition="left"
-            matTooltip="Edit account"
           >
             <mat-icon class="material-symbols-outlined">edit</mat-icon>
           </button>
           <button
             color="warn"
-            [disabled]="!(isAdmin$ | async)"
+            [disabled]="!(isAdmin$ | async) || (accountId$ | async) === row.id"
             mat-icon-button
-            matTooltipPosition="left"
-            matTooltip="Delete account"
             (click)="deleteAccountDialog(row.id)"
           >
             <mat-icon class="material-symbols-outlined">delete</mat-icon>

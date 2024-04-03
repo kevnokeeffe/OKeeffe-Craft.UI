@@ -15,7 +15,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmationDialogComponent } from '../../../layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccountResponseModel } from '../../models/account-response.model';
@@ -25,6 +24,7 @@ import { getAccountDeleted } from '../../store/accounts.selectors';
 import { Observable, Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
+import { getAccountId } from '../../../authentication/store/authentication.selectors';
 
 @Component({
   selector: 'app-accounts-table',
@@ -37,7 +37,6 @@ import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule,
     AsyncPipe,
   ],
   templateUrl: './accounts-table.component.html',
@@ -56,6 +55,7 @@ export class AccountsTableComponent
   @Input() isAdmin$: Observable<boolean> | undefined;
   dataSource: MatTableDataSource<AccountResponseModel>;
   getAccountDeletedSubscription: Subscription | undefined;
+  accountId$: Observable<string | null>;
   @Input() accounts: AccountResponseModel[] | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -66,6 +66,7 @@ export class AccountsTableComponent
     private store: Store<any>
   ) {
     this.dataSource = new MatTableDataSource(this.accounts ?? []);
+    this.accountId$ = this.store.select(getAccountId);
   }
 
   ngAfterViewInit(): void {

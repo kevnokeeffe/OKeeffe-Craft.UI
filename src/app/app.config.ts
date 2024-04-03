@@ -15,6 +15,8 @@ import { tokenInterceptor } from './utilities/token-interceptor';
 import { errorInterceptor } from './utilities/error-interceptor';
 import { AccountsEffects } from './accounts/store/accounts.effects';
 import { accountsReducer } from './accounts/store/accounts.reducer';
+import { logsReducer } from './logs/store/logs.reducer';
+import { LogsEffects } from './logs/store/logs.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,11 +26,13 @@ export const appConfig: ApplicationConfig = {
       configuration: configurationReducer,
       authentication: authenticationReducer,
       accounts: accountsReducer,
+      logs: logsReducer,
     }),
     provideEffects(
       ConfigurationEffects,
       AuthenticationEffects,
-      AccountsEffects
+      AccountsEffects,
+      LogsEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(withInterceptors([tokenInterceptor, errorInterceptor])),

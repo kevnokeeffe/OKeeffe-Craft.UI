@@ -23,6 +23,12 @@
         "updateAccount": "/Accounts/{id}",
         "deleteAccount": "/Accounts/{id}",
         "createAccount": "/Accounts"
+      },
+      "logs": {
+        "getActivityLogs": "/Logs/activity",
+        "getActivityLog": "/Logs/activity/{id}",
+        "getErrorLogs": "/Logs/error",
+        "getErrorLog": "/Logs/error/{id}"
       }
     }
   },
