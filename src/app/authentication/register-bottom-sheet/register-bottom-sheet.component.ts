@@ -52,23 +52,22 @@ export class RegisterBottomSheetComponent implements OnDestroy {
   ) {
     this.registerForm = new UntypedFormGroup(
       {
-        fullName: new UntypedFormControl(
-          { value: "Kevin O'Keeffe", disabled: false },
-          [Validators.required]
-        ),
+        fullName: new UntypedFormControl({ value: '', disabled: false }, [
+          Validators.required,
+        ]),
         email: new UntypedFormControl(
           {
-            value: this.getRandomSixDigitNumber() + '@test.com',
+            value: '',
             disabled: false,
           },
           [Validators.email, Validators.required]
         ),
-        password: new UntypedFormControl({ value: '123456', disabled: false }, [
+        password: new UntypedFormControl({ value: '', disabled: false }, [
           Validators.required,
           Validators.minLength(6),
         ]),
         confirmPassword: new UntypedFormControl(
-          { value: '123456', disabled: false },
+          { value: '', disabled: false },
           [Validators.required, Validators.minLength(6)]
         ),
         acceptTerms: new UntypedFormControl({ value: true, disabled: false }, [
