@@ -16,4 +16,10 @@ import { FooterComponent } from './footer/footer.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  isImageLoaded = false;
+
+  imageLoaded() {
+    this.isImageLoaded = true;
+  }
+}
