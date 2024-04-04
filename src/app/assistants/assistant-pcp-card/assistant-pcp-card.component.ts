@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PcpAssistantComponent } from '../../chat-gpt/pcp-assistant/pcp-assistant.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-assistant-pcp-card',
@@ -14,6 +15,7 @@ import { PcpAssistantComponent } from '../../chat-gpt/pcp-assistant/pcp-assistan
     MatDividerModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatIcon,
   ],
   templateUrl: './assistant-pcp-card.component.html',
   styleUrl: './assistant-pcp-card.component.scss',

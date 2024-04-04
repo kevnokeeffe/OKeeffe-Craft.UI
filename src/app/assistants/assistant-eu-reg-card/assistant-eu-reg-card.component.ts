@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { EuRegAssistantComponent } from '../../chat-gpt/eu-reg-assistant/eu-reg-assistant.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-assistant-eu-reg-card',
@@ -14,6 +15,7 @@ import { EuRegAssistantComponent } from '../../chat-gpt/eu-reg-assistant/eu-reg-
     MatDividerModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatIcon,
   ],
   templateUrl: './assistant-eu-reg-card.component.html',
   styleUrl: './assistant-eu-reg-card.component.scss',
