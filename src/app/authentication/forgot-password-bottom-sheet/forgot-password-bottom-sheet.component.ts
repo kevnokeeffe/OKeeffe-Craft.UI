@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormGroup,
@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './forgot-password-bottom-sheet.component.html',
   styleUrl: './forgot-password-bottom-sheet.component.scss',
 })
-export class ForgotPasswordBottomSheetComponent implements OnDestroy {
+export class ForgotPasswordBottomSheetComponent implements OnDestroy, OnInit {
   forgotPasswordForm: UntypedFormGroup;
   loading: boolean = false;
   getForgotPasswordResponseSubscription: Subscription | undefined;
@@ -50,6 +50,10 @@ export class ForgotPasswordBottomSheetComponent implements OnDestroy {
         [Validators.email, Validators.required]
       ),
     });
+  }
+
+  ngOnInit(): void {
+    this.getPasswordResetResponse();
   }
 
   ngOnDestroy(): void {
@@ -72,17 +76,7 @@ export class ForgotPasswordBottomSheetComponent implements OnDestroy {
     this._bottomSheet.open(LoginBottomSheetComponent);
   }
 
-  sendForgotPasswordEmail(): void {
-    if (this.forgotPasswordForm.invalid) {
-      return;
-    }
-    this.loading = true;
-    this.forgotPasswordForm.disable();
-    this.store.dispatch(
-      AuthenticationActions.forgotPassword({
-        model: { email: this.forgotPasswordForm.value.email },
-      })
-    );
+  getPasswordResetResponse(): void {
     this.getForgotPasswordResponseSubscription = this.store
       .select(getForgotPasswordResponse)
       .subscribe({
@@ -97,8 +91,21 @@ export class ForgotPasswordBottomSheetComponent implements OnDestroy {
         error: (error) => {
           this.loading = false;
           this.forgotPasswordForm.enable();
-          this.layoutService.showMessage('An error occurred');
+          this.layoutService.showErrorMessage(error.message);
         },
       });
+  }
+
+  sendForgotPasswordEmail(): void {
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.forgotPasswordForm.disable();
+    this.store.dispatch(
+      AuthenticationActions.forgotPassword({
+        model: { email: this.forgotPasswordForm.value.email },
+      })
+    );
   }
 }

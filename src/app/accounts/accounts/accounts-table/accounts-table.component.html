@@ -12,7 +12,9 @@
 
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+      <td mat-cell *matCellDef="let row">
+        {{ (isAdmin$ | async) ? row.email : maskString(row.email) }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="role">
@@ -33,7 +35,7 @@
         <div class="action_buttons">
           <button
             [disabled]="!(isAdmin$ | async)"
-            color="accent"
+            color="primary"
             mat-icon-button
             (click)="openEditDialog(row.id)"
           >

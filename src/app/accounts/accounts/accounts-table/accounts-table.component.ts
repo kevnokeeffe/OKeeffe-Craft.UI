@@ -25,6 +25,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
 import { getAccountId } from '../../../authentication/store/authentication.selectors';
+import { Utils } from '../../../utilities/utils';
 
 @Component({
   selector: 'app-accounts-table',
@@ -71,6 +72,23 @@ export class AccountsTableComponent
 
   ngAfterViewInit(): void {
     this.populateTable();
+    this.accountDeletedSub();
+  }
+
+  maskString(value: string): string {
+    return Utils.maskString(value);
+  }
+
+  accountDeletedSub(): void {
+    this.getAccountDeletedSubscription = this.store
+      .select(getAccountDeleted)
+      .subscribe({
+        next: (deleted) => {
+          if (deleted) {
+            this.store.dispatch(AccountsActions.getAccounts());
+          }
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -124,15 +142,6 @@ export class AccountsTableComponent
         next: (result) => {
           if (result) {
             this.store.dispatch(AccountsActions.deleteAccount({ id }));
-            this.getAccountDeletedSubscription = this.store
-              .select(getAccountDeleted)
-              .subscribe({
-                next: (deleted) => {
-                  if (deleted) {
-                    this.store.dispatch(AccountsActions.getAccounts());
-                  }
-                },
-              });
           }
         },
       });

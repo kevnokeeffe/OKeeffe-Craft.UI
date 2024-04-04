@@ -15,12 +15,11 @@ import { FormFieldComponent } from '../../../layout/form-field/form-field.compon
 import { Utils } from '../../../utilities/utils';
 import { Store } from '@ngrx/store';
 import { getAccountId } from '../../../authentication/store/authentication.selectors';
-import { Subscription, take } from 'rxjs';
+import { Subscription, combineLatest, take } from 'rxjs';
 import { AccountsActions } from '../../store/accounts.actions';
 import {
   getAccount,
   getAccountCreated,
-  getAccountLoaded,
   getAccountUpdated,
 } from '../../store/accounts.selectors';
 import { LayoutService } from '../../../layout/layout.service';
@@ -43,10 +42,8 @@ export class AccountBottomSheetComponent implements OnDestroy {
   accountForm: UntypedFormGroup;
   id: string = '';
   loading: boolean = false;
-  getAccountUpdatedSubscription: Subscription | undefined;
-  getAccountLoadedSubscription: Subscription | undefined;
   getAccountSubscription: Subscription | undefined;
-
+  getAccountStatusSubscription: Subscription | undefined;
   constructor(
     private store: Store<any>,
     private _bottomSheetRef: MatBottomSheetRef<AccountBottomSheetComponent>,
@@ -59,7 +56,6 @@ export class AccountBottomSheetComponent implements OnDestroy {
       subtitle: string;
     }
   ) {
-    this.store.dispatch(AccountsActions.clearAccount());
     this.accountForm = new UntypedFormGroup(
       {
         email: new UntypedFormControl({ value: '', disabled: false }, [
@@ -87,13 +83,15 @@ export class AccountBottomSheetComponent implements OnDestroy {
         validators: [(group: any) => Utils.passwordMatchValidator(group)],
       } as any
     );
+    this.getAccountSub();
+    this.getAccountStatusSub();
     if (!this.data.isCreate) this.getAccount(this.data.id);
   }
 
   ngOnDestroy(): void {
-    this.getAccountUpdatedSubscription?.unsubscribe();
-    this.getAccountLoadedSubscription?.unsubscribe();
     this.getAccountSubscription?.unsubscribe();
+    this.getAccountStatusSubscription?.unsubscribe();
+    this.store.dispatch(AccountsActions.clearAccount());
   }
 
   getAccount(id?: string): void {
@@ -101,34 +99,35 @@ export class AccountBottomSheetComponent implements OnDestroy {
       this.getAccountById(id);
       this.id = id;
     } else {
-      this.store
-        .select(getAccountId)
-        .pipe(take(1))
-        .subscribe((id) => {
-          if (id) {
-            this.id = id;
-            this.getAccountById(id);
-          }
-        });
+      this.getAccountId();
     }
   }
 
-  getAccountById(id: string): void {
-    this.store.dispatch(AccountsActions.getAccount({ id: id }));
-    this.getAccountLoadedSubscription = this.store
-      .select(getAccountLoaded)
-      .subscribe((loaded) => {
-        if (loaded) {
-          this.getAccountSubscription = this.store
-            .select(getAccount)
-            .subscribe((account) => {
-              if (account) this.accountForm.patchValue(account);
-            });
+  getAccountId(): void {
+    this.store
+      .select(getAccountId)
+      .pipe(take(1))
+      .subscribe((id) => {
+        if (id) {
+          this.id = id;
+          this.getAccountById(id);
         }
       });
   }
 
-  updateAccount(event: MouseEvent): void {
+  getAccountSub(): void {
+    this.getAccountSubscription = this.store
+      .select(getAccount)
+      .subscribe((account) => {
+        if (account) this.accountForm.patchValue(account.data);
+      });
+  }
+
+  getAccountById(id: string): void {
+    this.store.dispatch(AccountsActions.getAccount({ id: id }));
+  }
+
+  updateAccount(): void {
     if (this.accountForm.valid && this.accountForm.dirty) {
       this.loading = true;
       this.store.dispatch(
@@ -137,42 +136,32 @@ export class AccountBottomSheetComponent implements OnDestroy {
           model: this.accountForm.value,
         })
       );
-      this.getAccountUpdatedSubscription = this.store
-        .select(getAccountUpdated)
-        .subscribe({
-          next: (updated) => {
-            if (updated) {
-              this.layoutService.showMessage('Account updated successfully.');
-              this._bottomSheetRef.dismiss(true);
-              event.preventDefault();
-              this.loading = false;
-            }
-          },
-          error: (error) => {
-            this.layoutService.showMessage(error);
-            this.loading = false;
-          },
-        });
     }
   }
 
-  createAccount(event: MouseEvent): void {
-    this.loading = true;
-    this.store.dispatch(
-      AccountsActions.createAccount({ model: this.accountForm.value })
-    );
-    this.store.select(getAccountCreated).subscribe({
-      next: (created) => {
-        if (created) {
-          this.layoutService.showMessage('Account created successfully.');
-          this._bottomSheetRef.dismiss(true);
-          event.preventDefault();
+  createAccount(): void {
+    if (this.accountForm.valid && this.accountForm.dirty) {
+      this.loading = true;
+      this.store.dispatch(
+        AccountsActions.createAccount({ model: this.accountForm.value })
+      );
+    }
+  }
+
+  getAccountStatusSub(): void {
+    this.getAccountStatusSubscription = combineLatest([
+      this.store.select(getAccountCreated),
+      this.store.select(getAccountUpdated),
+    ]).subscribe({
+      next: ([created, updated]) => {
+        if (created || updated) {
+          this.layoutService.showMessage(
+            'Account ' + (created ? 'created' : 'updated') + ' successfully',
+            'Close'
+          );
           this.loading = false;
+          this._bottomSheetRef.dismiss();
         }
-      },
-      error: (error) => {
-        this.layoutService.showMessage(error);
-        this.loading = false;
       },
     });
   }

@@ -8,7 +8,7 @@ export const getAuthenticationState =
 export const getAuthenticationResponse = createSelector(
   getAuthenticationState,
   (state) =>
-    state && state.authenticationResponse ? state.authenticationResponse : false
+    state && state.authenticationResponse ? state.authenticationResponse : null
 );
 
 export const getAccountId = createSelector(getAuthenticationState, (state) =>
@@ -68,7 +68,7 @@ export const getSecureWeatherForecastResponse = createSelector(
 );
 
 export const getIsAdmin = createSelector(getAuthenticationState, (state) =>
-  state && state.authenticationResponse?.data.role
+  state && state.authenticationResponse?.data?.role
     ? state.authenticationResponse.data.role === UserRoles.Admin
     : false
 );

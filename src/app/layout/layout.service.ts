@@ -11,7 +11,7 @@ export class LayoutService {
   showMessage(message: string, action?: string) {
     this.snackbar.openFromComponent(SnackbarComponent, {
       data: { message, action: action },
-      duration: 10000,
+      duration: 20000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
@@ -20,7 +20,7 @@ export class LayoutService {
   showErrorMessage(message: string, action?: string) {
     this.snackbar.openFromComponent(SnackbarErrorComponent, {
       data: { message, action: action },
-      duration: 20000,
+      duration: 30000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: ['error-snackbar'],

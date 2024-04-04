@@ -8,7 +8,7 @@ export const accountsReducer = createReducer(
   on(AccountsActions.getAccountsSuccess, (state, { payload }) => {
     return {
       ...state,
-      accounts: payload.data,
+      accounts: payload,
       accountsLoaded: true,
     };
   }),
@@ -20,7 +20,7 @@ export const accountsReducer = createReducer(
   on(AccountsActions.getAccountSuccess, (state, { payload }) => {
     return {
       ...state,
-      account: payload.data,
+      account: payload,
       accountLoaded: true,
     };
   }),
@@ -32,7 +32,7 @@ export const accountsReducer = createReducer(
   on(AccountsActions.createAccountSuccess, (state, { payload }) => {
     return {
       ...state,
-      account: payload.data,
+      account: payload,
       accountCreated: true,
     };
   }),
@@ -44,8 +44,7 @@ export const accountsReducer = createReducer(
   on(AccountsActions.updateAccountSuccess, (state, { payload }) => {
     return {
       ...state,
-      account: payload.data,
-      accountUpdated: true,
+      account: payload,
     };
   }),
   on(AccountsActions.updateAccountFailed, (state, { error }) => ({
@@ -56,7 +55,6 @@ export const accountsReducer = createReducer(
   on(AccountsActions.deleteAccountSuccess, (state, { payload }) => {
     return {
       ...state,
-      account: null,
       accountDeleted: payload.success,
     };
   }),

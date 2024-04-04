@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -39,7 +39,7 @@ import { Router } from '@angular/router';
   templateUrl: './register-bottom-sheet.component.html',
   styleUrl: './register-bottom-sheet.component.scss',
 })
-export class RegisterBottomSheetComponent implements OnDestroy {
+export class RegisterBottomSheetComponent implements OnDestroy, OnInit {
   registerForm: UntypedFormGroup;
   loading: boolean = false;
   getRegistrationSuccessSubscription: Subscription | undefined;
@@ -79,21 +79,18 @@ export class RegisterBottomSheetComponent implements OnDestroy {
       } as any
     );
   }
+
+  ngOnInit(): void {
+    this.getRegSuccessSub();
+  }
+
   ngOnDestroy(): void {
     if (this.getRegistrationSuccessSubscription) {
       this.getRegistrationSuccessSubscription.unsubscribe();
     }
   }
 
-  public submit(): void {
-    if (this.registerForm.invalid) {
-      return;
-    }
-    this.loading = true;
-    this.registerForm.disable();
-    this.store.dispatch(
-      AuthenticationActions.register(this.registerForm.value)
-    );
+  private getRegSuccessSub(): void {
     this.getRegistrationSuccessSubscription = this.store
       .select(getRegistrationSuccess)
       .subscribe({
@@ -110,6 +107,17 @@ export class RegisterBottomSheetComponent implements OnDestroy {
           }
         },
       });
+  }
+
+  public submit(): void {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.registerForm.disable();
+    this.store.dispatch(
+      AuthenticationActions.register(this.registerForm.value)
+    );
   }
 
   public openLoginBottomSheet(): void {

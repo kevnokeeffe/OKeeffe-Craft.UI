@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountsCardComponent } from './accounts-card/accounts-card.component';
 import { Store } from '@ngrx/store';
 import { AccountsActions } from '../store/accounts.actions';
@@ -14,35 +14,30 @@ import { getIsAdmin } from '../../authentication/store/authentication.selectors'
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
 })
-export class AccountsComponent implements OnDestroy {
-  getAccountsLoadedSubscription: Subscription | undefined;
+export class AccountsComponent implements OnDestroy, OnInit {
   getAccountsSubscription: Subscription | undefined;
   accounts: AccountResponseModel[] | undefined;
-  loading: boolean = false;
+  loading$: Observable<boolean> | undefined;
   isAdmin$: Observable<boolean> | undefined;
+
   constructor(private store: Store) {
     this.isAdmin$ = this.store.select(getIsAdmin);
-    this.loading = true;
+    this.loading$ = this.store.select(getAccountsLoaded);
+  }
+
+  ngOnInit(): void {
     this.store.dispatch(AccountsActions.getAccounts());
-    this.getAccountsLoadedSubscription = this.store
-      .select(getAccountsLoaded)
-      .subscribe({
-        next: (loaded) => {
-          if (loaded) {
-            this.getAccountsSubscription = this.store
-              .select(getAccounts)
-              .subscribe({
-                next: (accounts) => {
-                  this.accounts = accounts ?? [];
-                  this.loading = false;
-                },
-              });
-          }
-        },
-      });
+    this.getAccounts();
+  }
+
+  getAccounts(): void {
+    this.getAccountsSubscription = this.store.select(getAccounts).subscribe({
+      next: (accounts) => {
+        this.accounts = accounts?.data ?? [];
+      },
+    });
   }
   ngOnDestroy(): void {
-    this.getAccountsLoadedSubscription?.unsubscribe();
     this.getAccountsSubscription?.unsubscribe();
   }
 }

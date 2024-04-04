@@ -15,7 +15,7 @@
   <mat-card-actions>
     <button
       class="btn"
-      color="accent"
+      color="primary"
       [disabled]="!(isAdmin$ | async)"
       mat-stroked-button
       type="button"
@@ -26,7 +26,7 @@
     </button>
   </mat-card-actions>
   <mat-card-footer>
-    @if(loading){
+    @if(!(loading$|async)){
     <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
     }
   </mat-card-footer>

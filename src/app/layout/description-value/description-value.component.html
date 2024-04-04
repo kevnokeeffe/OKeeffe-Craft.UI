@@ -1,0 +1,72 @@
+<ng-container [ngSwitch]="detectType(value)">
+  <div *ngSwitchCase="'string'">
+    <span
+      [ngStyle]="{
+        marginRight: '5px',
+        fontStyle: 'italic',
+      }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+  </div>
+  <div *ngSwitchCase="'date'">
+    <span
+      [ngStyle]="{
+      marginRight: '5px',
+      fontStyle: 'italic',
+    }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value | date }}</span>
+  </div>
+  <div *ngSwitchCase="'number'">
+    <span
+      [ngStyle]="{
+      marginRight: '5px',
+      fontStyle: 'italic',
+    }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+  </div>
+  <div *ngSwitchCase="'boolean'">
+    <span
+      [ngStyle]="{
+      marginRight: '5px',
+      fontStyle: 'italic',
+    }"
+      >{{ label }}:</span
+    >
+    {{ value }}
+  </div>
+  <div *ngSwitchCase="'object'">
+    <span
+      [ngStyle]="{
+      marginRight: '5px',
+      fontStyle: 'italic',
+    }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value | json }}</span>
+  </div>
+  <div *ngSwitchCase="'array'">
+    <span
+      [ngStyle]="{
+          marginRight: '5px',
+          fontStyle: 'italic',
+        }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value | json }}</span>
+  </div>
+  <div *ngSwitchDefault>
+    <span
+      [ngStyle]="{
+      marginRight: '5px',
+      fontStyle: 'italic',
+    }"
+      >{{ label }}:</span
+    >
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+  </div>
+</ng-container>

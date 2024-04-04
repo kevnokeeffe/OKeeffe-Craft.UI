@@ -64,7 +64,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.tokenStatus = TokenStatus.Invalid;
       this.router.navigate(['/']);
       return;
-    }
+    } else this.getResetPasswordResponse();
   }
 
   submit(): void {
@@ -83,6 +83,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.form?.disable();
     this.loading = true;
     this.store.dispatch(AuthenticationActions.resetPassword({ model }));
+  }
+
+  getResetPasswordResponse(): void {
     this.getResetPasswordResponseSubscription = this.store
       .select(getResetPasswordResponse)
       .subscribe({

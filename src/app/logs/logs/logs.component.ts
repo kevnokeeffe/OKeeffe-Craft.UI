@@ -2,12 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LogsCardComponent } from '../logs-card/logs-card.component';
 import { Store } from '@ngrx/store';
 import { LogsActions } from '../store/logs.actions';
-import {
-  getActivityLogs,
-  getActivityLogsLoaded,
-  getErrorLogs,
-  getErrorLogsLoaded,
-} from '../store/logs.selectors';
+import { getActivityLogs, getErrorLogs } from '../store/logs.selectors';
 import { Subscription, combineLatest } from 'rxjs';
 import { ActivityLogModel } from '../models/activity-log.model';
 import { ErrorLogModel } from '../models/error-log.model';
@@ -34,30 +29,21 @@ export class LogsComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getLogs();
-    this.getLogsLoaded();
-  }
-
-  private getLogsLoaded() {
-    this.loadedSubscription = combineLatest([
-      this.store.select(getActivityLogsLoaded),
-      this.store.select(getErrorLogsLoaded),
-    ]).subscribe(([activityLogsLoaded, errorLogsLoaded]) => {
-      if (activityLogsLoaded && errorLogsLoaded) {
-        this.retriveLogsFromStore();
-      }
-    });
+    this.retriveLogsFromStore();
   }
 
   private retriveLogsFromStore() {
     this.logsSubscription = combineLatest([
       this.store.select(getActivityLogs),
       this.store.select(getErrorLogs),
-    ]).subscribe(([activityLogs, errorLogs]) => {
-      if (activityLogs && errorLogs) {
-        this.activityLogs = activityLogs;
-        this.errorLogs = errorLogs;
-        this.loading = false;
-      }
+    ]).subscribe({
+      next: ([activityLogs, errorLogs]) => {
+        if (activityLogs && errorLogs) {
+          this.activityLogs = activityLogs;
+          this.errorLogs = errorLogs;
+          this.loading = false;
+        }
+      },
     });
   }
 

@@ -14,7 +14,7 @@
     <form
       class="account-content-form"
       [formGroup]="accountForm"
-      (ngSubmit)="updateAccount($event)"
+      (ngSubmit)="updateAccount()"
     >
       <app-form-field
         [control]="accountForm.controls['fullName']"
@@ -69,9 +69,7 @@
           color="primary"
           mat-raised-button
           type="submit"
-          (click)="
-            data.isCreate ? createAccount($event) : updateAccount($event)
-          "
+          (click)="data.isCreate ? createAccount() : updateAccount()"
         >
           {{ data.isCreate ? "Create" : "Update" }}
         </button>

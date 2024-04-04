@@ -58,6 +58,20 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
           }
         },
       });
+    this.getVerificationResponse();
+  }
+
+  getVerificationResponse(): void {
+    this.getVerifyEmailResponseSubscription = this.store
+      .select(getVerifyEmailResponse)
+      .subscribe({
+        next: (response) => {
+          if (response) this.verificationResponse = response;
+        },
+        error: () => {
+          this.layoutService.showMessage('Verification failed');
+        },
+      });
   }
 
   verifyEmail(token: string): void {
@@ -66,16 +80,6 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       AuthenticationActions.verifyEmail({ model: { token } })
     );
-    this.getVerifyEmailResponseSubscription = this.store
-      .select(getVerifyEmailResponse)
-      .subscribe({
-        next: (response) => {
-          this.verificationResponse = response;
-        },
-        error: () => {
-          this.layoutService.showMessage('Verification failed');
-        },
-      });
   }
 
   openLogin() {

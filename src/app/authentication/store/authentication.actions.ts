@@ -52,5 +52,6 @@ export const AuthenticationActions = createActionGroup({
     updateAuthenticationResponse: props<{
       account: AccountResponseModel;
     }>(),
+    clearAuthResponse: emptyProps(),
   },
 });

@@ -10,7 +10,7 @@ export const authenticationReducer = createReducer(
       ...state,
       isAuthenticated: payload.success,
       authenticationResponse: payload,
-      accountId: payload.data.id,
+      accountId: payload.data?.id,
     };
   }),
   on(AuthenticationActions.authenticationFailed, (state, { error }) => ({
@@ -42,7 +42,7 @@ export const authenticationReducer = createReducer(
       ...state,
       isAuthenticated: payload.success,
       authenticationResponse: payload,
-      accountId: payload.data.id,
+      accountId: payload.data?.id,
     };
   }),
   on(AuthenticationActions.refreshTokenFailed, (state, { error }) => ({
@@ -122,5 +122,9 @@ export const authenticationReducer = createReducer(
     secureWeatherForcastResponse: null,
     error,
   })),
-  on(AuthenticationActions.clearAll, (state) => initialAuthenticationState)
+  on(AuthenticationActions.clearAll, (state) => initialAuthenticationState),
+  on(AuthenticationActions.clearAuthResponse, (state) => ({
+    ...state,
+    authenticationResponse: null,
+  }))
 );

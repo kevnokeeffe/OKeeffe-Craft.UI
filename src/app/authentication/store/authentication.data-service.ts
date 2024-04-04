@@ -126,8 +126,8 @@ export class AuthenticationDataService {
               );
               this.startRefreshTokenTimer();
             }
-            return res;
           }
+          return res;
         })
       );
   }

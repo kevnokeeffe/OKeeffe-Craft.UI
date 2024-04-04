@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheet,
@@ -18,12 +18,15 @@ import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sh
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
-import { getAuthenticationResponse } from '../store/authentication.selectors';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest, take } from 'rxjs';
 import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../layout/layout.service';
+import {
+  getAuthenticationResponse,
+  getIsAuthenticated,
+} from '../store/authentication.selectors';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -38,9 +41,10 @@ import { LayoutService } from '../../layout/layout.service';
   templateUrl: './login-bottom-sheet.component.html',
   styleUrl: './login-bottom-sheet.component.scss',
 })
-export class LoginBottomSheetComponent implements OnDestroy {
+export class LoginBottomSheetComponent implements OnDestroy, OnInit {
   loginForm: UntypedFormGroup;
   loginSubscription: Subscription | undefined;
+  getAuthenticatedMessageSubscription: Subscription | undefined;
   loading: boolean = false;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<LoginBottomSheetComponent>,
@@ -67,6 +71,33 @@ export class LoginBottomSheetComponent implements OnDestroy {
         [Validators.required]
       ),
     });
+    this._store.dispatch(AuthenticationActions.clearAuthResponse());
+  }
+
+  ngOnInit(): void {
+    this.getAuthResponse();
+  }
+
+  private getAuthResponse(): void {
+    this.loginSubscription = this._store
+      .select(getAuthenticationResponse)
+      .subscribe({
+        next: (res) => {
+          this.loading = false;
+          this.loginForm.enable();
+          if (res && res.success === true && res.data) {
+            this.router.navigate(['/dashboard']);
+            this._bottomSheetRef.dismiss();
+          } else if (res && res.success === false && res.message) {
+            this.layoutService.showErrorMessage(res.message);
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+          this.layoutService.showErrorMessage(error.message);
+          this.loginForm.enable();
+        },
+      });
   }
 
   public closeBottomSheet(event: MouseEvent): void {
@@ -90,28 +121,6 @@ export class LoginBottomSheetComponent implements OnDestroy {
       password: passwordValue,
     };
     this._store.dispatch(AuthenticationActions.authenticate({ authenticate }));
-    this.loginSubscription = this._store
-      .select(getAuthenticationResponse)
-      .pipe()
-      .subscribe({
-        next: (response) => {
-          if (response) {
-            this.loading = false;
-            this.loginForm.enable();
-            if (response.success) {
-              this.router.navigate(['/dashboard']);
-              this._bottomSheetRef.dismiss();
-            } else {
-              this.layoutService.showErrorMessage(response.message);
-            }
-          }
-        },
-        error: (error) => {
-          this.loading = false;
-          this.layoutService.showErrorMessage(error.message);
-          this.loginForm.enable();
-        },
-      });
   }
 
   public openRegisterBottomSheet(): void {
@@ -126,5 +135,7 @@ export class LoginBottomSheetComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this.loginSubscription) Utils.Unsubscribe(this.loginSubscription);
+    if (this.getAuthenticatedMessageSubscription)
+      Utils.Unsubscribe(this.getAuthenticatedMessageSubscription);
   }
 }

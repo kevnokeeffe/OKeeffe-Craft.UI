@@ -29,7 +29,7 @@ import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/
 })
 export class AccountsCardComponent {
   @Input() accounts: AccountResponseModel[] | undefined;
-  @Input() loading: boolean = false;
+  @Input() loading$: Observable<boolean> | undefined;
   @Input() isAdmin$: Observable<boolean> | undefined;
   constructor(private bottomSheet: MatBottomSheet, private store: Store<any>) {}
   createAccount() {

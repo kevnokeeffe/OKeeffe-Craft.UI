@@ -11,9 +11,22 @@
 <section class="section">
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    <ng-container matColumnDef="logDetails">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+      <td mat-cell *matCellDef="let row">{{ row.logDetails }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row">
+        <button
+          [disabled]="!(isAdmin$ | async)"
+          mat-icon-button
+          (click)="openLogDetails(row)"
+          color="primary"
+        >
+          <mat-icon class="material-symbols-outlined">view_list</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

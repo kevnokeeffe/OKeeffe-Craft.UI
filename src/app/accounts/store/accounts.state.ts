@@ -1,9 +1,10 @@
+import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
 
 export interface AccountsState {
-  account: AccountResponseModel | null;
+  account: ServiceResponseModel<AccountResponseModel> | null;
   accountLoaded: boolean;
-  accounts: Array<AccountResponseModel> | null;
+  accounts: ServiceResponseModel<Array<AccountResponseModel>> | null;
   accountsLoaded: boolean;
   accountCreated: boolean;
   accountUpdated: boolean;

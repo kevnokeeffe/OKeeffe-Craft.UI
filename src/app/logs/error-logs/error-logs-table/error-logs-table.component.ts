@@ -12,6 +12,14 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ErrorLogModel } from '../../models/error-log.model';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorLogDetailsDialogComponent } from '../../dialogs/error-log-details-dialog/error-log-details-dialog.component';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { getIsAdmin } from '../../../authentication/store/authentication.selectors';
 
 @Component({
   selector: 'app-error-logs-table',
@@ -22,26 +30,36 @@ import { ErrorLogModel } from '../../models/error-log.model';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatIcon,
+    MatIconButton,
+    AsyncPipe,
   ],
   templateUrl: './error-logs-table.component.html',
   styleUrl: './error-logs-table.component.scss',
 })
 export class ErrorLogsTableComponent implements AfterViewInit, OnChanges {
   @Input() errorLogs: ErrorLogModel[] | null | undefined;
-  displayedColumns: string[] = ['id'];
+  displayedColumns: string[] = ['logDetails', 'actions'];
   dataSource: MatTableDataSource<ErrorLogModel>;
-
+  isAdmin$: Observable<boolean> | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private dialog: MatDialog, private store: Store<any>) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.errorLogs!);
+    this.isAdmin$ = this.store.select(getIsAdmin);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['errorLogs'] && changes['errorLogs'].currentValue) {
       this.populateTable(changes['errorLogs'].currentValue);
     }
+  }
+
+  openLogDetails(log: ErrorLogModel) {
+    this.dialog.open(ErrorLogDetailsDialogComponent, {
+      data: log,
+    });
   }
 
   populateTable(logs: ErrorLogModel[] = this.errorLogs ?? []) {

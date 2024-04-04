@@ -26,6 +26,10 @@ export class Utils {
     return null;
   }
 
+  static maskString(input: string): string {
+    return '*'.repeat(input.length);
+  }
+
   /**
    * Inject the given parameters into the given endpoint
    * @param endpoint - Endpoint with parameters to be injected
