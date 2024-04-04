@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   UntypedFormGroup,
   UntypedFormControl,
@@ -38,10 +38,11 @@ import { ProgressBarComponent } from '../../../layout/progress-bar/progress-bar.
   templateUrl: './account-bottom-sheet.component.html',
   styleUrl: './account-bottom-sheet.component.scss',
 })
-export class AccountBottomSheetComponent implements OnDestroy {
+export class AccountBottomSheetComponent implements OnDestroy, OnInit {
   accountForm: UntypedFormGroup;
   id: string = '';
   loading: boolean = false;
+  processing: boolean = false;
   getAccountSubscription: Subscription | undefined;
   getAccountStatusSubscription: Subscription | undefined;
   constructor(
@@ -83,9 +84,11 @@ export class AccountBottomSheetComponent implements OnDestroy {
         validators: [(group: any) => Utils.passwordMatchValidator(group)],
       } as any
     );
+    if (!this.data.isCreate) this.getAccount(this.data.id);
+  }
+  ngOnInit(): void {
     this.getAccountSub();
     this.getAccountStatusSub();
-    if (!this.data.isCreate) this.getAccount(this.data.id);
   }
 
   ngOnDestroy(): void {
@@ -95,6 +98,7 @@ export class AccountBottomSheetComponent implements OnDestroy {
   }
 
   getAccount(id?: string): void {
+    this.processing = true;
     if (id) {
       this.getAccountById(id);
       this.id = id;
@@ -119,7 +123,10 @@ export class AccountBottomSheetComponent implements OnDestroy {
     this.getAccountSubscription = this.store
       .select(getAccount)
       .subscribe((account) => {
-        if (account) this.accountForm.patchValue(account.data);
+        if (account) {
+          this.accountForm.patchValue(account.data);
+          this.processing = false;
+        }
       });
   }
 
@@ -161,6 +168,7 @@ export class AccountBottomSheetComponent implements OnDestroy {
           );
           this.loading = false;
           this._bottomSheetRef.dismiss();
+          this.store.dispatch(AccountsActions.getAccounts());
         }
       },
     });

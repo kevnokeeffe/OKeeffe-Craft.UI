@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { JsonPipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-form-field',
@@ -25,6 +26,7 @@ import { MatDivider } from '@angular/material/divider';
     JsonPipe,
     NgIf,
     MatDivider,
+    MatProgressBar,
   ],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
@@ -45,6 +47,7 @@ export class FormFieldComponent {
   @Input() suffixIcon: string | undefined;
   @Input() showPasswordVisibility: boolean = false;
   @Input() autocomplete: boolean = true;
+  @Input() processing: boolean = false;
 
   hide: boolean = true;
 

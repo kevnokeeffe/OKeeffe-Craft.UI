@@ -20,8 +20,11 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccountResponseModel } from '../../models/account-response.model';
 import { AccountsActions } from '../../store/accounts.actions';
 import { Store } from '@ngrx/store';
-import { getAccountDeleted } from '../../store/accounts.selectors';
-import { Observable, Subscription } from 'rxjs';
+import {
+  getAccountDeleted,
+  getAccountUpdated,
+} from '../../store/accounts.selectors';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
 import { getAccountId } from '../../../authentication/store/authentication.selectors';
@@ -55,7 +58,7 @@ export class AccountsTableComponent
   ];
   @Input() isAdmin$: Observable<boolean> | undefined;
   dataSource: MatTableDataSource<AccountResponseModel>;
-  getAccountDeletedSubscription: Subscription | undefined;
+  getAccountSubscription: Subscription | undefined;
   accountId$: Observable<string | null>;
   @Input() accounts: AccountResponseModel[] | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -72,16 +75,17 @@ export class AccountsTableComponent
 
   ngAfterViewInit(): void {
     this.populateTable();
-    this.accountDeletedSub();
+    this.accountDelSub();
   }
 
   maskString(value: string): string {
     return Utils.maskString(value);
   }
 
-  accountDeletedSub(): void {
-    this.getAccountDeletedSubscription = this.store
+  accountDelSub(): void {
+    this.getAccountSubscription = this.store
       .select(getAccountDeleted)
+
       .subscribe({
         next: (deleted) => {
           if (deleted) {
@@ -92,7 +96,7 @@ export class AccountsTableComponent
   }
 
   ngOnDestroy(): void {
-    this.getAccountDeletedSubscription?.unsubscribe();
+    this.getAccountSubscription?.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,23 +112,14 @@ export class AccountsTableComponent
   }
 
   openEditDialog(id: string) {
-    this.bottomSheet
-      .open(AccountBottomSheetComponent, {
-        data: {
-          id: id,
-          isCreate: false,
-          title: 'Edit Account',
-          subtitle: 'Edit the account details below.',
-        },
-      })
-      .afterDismissed()
-      .subscribe({
-        next: (res) => {
-          if (res) {
-            this.store.dispatch(AccountsActions.getAccounts());
-          }
-        },
-      });
+    this.bottomSheet.open(AccountBottomSheetComponent, {
+      data: {
+        id: id,
+        isCreate: false,
+        title: 'Edit Account',
+        subtitle: 'Edit the account details below.',
+      },
+    });
   }
 
   deleteAccountDialog(id: string) {

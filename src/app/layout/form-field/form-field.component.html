@@ -33,6 +33,7 @@
   } @if(suffixIcon&&!showPasswordVisibility){
   <mat-icon matSuffix [fontIcon]="suffixIcon"></mat-icon> }
   <mat-hint>{{ hint }}</mat-hint>
+  @if(processing){<mat-progress-bar mode="buffer"></mat-progress-bar>}
   <ng-container *ngIf="control.invalid && control.touched">
     <mat-divider [ngStyle]="{ margin: '.3rem' }"></mat-divider>
     <mat-error *ngFor="let error of getErrors()">

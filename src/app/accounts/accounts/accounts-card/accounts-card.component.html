@@ -1,20 +1,23 @@
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>Accounts</mat-card-title>
+    <div mat-card-avatar class="avatar">
+      <mat-icon color="accent" class="material-symbols-outlined"
+        >settings</mat-icon
+      >
+    </div>
+    <mat-card-title>System</mat-card-title>
     <mat-card-subtitle
-      >Empowering Users: Insights into Account Details</mat-card-subtitle
+      >Empowering Users: Insights into System Details</mat-card-subtitle
     >
   </mat-card-header>
   <mat-card-content>
-    <app-accounts-table
-      [isAdmin$]="isAdmin$"
+    <app-accounts-tab-group
       [accounts]="accounts"
-    ></app-accounts-table>
+      [isAdmin$]="isAdmin$"
+    ></app-accounts-tab-group>
   </mat-card-content>
   <mat-card-actions>
     <button
-      class="btn"
       color="primary"
       [disabled]="!(isAdmin$ | async)"
       mat-stroked-button

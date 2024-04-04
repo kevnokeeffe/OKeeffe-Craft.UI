@@ -33,7 +33,7 @@ export class AccountsComponent implements OnDestroy, OnInit {
   getAccounts(): void {
     this.getAccountsSubscription = this.store.select(getAccounts).subscribe({
       next: (accounts) => {
-        this.accounts = accounts?.data ?? [];
+        if (accounts) this.accounts = accounts.data;
       },
     });
   }

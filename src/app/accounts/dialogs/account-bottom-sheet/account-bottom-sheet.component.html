@@ -17,6 +17,7 @@
       (ngSubmit)="updateAccount()"
     >
       <app-form-field
+        [processing]="processing"
         [control]="accountForm.controls['fullName']"
         [label]="'Name'"
         [placeholder]="'Enter your name'"
@@ -28,6 +29,7 @@
         }"
       ></app-form-field>
       <app-form-field
+        [processing]="processing"
         [control]="accountForm.controls['email']"
         [label]="'Email'"
         [placeholder]="'Enter your email'"

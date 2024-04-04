@@ -1,4 +1,8 @@
-.header-image {
-  background-image: url("../../../assets/images/logs.png");
-  background-size: cover;
+.avatar {
+  mat-icon {
+    font-size: 3em;
+    height: auto;
+    width: auto;
+    align-self: center;
+  }
 }

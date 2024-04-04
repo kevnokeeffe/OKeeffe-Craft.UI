@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { getIsAdmin } from '../../../authentication/store/authentication.selectors';
+import { Utils } from '../../../utilities/utils';
 
 @Component({
   selector: 'app-error-logs-table',
@@ -54,6 +55,10 @@ export class ErrorLogsTableComponent implements AfterViewInit, OnChanges {
     if (changes['errorLogs'] && changes['errorLogs'].currentValue) {
       this.populateTable(changes['errorLogs'].currentValue);
     }
+  }
+
+  maskString(str: string): string {
+    return Utils.maskString(str);
   }
 
   openLogDetails(log: ErrorLogModel) {

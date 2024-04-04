@@ -28,30 +28,46 @@ export const accountsReducer = createReducer(
     ...state,
     error,
   })),
-  on(AccountsActions.createAccount, (state) => state),
+  on(AccountsActions.createAccount, (state) => {
+    return {
+      ...state,
+      accountCreated: false,
+    };
+  }),
   on(AccountsActions.createAccountSuccess, (state, { payload }) => {
     return {
       ...state,
       account: payload,
-      accountCreated: true,
+      accountCreated: payload.success,
     };
   }),
   on(AccountsActions.createAccountFailed, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(AccountsActions.updateAccount, (state) => state),
+  on(AccountsActions.updateAccount, (state) => {
+    return {
+      ...state,
+      accountUpdated: false,
+    };
+  }),
   on(AccountsActions.updateAccountSuccess, (state, { payload }) => {
     return {
       ...state,
       account: payload,
+      accountUpdated: payload.success,
     };
   }),
   on(AccountsActions.updateAccountFailed, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(AccountsActions.deleteAccount, (state) => state),
+  on(AccountsActions.deleteAccount, (state) => {
+    return {
+      ...state,
+      accountDeleted: false,
+    };
+  }),
   on(AccountsActions.deleteAccountSuccess, (state, { payload }) => {
     return {
       ...state,

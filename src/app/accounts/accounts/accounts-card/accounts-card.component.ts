@@ -12,6 +12,8 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
+import { getAccountCreated } from '../../store/accounts.selectors';
+import { AccountsTabGroupComponent } from '../../accounts-tab-group/accounts-tab-group.component';
 
 @Component({
   selector: 'app-accounts-card',
@@ -19,10 +21,10 @@ import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/
   imports: [
     MatCardModule,
     MatButtonModule,
-    AccountsTableComponent,
     MatIconModule,
     MatProgressBar,
     AsyncPipe,
+    AccountsTabGroupComponent,
   ],
   templateUrl: './accounts-card.component.html',
   styleUrl: './accounts-card.component.scss',
@@ -33,22 +35,13 @@ export class AccountsCardComponent {
   @Input() isAdmin$: Observable<boolean> | undefined;
   constructor(private bottomSheet: MatBottomSheet, private store: Store<any>) {}
   createAccount() {
-    this.bottomSheet
-      .open(AccountBottomSheetComponent, {
-        data: {
-          id: null,
-          isCreate: true,
-          title: 'Create Account',
-          subtitle: 'Create a new account',
-        },
-      })
-      .afterDismissed()
-      .subscribe({
-        next: (res) => {
-          if (res) {
-            this.store.dispatch(AccountsActions.getAccounts());
-          }
-        },
-      });
+    this.bottomSheet.open(AccountBottomSheetComponent, {
+      data: {
+        id: null,
+        isCreate: true,
+        title: 'Create Account',
+        subtitle: 'Create a new account',
+      },
+    });
   }
 }

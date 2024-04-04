@@ -20,6 +20,7 @@ import { ActivityLogDetailsDialogComponent } from '../../dialogs/activity-log-de
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getIsAdmin } from '../../../authentication/store/authentication.selectors';
+import { Utils } from '../../../utilities/utils';
 
 @Component({
   selector: 'app-activity-logs-table',
@@ -55,6 +56,10 @@ export class ActivityLogsTableComponent implements AfterViewInit, OnChanges {
     if (changes['activityLogs'] && changes['activityLogs'].currentValue) {
       this.populateTable(changes['activityLogs'].currentValue);
     }
+  }
+
+  maskString(str: string): string {
+    return Utils.maskString(str);
   }
 
   openLogDetails(log: ActivityLogModel) {
