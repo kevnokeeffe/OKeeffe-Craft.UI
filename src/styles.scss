@@ -2,6 +2,7 @@
 @use "@angular/material" as mat;
 @include mat.core();
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 $my-primary: mat.define-palette(mat.$teal-palette, A700, A100, A200, A400);
 $my-accent: mat.define-palette(mat.$cyan-palette, 900);
 
