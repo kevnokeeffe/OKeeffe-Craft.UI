@@ -7,5 +7,5 @@ export interface AuthenticateResponseModel {
   updated: Date | null;
   isVerified: boolean;
   jwtToken: string | null;
-  refreshToken: string | null;
+  refreshToken?: string | null;
 }
