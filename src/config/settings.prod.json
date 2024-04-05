@@ -29,6 +29,10 @@
         "getActivityLog": "/Logs/activity/{id}",
         "getErrorLogs": "/Logs/error",
         "getErrorLog": "/Logs/error/{id}"
+      },
+      "emails": {
+        "getRmails": "/Emails",
+        "getEmail": "/Emails/{id}"
       }
     }
   },

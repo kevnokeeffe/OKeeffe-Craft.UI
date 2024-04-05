@@ -8,6 +8,23 @@ export const getBaseEndpoint = createSelector(getConfigurationState, (state) =>
   state && state.api ? state.api.baseUrl : null
 );
 
+export const getApiVersion = createSelector(getConfigurationState, (state) =>
+  state && state.api ? state.api.version : null
+);
+
+export const getEnvironment = createSelector(getConfigurationState, (state) =>
+  state && state.environment ? state.environment : null
+);
+
+export const getApiEndpoints = createSelector(getConfigurationState, (state) =>
+  state && state.api ? state.api.endpoints : null
+);
+
+export const getEmailsEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.emails : null)
+);
+
 export const getConfigurationLoaded = createSelector(
   getConfigurationState,
   (state) =>

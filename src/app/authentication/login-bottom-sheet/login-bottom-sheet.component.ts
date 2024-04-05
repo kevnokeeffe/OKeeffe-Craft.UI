@@ -83,13 +83,8 @@ export class LoginBottomSheetComponent implements OnDestroy, OnInit {
       .select(getAuthenticationResponse)
       .subscribe({
         next: (res) => {
-          this.loading = false;
-          this.loginForm.enable();
-          if (res && res.success === true && res.data) {
-            this.router.navigate(['/dashboard']);
-            this._bottomSheetRef.dismiss();
-          } else if (res && res.success === false && res.message) {
-            this.layoutService.showErrorMessage(res.message);
+          if (res) {
+            this.handleRegistrationResponse(res);
           }
         },
         error: (error) => {
@@ -98,6 +93,19 @@ export class LoginBottomSheetComponent implements OnDestroy, OnInit {
           this.loginForm.enable();
         },
       });
+  }
+
+  private handleRegistrationResponse(response: any): void {
+    if (response.success === true) {
+      this.loading = false;
+      this.loginForm.enable();
+      this.router.navigate(['/dashboard']);
+      this._bottomSheetRef.dismiss();
+    } else if (response.success === false) {
+      this.layoutService.showErrorMessage(response.message);
+      this.loading = false;
+      this.loginForm.enable();
+    }
   }
 
   public closeBottomSheet(event: MouseEvent): void {

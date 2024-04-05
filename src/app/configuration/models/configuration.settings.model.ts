@@ -14,7 +14,14 @@ export interface ApiEndpointModel {
   authentication: AuthenticationEndpointsModel;
   accounts: AccountsEndpointsModel;
   logs: LogsEndpointsModel;
+  emails: EmailsModel;
   weatherForcast: WeatherForcastEndpointsModel;
+}
+
+export interface EmailsModel {
+  sendEmail: string;
+  getEmails: string;
+  getEmail: string;
 }
 
 export interface ImagesModel {

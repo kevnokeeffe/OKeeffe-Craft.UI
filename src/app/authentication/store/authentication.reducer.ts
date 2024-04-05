@@ -6,6 +6,13 @@ export const authenticationReducer = createReducer(
   initialAuthenticationState,
   on(AuthenticationActions.authenticate, (state) => state),
   on(AuthenticationActions.authenticateSuccess, (state, { payload }) => {
+    if (!payload.success) {
+      return {
+        ...state,
+        isAuthenticated: false,
+        authenticationResponse: payload,
+      };
+    }
     const { refreshToken, ...rest } = payload.data; // Replace 'hiddenValue' with the actual key you want to hide
     return {
       ...state,
@@ -23,9 +30,7 @@ export const authenticationReducer = createReducer(
   on(AuthenticationActions.registerSuccess, (state, { payload }) => {
     return {
       ...state,
-      registrationSuccess: payload.success,
-      registrationMessage: payload.message,
-      registrationData: payload.data,
+      registrationResponse: payload,
     };
   }),
   on(AuthenticationActions.registerFailed, (state, { error }) => ({
@@ -39,6 +44,13 @@ export const authenticationReducer = createReducer(
   })),
   on(AuthenticationActions.refreshToken, (state) => state),
   on(AuthenticationActions.refreshTokenSuccess, (state, { payload }) => {
+    if (!payload.success) {
+      return {
+        ...state,
+        isAuthenticated: false,
+        authenticationResponse: payload,
+      };
+    }
     const { refreshToken, ...rest } = payload.data; // Replace 'hiddenValue' with the actual key you want to hide
     return {
       ...state,
@@ -128,5 +140,9 @@ export const authenticationReducer = createReducer(
   on(AuthenticationActions.clearAuthResponse, (state) => ({
     ...state,
     authenticationResponse: null,
+  })),
+  on(AuthenticationActions.clearRegResponse, (state) => ({
+    ...state,
+    registrationResponse: null,
   }))
 );

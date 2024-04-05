@@ -1,27 +1,29 @@
-<h2 mat-dialog-title>Error Log Details</h2>
-<mat-dialog-content>
-  <app-description-value label="ID" [value]="data.id"></app-description-value>
-  <app-description-value
-    label="Identifier"
-    [value]="data.identifier"
-  ></app-description-value>
-  <app-description-value
-    label="Identifier type"
-    [value]="data.identifierType"
-  ></app-description-value>
-  <app-description-value
-    label="Log date"
-    [value]="data.logDate"
-  ></app-description-value>
-  <app-description-value
-    label="Log details"
-    [value]="data.logDetails"
-  ></app-description-value>
-  <app-description-value
-    label="Stack trace"
-    [value]="data.stackTrace"
-  ></app-description-value>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions>
+<div class="container">
+  <h2 mat-dialog-title>Error Log Details</h2>
+  <mat-dialog-content>
+    <app-description-value label="ID" [value]="data.id"></app-description-value>
+    <app-description-value
+      label="Identifier"
+      [value]="data.identifier"
+    ></app-description-value>
+    <app-description-value
+      label="Identifier type"
+      [value]="data.identifierType"
+    ></app-description-value>
+    <app-description-value
+      label="Log date"
+      [value]="data.logDate"
+    ></app-description-value>
+    <app-description-value
+      label="Log details"
+      [value]="data.logDetails"
+    ></app-description-value>
+    <app-description-value
+      label="Stack trace"
+      [value]="data.stackTrace"
+    ></app-description-value>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

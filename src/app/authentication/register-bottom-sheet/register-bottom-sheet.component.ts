@@ -19,7 +19,7 @@ import { SlideToggleComponent } from '../../layout/slide-toggle/slide-toggle.com
 import { NgStyle } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
-import { getRegistrationSuccess } from '../store/authentication.selectors';
+import { getRegistrationResponse } from '../store/authentication.selectors';
 import { LayoutService } from '../../layout/layout.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -88,25 +88,40 @@ export class RegisterBottomSheetComponent implements OnDestroy, OnInit {
     if (this.getRegistrationSuccessSubscription) {
       this.getRegistrationSuccessSubscription.unsubscribe();
     }
+    this.store.dispatch(AuthenticationActions.clearRegResponse());
   }
 
   private getRegSuccessSub(): void {
     this.getRegistrationSuccessSubscription = this.store
-      .select(getRegistrationSuccess)
+      .select(getRegistrationResponse)
       .subscribe({
-        next: (success) => {
-          if (success) {
-            this.loading = false;
-            this.registerForm.enable();
-            this._bottomSheetRef.dismiss();
-            this.layoutService.showMessage(
-              'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
-              'Close'
-            );
-            this.router.navigate(['/']);
+        next: (response) => {
+          if (response) {
+            this.handleRegistrationResponse(response);
           }
         },
       });
+  }
+
+  private handleRegistrationResponse(response: any): void {
+    if (response.success === true) {
+      this.loading = false;
+      this.registerForm.enable();
+      this._bottomSheetRef.dismiss();
+      this.layoutService.showMessage(
+        'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
+        'Close'
+      );
+      this.router.navigate(['/']);
+    } else if (response.success === false) {
+      this.loading = false;
+      this.registerForm.enable();
+      this.layoutService.showMessage(
+        response.message ||
+          'An error occurred while registering your account. Please try again.',
+        'Close'
+      );
+    }
   }
 
   public submit(): void {
@@ -128,9 +143,5 @@ export class RegisterBottomSheetComponent implements OnDestroy, OnInit {
   public closeBottomSheet(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
-  }
-
-  private getRandomSixDigitNumber(): number {
-    return Math.floor(100000 + Math.random() * 900000);
   }
 }

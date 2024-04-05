@@ -29,12 +29,15 @@ export const getWeatherForecastSuccess = createSelector(
 export const getRegistrationSuccess = createSelector(
   getAuthenticationState,
   (state) =>
-    state && state.registrationSuccess ? state.registrationSuccess : false
+    state && state.registrationResponse?.success
+      ? state.registrationResponse.success
+      : null
 );
 
-export const getRegistrationData = createSelector(
+export const getRegistrationResponse = createSelector(
   getAuthenticationState,
-  (state) => (state && state.registrationData ? state.registrationData : null)
+  (state) =>
+    state && state.registrationResponse ? state.registrationResponse : null
 );
 
 export const getAuthError = createSelector(getAuthenticationState, (state) =>

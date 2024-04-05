@@ -9,7 +9,7 @@ import { FadeDirective } from '../../../directives/fade.directive';
 @Component({
   selector: 'app-signature',
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgStyle, RouterLink, FadeDirective],
+  imports: [NgIf, AsyncPipe, NgStyle, RouterLink],
   templateUrl: './signature.component.html',
   styleUrl: './signature.component.scss',
 })
