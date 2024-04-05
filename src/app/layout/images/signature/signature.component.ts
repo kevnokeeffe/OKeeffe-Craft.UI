@@ -4,11 +4,12 @@ import { getSignatureUrl } from '../../../configuration/store/configuration.sele
 import { Observable } from 'rxjs';
 import { AsyncPipe, NgIf, NgStyle } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FadeDirective } from '../../../directives/fade.directive';
 
 @Component({
   selector: 'app-signature',
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgStyle, RouterLink],
+  imports: [NgIf, AsyncPipe, NgStyle, RouterLink, FadeDirective],
   templateUrl: './signature.component.html',
   styleUrl: './signature.component.scss',
 })

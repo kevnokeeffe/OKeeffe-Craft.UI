@@ -28,7 +28,9 @@
     type="button"
     [ngStyle]="{ marginRight: '.25rem' }"
   >
-    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    <mat-icon class="material-symbols-outlined" color="accent">{{
+      hide ? "visibility_off" : "visibility"
+    }}</mat-icon>
   </button>
   } @if(suffixIcon&&!showPasswordVisibility){
   <mat-icon matSuffix [fontIcon]="suffixIcon"></mat-icon> }
