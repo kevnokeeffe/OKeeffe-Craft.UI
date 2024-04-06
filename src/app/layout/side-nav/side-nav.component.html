@@ -27,6 +27,7 @@
       [drawer]="drawer"
     ></app-toolbar>
     <router-outlet />
+    @if(!(isSmallScreen$|async)){
     <button
       (click)="toggleChatBotDialog()"
       mat-fab
@@ -36,7 +37,7 @@
     >
       <mat-icon class="material-symbols-rounded">{{
         !isChatBotDialogOpen ? "comment" : "close"
-      }}</mat-icon>
-    </button>
+      }}</mat-icon></button
+    >}
   </div>
 </mat-drawer-container>
