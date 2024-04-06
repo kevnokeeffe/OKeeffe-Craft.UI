@@ -88,4 +88,32 @@ export class AccountsEffects {
       )
     )
   );
+
+  getEmails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountsActions.getEmails),
+      switchMap(() =>
+        this.accountsService.getEmails().pipe(
+          map((response) =>
+            AccountsActions.getEmailsSuccess({ payload: response })
+          ),
+          catchError((error) => of(AccountsActions.getEmailsFailed({ error })))
+        )
+      )
+    )
+  );
+
+  getEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountsActions.getEmail),
+      switchMap(({ id }) =>
+        this.accountsService.getEmail(id).pipe(
+          map((response) =>
+            AccountsActions.getEmailSuccess({ payload: response })
+          ),
+          catchError((error) => of(AccountsActions.getEmailFailed({ error })))
+        )
+      )
+    )
+  );
 }

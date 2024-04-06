@@ -1,0 +1,55 @@
+<div class="container">
+  <h2 mat-dialog-title>Email Details</h2>
+  <mat-dialog-content>
+    <app-description-value label="ID" [value]="data.id"></app-description-value>
+    <app-description-value
+      label="Account ID"
+      [value]="data.accountId"
+    ></app-description-value>
+    <app-description-value
+      label="To Name"
+      [value]="data.toName"
+    ></app-description-value>
+    <app-description-value
+      label="Subject"
+      [value]="data.subject"
+    ></app-description-value>
+    <app-description-value
+      label="To Email"
+      [value]="data.toEmail"
+    ></app-description-value>
+
+    <app-description-value
+      label="Delivery Message"
+      [value]="data.deliveryMessage"
+    ></app-description-value>
+    <app-description-value
+      label="Email Date"
+      [value]="data.emailDate"
+    ></app-description-value>
+    <app-description-value
+      label="Status"
+      [value]="data.status"
+    ></app-description-value>
+    <app-description-value
+      label="External Ref"
+      [value]="data.externalRef"
+    ></app-description-value>
+    <app-description-value
+      label="Sent Date"
+      [value]="data.sentDate"
+    ></app-description-value>
+    <app-description-value
+      label="Last Sent Date"
+      [value]="data.lastSentDate"
+    ></app-description-value>
+    <app-description-value
+      label="Body"
+      [value]="data.body"
+    ></app-description-value>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

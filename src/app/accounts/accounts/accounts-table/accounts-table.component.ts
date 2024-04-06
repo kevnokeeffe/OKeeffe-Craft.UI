@@ -25,7 +25,7 @@ import {
   getAccountUpdated,
 } from '../../store/accounts.selectors';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
 import { getAccountId } from '../../../authentication/store/authentication.selectors';
 import { Utils } from '../../../utilities/utils';
@@ -42,6 +42,7 @@ import { Utils } from '../../../utilities/utils';
     MatButtonModule,
     MatIconModule,
     AsyncPipe,
+    DatePipe,
   ],
   templateUrl: './accounts-table.component.html',
   styleUrl: './accounts-table.component.scss',
@@ -121,6 +122,8 @@ export class AccountsTableComponent
       },
     });
   }
+
+  openAccountDetails(account: AccountResponseModel) {}
 
   deleteAccountDialog(id: string) {
     this.dialog

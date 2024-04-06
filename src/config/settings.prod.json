@@ -31,7 +31,7 @@
         "getErrorLog": "/Logs/error/{id}"
       },
       "emails": {
-        "getRmails": "/Emails",
+        "getEmails": "/Emails",
         "getEmail": "/Emails/{id}"
       }
     }

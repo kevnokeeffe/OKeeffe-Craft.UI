@@ -1,0 +1,77 @@
+<div class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Filter accounts</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Mia"
+      #input
+    />
+  </mat-form-field>
+
+  <section class="section">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+        <td mat-cell *matCellDef="let row">
+          {{
+            (isAdmin$ | async) || (accountId$ | async) === row.accountId
+              ? row.subject
+              : maskString(row.subject)
+          }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="toEmail">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>To Email</th>
+        <td mat-cell *matCellDef="let row">
+          {{
+            (isAdmin$ | async) || (accountId$ | async) === row.accountId
+              ? row.toEmail
+              : maskString(row.toEmail)
+          }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="sentDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sent Date</th>
+        <td mat-cell *matCellDef="let row">
+          {{
+            (isAdmin$ | async) || (accountId$ | async) === row.accountId
+              ? (row.sentDate | date) || "Unknown"
+              : maskString(row.sentDate)
+          }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <div class="action_buttons">
+            <button
+              [disabled]="!(isAdmin$ | async)"
+              mat-icon-button
+              (click)="openEmailDetails(row)"
+              color="primary"
+            >
+              <mat-icon class="material-symbols-outlined">dialogs</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [pageSize]="5"
+      aria-label="Select page of users"
+    ></mat-paginator>
+  </section>
+</div>

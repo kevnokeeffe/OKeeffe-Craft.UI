@@ -87,5 +87,29 @@ export const accountsReducer = createReducer(
     ...state,
     account: null,
     accountLoaded: false,
+  })),
+  on(AccountsActions.getEmails, (state) => state),
+  on(AccountsActions.getEmailsSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      emailsResponse: payload,
+      emailsLoaded: payload.success,
+    };
+  }),
+  on(AccountsActions.getEmailsFailed, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(AccountsActions.getEmail, (state) => state),
+  on(AccountsActions.getEmailSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      emailResponse: payload,
+      emailLoaded: payload.success,
+    };
+  }),
+  on(AccountsActions.getEmailFailed, (state, { error }) => ({
+    ...state,
+    error,
   }))
 );

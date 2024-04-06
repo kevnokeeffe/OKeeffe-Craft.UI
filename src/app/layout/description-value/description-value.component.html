@@ -7,7 +7,7 @@
       }"
       >{{ label }}:</span
     >
-    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value || "Unknown" }}</span>
   </div>
   <div *ngSwitchCase="'date'">
     <span
@@ -17,7 +17,9 @@
     }"
       >{{ label }}:</span
     >
-    <span [ngStyle]="{ fontWeight: '700' }">{{ value | date }}</span>
+    <span [ngStyle]="{ fontWeight: '700' }">{{
+      (value | date) || "Unknown"
+    }}</span>
   </div>
   <div *ngSwitchCase="'number'">
     <span
@@ -27,7 +29,7 @@
     }"
       >{{ label }}:</span
     >
-    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value || "Unknown" }}</span>
   </div>
   <div *ngSwitchCase="'boolean'">
     <span
@@ -67,6 +69,6 @@
     }"
       >{{ label }}:</span
     >
-    <span [ngStyle]="{ fontWeight: '700' }">{{ value }}</span>
+    <span [ngStyle]="{ fontWeight: '700' }">{{ value || "Unknown" }}</span>
   </div>
 </ng-container>

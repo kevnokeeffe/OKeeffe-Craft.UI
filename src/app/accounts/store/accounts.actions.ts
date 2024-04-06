@@ -3,6 +3,7 @@ import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
 import { CreateAccountModel } from '../models/create-account.model';
 import { UpdateAccountModel } from '../models/update-account.model';
+import { EmailModel } from '../models/email.model';
 
 export const AccountsActions = createActionGroup({
   source: 'Accounts',
@@ -33,5 +34,15 @@ export const AccountsActions = createActionGroup({
     clearErrors: emptyProps(),
     clearAll: emptyProps(),
     clearAccount: emptyProps(),
+    getEmails: emptyProps(),
+    getEmailsSuccess: props<{
+      payload: ServiceResponseModel<Array<EmailModel>>;
+    }>(),
+    getEmailsFailed: props<{ error: any }>(),
+    getEmail: props<{ id: string }>(),
+    getEmailSuccess: props<{
+      payload: ServiceResponseModel<EmailModel>;
+    }>(),
+    getEmailFailed: props<{ error: any }>(),
   },
 });

@@ -53,3 +53,8 @@ export const getWeatherForcastEndpoints = createSelector(
 export const getLogsEndpoints = createSelector(getConfigurationState, (state) =>
   state && state.api ? state.api.endpoints.logs : null
 );
+
+export const getEmailEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.emails : null)
+);

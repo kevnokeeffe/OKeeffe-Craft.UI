@@ -38,3 +38,23 @@ export const getAccountLoaded = createSelector(
   getAccountsState,
   (state: AccountsState) => state.accountLoaded
 );
+
+export const getEmails = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.emailsResponse
+);
+
+export const getEmail = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.emailResponse
+);
+
+export const getEmailsLoaded = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.emailsLoaded
+);
+
+export const getEmailLoaded = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.emailLoaded
+);

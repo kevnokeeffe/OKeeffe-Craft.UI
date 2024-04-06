@@ -34,12 +34,12 @@
       </ng-container>
 
       <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
         <td mat-cell *matCellDef="let row">
           {{
             (isAdmin$ | async) || (accountId$ | async) === row.id
-              ? row.role
-              : maskString(row.role)
+              ? (row.created | date)
+              : maskString(row.created)
           }}
         </td>
       </ng-container>
@@ -59,6 +59,14 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           <div class="action_buttons">
+            <!-- <button
+              [disabled]="!(isAdmin$ | async)"
+              mat-icon-button
+              (click)="openAccountDetails(row)"
+              color="primary"
+            >
+              <mat-icon class="material-symbols-outlined">dialogs</mat-icon>
+            </button> -->
             <button
               [disabled]="
                 !(isAdmin$ | async) && (accountId$ | async) !== row.id

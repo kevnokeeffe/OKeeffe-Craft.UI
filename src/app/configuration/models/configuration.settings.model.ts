@@ -14,11 +14,11 @@ export interface ApiEndpointModel {
   authentication: AuthenticationEndpointsModel;
   accounts: AccountsEndpointsModel;
   logs: LogsEndpointsModel;
-  emails: EmailsModel;
+  emails: EmailEndpointsModel;
   weatherForcast: WeatherForcastEndpointsModel;
 }
 
-export interface EmailsModel {
+export interface EmailEndpointsModel {
   sendEmail: string;
   getEmails: string;
   getEmail: string;

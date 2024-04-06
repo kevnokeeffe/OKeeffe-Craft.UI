@@ -1,5 +1,6 @@
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
+import { EmailModel } from '../models/email.model';
 
 export interface AccountsState {
   account: ServiceResponseModel<AccountResponseModel> | null;
@@ -9,6 +10,10 @@ export interface AccountsState {
   accountCreated: boolean;
   accountUpdated: boolean;
   accountDeleted: boolean;
+  emailResponse: ServiceResponseModel<EmailModel> | null;
+  emailsResponse: ServiceResponseModel<Array<EmailModel>> | null;
+  emailLoaded: boolean;
+  emailsLoaded: boolean;
   error: any | null;
 }
 
@@ -20,5 +25,9 @@ export const initialAccountsState: AccountsState = {
   accountCreated: false,
   accountUpdated: false,
   accountDeleted: false,
+  emailResponse: null,
+  emailsResponse: null,
+  emailLoaded: false,
+  emailsLoaded: false,
   error: null,
 };
