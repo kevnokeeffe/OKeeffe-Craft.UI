@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 mat-dialog-title>{{ title }}</h2>
+  <!-- <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar> -->
+  <mat-dialog-content>
+    <div class="btn_con">
+      <button mat-button routerLink="/" color="accent">
+        <mat-icon class="material-symbols-outlined">home</mat-icon
+        ><span>Home</span>
+      </button>
+      <button mat-button routerLink="/dashboard" color="accent">
+        <mat-icon class="material-symbols-outlined">space_dashboard</mat-icon
+        ><span>Dashboard</span>
+      </button>
+      <button mat-button routerLink="/assistants" color="accent">
+        <mat-icon class="material-symbols-outlined">robot_2</mat-icon
+        ><span>Assistants</span>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="actions">
+    <button mat-button (click)="home()" color="accent">
+      <mat-icon class="material-symbols-outlined">home</mat-icon
+      ><span>Home</span>
+    </button>
+    <button mat-button (click)="messages()" color="accent">
+      <mat-icon class="material-symbols-outlined">chat</mat-icon
+      ><span>Messages</span>
+    </button>
+    <button mat-button (click)="help()" color="accent">
+      <mat-icon class="material-symbols-outlined">help</mat-icon
+      ><span>Help</span>
+    </button>
+  </mat-dialog-actions>
+</div>

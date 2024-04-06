@@ -9,6 +9,9 @@ import { SelectionListComponent } from './selection-list/selection-list.componen
 import { SignatureComponent } from '../images/signature/signature.component';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChatBotDialogComponent } from '../../chat-gpt/chat-bot-dialog/chat-bot-dialog.component';
 
 @Component({
   selector: 'app-side-nav',
@@ -24,16 +27,40 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     SelectionListComponent,
     SignatureComponent,
     AsyncPipe,
+    MatMenuModule,
   ],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
 })
 export class SideNavComponent {
   isSmallScreen$: Observable<boolean> | undefined;
+  chatBotDialogRef: MatDialogRef<ChatBotDialogComponent> | null = null;
+  isChatBotDialogOpen: boolean = false;
   @ViewChild('drawer') drawer: MatDrawer | undefined;
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog
+  ) {
     this.isSmallScreen$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(map((result) => result.matches));
+  }
+
+  toggleChatBotDialog() {
+    if (this.chatBotDialogRef) {
+      this.chatBotDialogRef.close();
+      this.chatBotDialogRef = null;
+      this.isChatBotDialogOpen = false;
+    } else {
+      this.chatBotDialogRef = this.dialog.open(ChatBotDialogComponent, {
+        hasBackdrop: false,
+        disableClose: true,
+        position: {
+          bottom: '110px',
+          right: '70px',
+        },
+      });
+      this.isChatBotDialogOpen = true;
+    }
   }
 }

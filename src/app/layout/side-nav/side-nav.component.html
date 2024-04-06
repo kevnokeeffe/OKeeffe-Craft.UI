@@ -27,5 +27,14 @@
       [drawer]="drawer"
     ></app-toolbar>
     <router-outlet />
+    <button
+      (click)="toggleChatBotDialog()"
+      mat-fab
+      color="accent"
+      aria-label="Example icon button with a filter list icon"
+      class="material-symbols-outlined bottom-right-button"
+    >
+      <mat-icon>{{ !isChatBotDialogOpen ? "comment" : "close" }}</mat-icon>
+    </button>
   </div>
 </mat-drawer-container>

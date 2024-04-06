@@ -52,6 +52,7 @@ export class ActivityLogsTableComponent implements AfterViewInit, OnChanges {
     this.dataSource = new MatTableDataSource(this.activityLogs!);
     this.isAdmin$ = this.store.select(getIsAdmin);
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['activityLogs'] && changes['activityLogs'].currentValue) {
       this.populateTable(changes['activityLogs'].currentValue);
