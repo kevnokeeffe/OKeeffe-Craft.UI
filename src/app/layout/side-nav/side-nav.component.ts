@@ -56,7 +56,7 @@ export class SideNavComponent {
         hasBackdrop: false,
         disableClose: true,
         position: {
-          bottom: '110px',
+          bottom: '100px',
           right: '70px',
         },
       });

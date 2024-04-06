@@ -32,9 +32,11 @@
       mat-fab
       color="accent"
       aria-label="Example icon button with a filter list icon"
-      class="material-symbols-outlined bottom-right-button"
+      class="bottom-right-button"
     >
-      <mat-icon>{{ !isChatBotDialogOpen ? "comment" : "close" }}</mat-icon>
+      <mat-icon class="material-symbols-rounded">{{
+        !isChatBotDialogOpen ? "comment" : "close"
+      }}</mat-icon>
     </button>
   </div>
 </mat-drawer-container>
