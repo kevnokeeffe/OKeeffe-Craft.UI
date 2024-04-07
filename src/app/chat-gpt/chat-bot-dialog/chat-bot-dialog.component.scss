@@ -1,18 +1,19 @@
 .container {
-  padding: 10px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
+    height: 400px;
+    padding: 5px;
   }
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 768px) {
     width: 400px;
+    height: 600px;
+    padding: 10px;
   }
-
   display: flex;
   flex-direction: column;
-  height: 600px;
   justify-content: space-between;
   .actions {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     mat-icon {
       font-size: 22px;
       height: auto;

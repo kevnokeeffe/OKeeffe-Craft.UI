@@ -33,11 +33,6 @@ export class AccountsDataService {
       .pipe(takeUntil(this.destroy$))
       .subscribe(([accountsEndpoints, emailEndpoints]) => {
         if (accountsEndpoints && emailEndpoints) {
-          console.log(
-            'AccountsDataService: ',
-            accountsEndpoints,
-            emailEndpoints
-          );
           this.accountsEndpoints = accountsEndpoints;
           this.emailEndpoints = emailEndpoints;
         }

@@ -71,7 +71,6 @@ export class ApiClient {
       return this.api.concat(endpoint);
     } else {
       // Handle the case where this.baseUrl is undefined
-      console.error('baseUrl is undefined');
       return endpoint;
     }
   }
