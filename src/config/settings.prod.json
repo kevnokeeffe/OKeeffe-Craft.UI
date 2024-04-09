@@ -34,7 +34,7 @@
         "getEmails": "/Emails",
         "getEmail": "/Emails/{id}"
       },
-      "contactMessage": {
+      "contactMessages": {
         "getContactMessages": "/ContactMessage",
         "getContactMessage": "/ContactMessage/{id}",
         "updateContactMessage": "/ContactMessage/{id}",
