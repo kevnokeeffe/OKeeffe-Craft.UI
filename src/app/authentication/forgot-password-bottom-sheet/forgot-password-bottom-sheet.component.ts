@@ -45,10 +45,10 @@ export class ForgotPasswordBottomSheetComponent implements OnDestroy, OnInit {
     private layoutService: LayoutService
   ) {
     this.forgotPasswordForm = new UntypedFormGroup({
-      email: new UntypedFormControl(
-        { value: 'kevokeeffe@gmail.com', disabled: false },
-        [Validators.email, Validators.required]
-      ),
+      email: new UntypedFormControl({ value: '', disabled: false }, [
+        Validators.email,
+        Validators.required,
+      ]),
     });
   }
 
