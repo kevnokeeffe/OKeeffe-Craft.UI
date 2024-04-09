@@ -33,6 +33,13 @@
       "emails": {
         "getEmails": "/Emails",
         "getEmail": "/Emails/{id}"
+      },
+      "contactMessage": {
+        "getContactMessages": "/ContactMessage",
+        "getContactMessage": "/ContactMessage/{id}",
+        "updateContactMessage": "/ContactMessage/{id}",
+        "deleteContactMessage": "/ContactMessage/{id}",
+        "createContactMessage": "/ContactMessage"
       }
     }
   },

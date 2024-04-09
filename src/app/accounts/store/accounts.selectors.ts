@@ -58,3 +58,18 @@ export const getEmailLoaded = createSelector(
   getAccountsState,
   (state: AccountsState) => state.emailLoaded
 );
+
+export const getError = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.error
+);
+
+export const getContactMessage = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.contactMessageResponse
+);
+
+export const getContactMessageCreated = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.contactMessageCreated
+);

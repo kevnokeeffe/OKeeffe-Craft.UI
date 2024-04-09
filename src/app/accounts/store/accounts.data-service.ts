@@ -3,11 +3,13 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
 import {
   AccountsEndpointsModel,
+  ContactMessagesEndpointsModel,
   EmailEndpointsModel,
 } from '../../configuration/models/configuration.settings.model';
 import { ApiClient } from '../../utilities/api-client';
 import {
   getAccountsEndpoints,
+  getContactMessagesEndpoints,
   getEmailEndpoints,
 } from '../../configuration/store/configuration.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
@@ -20,6 +22,7 @@ import { EmailModel } from '../models/email.model';
 export class AccountsDataService {
   accountsEndpoints: AccountsEndpointsModel | undefined;
   emailEndpoints: EmailEndpointsModel | undefined;
+  contactMessageEndpoints: ContactMessagesEndpointsModel | undefined;
   public destroy$ = new Subject<void>();
   constructor(
     protected api: ApiClient,
@@ -29,14 +32,18 @@ export class AccountsDataService {
     combineLatest([
       this.store.select(getAccountsEndpoints),
       this.store.select(getEmailEndpoints),
+      this.store.select(getContactMessagesEndpoints),
     ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([accountsEndpoints, emailEndpoints]) => {
-        if (accountsEndpoints && emailEndpoints) {
-          this.accountsEndpoints = accountsEndpoints;
-          this.emailEndpoints = emailEndpoints;
+      .subscribe(
+        ([accountsEndpoints, emailEndpoints, contactMessageEndpoints]) => {
+          if (accountsEndpoints && emailEndpoints && contactMessageEndpoints) {
+            this.accountsEndpoints = accountsEndpoints;
+            this.emailEndpoints = emailEndpoints;
+            this.contactMessageEndpoints = contactMessageEndpoints;
+          }
         }
-      });
+      );
   }
 
   getAccounts(): Observable<ServiceResponseModel<Array<AccountResponseModel>>> {
@@ -93,6 +100,13 @@ export class AccountsDataService {
       Utils.InjectUrlParams(this.emailEndpoints?.getEmail ?? '', {
         id: id,
       })
+    );
+  }
+
+  createContactMessage(model: any): Observable<ServiceResponseModel<string>> {
+    return this.api.post<ServiceResponseModel<string>>(
+      this.contactMessageEndpoints?.createContactMessage ?? '',
+      model
     );
   }
 }

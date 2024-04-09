@@ -4,6 +4,7 @@ import { AccountResponseModel } from '../models/account-response.model';
 import { CreateAccountModel } from '../models/create-account.model';
 import { UpdateAccountModel } from '../models/update-account.model';
 import { EmailModel } from '../models/email.model';
+import { ContactMessageModel } from '../models/contact-message.model';
 
 export const AccountsActions = createActionGroup({
   source: 'Accounts',
@@ -44,5 +45,11 @@ export const AccountsActions = createActionGroup({
       payload: ServiceResponseModel<EmailModel>;
     }>(),
     getEmailFailed: props<{ error: any }>(),
+    createContactMessage: props<{ model: ContactMessageModel }>(),
+    createContactMessageSuccess: props<{
+      payload: ServiceResponseModel<string>;
+    }>(),
+    createContactMessageFailed: props<{ error: any }>(),
+    clearContactMessage: emptyProps(),
   },
 });

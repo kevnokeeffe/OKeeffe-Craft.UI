@@ -20,6 +20,7 @@ import { Utils } from '../../../utilities/utils';
 import { Router, RouterModule } from '@angular/router';
 import { SettingsBottomSheetComponent } from '../../../settings/settings-bottom-sheet/settings-bottom-sheet.component';
 import { AccountBottomSheetComponent } from '../../../accounts/dialogs/account-bottom-sheet/account-bottom-sheet.component';
+import { ContactBottomSheetComponent } from '../../../home/contact-bottom-sheet/contact-bottom-sheet.component';
 
 @Component({
   selector: 'app-selection-list',
@@ -108,8 +109,8 @@ export class SelectionListComponent implements OnDestroy {
     this._bottomSheet.open(RegisterBottomSheetComponent);
   }
 
-  public openSettingsBottomSheet(): void {
-    this._bottomSheet.open(SettingsBottomSheetComponent);
+  public openContactBottomSheet(): void {
+    this._bottomSheet.open(ContactBottomSheetComponent);
   }
 
   public logout() {

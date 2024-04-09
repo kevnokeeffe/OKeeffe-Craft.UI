@@ -111,5 +111,22 @@ export const accountsReducer = createReducer(
   on(AccountsActions.getEmailFailed, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(AccountsActions.createContactMessage, (state) => state),
+  on(AccountsActions.createContactMessageSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      contactMessageResponse: payload,
+      contactMessageCreated: payload.success,
+    };
+  }),
+  on(AccountsActions.createContactMessageFailed, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(AccountsActions.clearContactMessage, (state) => ({
+    ...state,
+    contactMessageResponse: null,
+    contactMessageCreated: false,
   }))
 );

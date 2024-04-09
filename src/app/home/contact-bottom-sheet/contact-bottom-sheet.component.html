@@ -6,14 +6,55 @@
       oncontextmenu="return false;"
     />
     <div class="bottom-sheet-title">Contact</div>
-    <div class="bottom-sheet-subtitle">No worries, we've got your back.</div>
+    <div class="bottom-sheet-subtitle">Get in Touch.</div>
   </div>
   <div class="bottom-sheet-content">
-    <form class="contact-content-form"></form>
-    <div class="contact-buttons">
-      <button mat-flat-button type="button" (click)="closeBottomSheet($event)">
-        Close
+    <form
+      class="contact-content-form"
+      [formGroup]="contactForm"
+      (ngSubmit)="submit()"
+    >
+      <app-form-field
+        [control]="contactForm.controls['email']"
+        [label]="'Email'"
+        [placeholder]="'Enter your email address'"
+        [errors]="{
+          required: 'Email is required',
+          email: 'Email is invalid'
+        }"
+        [type]="'email'"
+      ></app-form-field>
+      <app-form-field
+        [control]="contactForm.controls['subject']"
+        [label]="'Subject'"
+        [placeholder]="'Enter the subject of your message'"
+        [errors]="{ required: 'Subject is required' }"
+      ></app-form-field>
+      <app-form-field
+        [control]="contactForm.controls['message']"
+        [label]="'Message'"
+        [placeholder]="'Enter your message'"
+        [errors]="{ required: 'Message is required' }"
+        [type]="'textarea'"
+      ></app-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="loading"
+      >
+        Submit
       </button>
-    </div>
+      @if(loading){<app-progress-bar></app-progress-bar>}
+    </form>
+
+    <button
+      id="close_btn"
+      mat-flat-button
+      type="button"
+      (click)="closeBottomSheet($event)"
+    >
+      Close
+    </button>
   </div>
 </div>

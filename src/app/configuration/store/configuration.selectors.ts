@@ -58,3 +58,8 @@ export const getEmailEndpoints = createSelector(
   getConfigurationState,
   (state) => (state && state.api ? state.api.endpoints.emails : null)
 );
+
+export const getContactMessagesEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.contactMessages : null)
+);

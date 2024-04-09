@@ -116,4 +116,20 @@ export class AccountsEffects {
       )
     )
   );
+
+  createContactMessage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountsActions.createContactMessage),
+      switchMap(({ model }) =>
+        this.accountsService.createContactMessage(model).pipe(
+          map((response) =>
+            AccountsActions.createContactMessageSuccess({ payload: response })
+          ),
+          catchError((error) =>
+            of(AccountsActions.createContactMessageFailed({ error }))
+          )
+        )
+      )
+    )
+  );
 }

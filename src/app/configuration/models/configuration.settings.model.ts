@@ -15,6 +15,7 @@ export interface ApiEndpointModel {
   accounts: AccountsEndpointsModel;
   logs: LogsEndpointsModel;
   emails: EmailEndpointsModel;
+  contactMessages: ContactMessagesEndpointsModel;
   weatherForcast: WeatherForcastEndpointsModel;
 }
 
@@ -26,6 +27,14 @@ export interface EmailEndpointsModel {
 
 export interface ImagesModel {
   signature: string;
+}
+
+export interface ContactMessagesEndpointsModel {
+  getContactMessages: string;
+  getContactMessage: string;
+  createContactMessage: string;
+  updateContactMessage: string;
+  deleteContactMessage: string;
 }
 
 export interface LogsEndpointsModel {

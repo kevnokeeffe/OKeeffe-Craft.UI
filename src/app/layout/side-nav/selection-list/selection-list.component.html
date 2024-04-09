@@ -65,18 +65,15 @@
           library_books</mat-icon
         ><span>Documentation</span></mat-list-item
       >
-      <!-- <mat-list-item
+      <mat-list-item
         class="mat-list-item"
-        (click)="
-          isApiConnected && isAuthenticated ? openSettingsBottomSheet() : null
-        "
-        [disabled]="!isAuthenticated"
+        (click)="isApiConnected ? openContactBottomSheet() : null"
+        [disabled]="!isApiConnected"
         matTooltipPosition="right"
-        [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
-          settings</mat-icon
-        ><span>Settings</span></mat-list-item
-      > -->
+          contact_support</mat-icon
+        ><span>Contact</span></mat-list-item
+      >
       <mat-list-item
         class="mat-list-item"
         (click)="

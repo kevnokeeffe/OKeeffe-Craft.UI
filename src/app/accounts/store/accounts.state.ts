@@ -15,6 +15,8 @@ export interface AccountsState {
   emailLoaded: boolean;
   emailsLoaded: boolean;
   error: any | null;
+  contactMessageResponse: ServiceResponseModel<string> | null;
+  contactMessageCreated: boolean;
 }
 
 export const initialAccountsState: AccountsState = {
@@ -30,4 +32,6 @@ export const initialAccountsState: AccountsState = {
   emailLoaded: false,
   emailsLoaded: false,
   error: null,
+  contactMessageResponse: null,
+  contactMessageCreated: false,
 };
