@@ -20,9 +20,9 @@ import { CreateAccountModel } from '../models/create-account.model';
 import { EmailModel } from '../models/email.model';
 
 export class AccountsDataService {
-  accountsEndpoints: AccountsEndpointsModel | undefined;
-  emailEndpoints: EmailEndpointsModel | undefined;
-  contactMessageEndpoints: ContactMessagesEndpointsModel | undefined;
+  accountsEndpoints!: AccountsEndpointsModel;
+  emailEndpoints!: EmailEndpointsModel;
+  contactMessageEndpoints!: ContactMessagesEndpointsModel;
   public destroy$ = new Subject<void>();
   constructor(
     protected api: ApiClient,
@@ -48,13 +48,13 @@ export class AccountsDataService {
 
   getAccounts(): Observable<ServiceResponseModel<Array<AccountResponseModel>>> {
     return this.api.get<ServiceResponseModel<Array<AccountResponseModel>>>(
-      this.accountsEndpoints?.getAccounts ?? ''
+      this.accountsEndpoints?.getAccounts
     );
   }
 
   getAccount(id: string): Observable<any> {
     return this.api.get<ServiceResponseModel<AccountResponseModel>>(
-      Utils.InjectUrlParams(this.accountsEndpoints?.getAccount ?? '', {
+      Utils.InjectUrlParams(this.accountsEndpoints?.getAccount, {
         id: id,
       })
     );
@@ -64,7 +64,7 @@ export class AccountsDataService {
     model: CreateAccountModel
   ): Observable<ServiceResponseModel<AccountResponseModel>> {
     return this.api.post<ServiceResponseModel<AccountResponseModel>>(
-      this.accountsEndpoints?.createAccount ?? '',
+      this.accountsEndpoints?.createAccount,
       model
     );
   }
@@ -74,7 +74,7 @@ export class AccountsDataService {
     model: UpdateAccountModel
   ): Observable<ServiceResponseModel<AccountResponseModel>> {
     return this.api.put<ServiceResponseModel<AccountResponseModel>>(
-      Utils.InjectUrlParams(this.accountsEndpoints?.updateAccount ?? '', {
+      Utils.InjectUrlParams(this.accountsEndpoints?.updateAccount, {
         id: id,
       }),
       model
@@ -83,7 +83,7 @@ export class AccountsDataService {
 
   deleteAccount(id: string): Observable<ServiceResponseModel<string>> {
     return this.api.delete<ServiceResponseModel<string>>(
-      Utils.InjectUrlParams(this.accountsEndpoints?.deleteAccount ?? '', {
+      Utils.InjectUrlParams(this.accountsEndpoints?.deleteAccount, {
         id: id,
       })
     );
@@ -91,13 +91,13 @@ export class AccountsDataService {
 
   getEmails(): Observable<ServiceResponseModel<Array<EmailModel>>> {
     return this.api.get<ServiceResponseModel<Array<EmailModel>>>(
-      this.emailEndpoints?.getEmails ?? ''
+      this.emailEndpoints?.getEmails
     );
   }
 
   getEmail(id: string): Observable<ServiceResponseModel<EmailModel>> {
     return this.api.get<ServiceResponseModel<EmailModel>>(
-      Utils.InjectUrlParams(this.emailEndpoints?.getEmail ?? '', {
+      Utils.InjectUrlParams(this.emailEndpoints?.getEmail, {
         id: id,
       })
     );
@@ -105,7 +105,7 @@ export class AccountsDataService {
 
   createContactMessage(model: any): Observable<ServiceResponseModel<string>> {
     return this.api.post<ServiceResponseModel<string>>(
-      this.contactMessageEndpoints?.createContactMessage ?? '',
+      this.contactMessageEndpoints?.createContactMessage,
       model
     );
   }
