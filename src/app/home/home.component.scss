@@ -88,35 +88,17 @@
         width: 38.2%;
         justify-content: flex-start;
         align-items: center;
-        .btn {
-          height: auto;
-          width: auto;
-          margin-left: -280px;
-          background-color: #002d45; //#6aac64;
-          .icon {
-            font-size: 6em;
-            width: auto;
-            height: auto;
-            //
-          }
-        }
       }
       @media screen and (max-width: 1600px) and (min-width: 800px) {
         width: 38.2%;
         justify-content: flex-start;
         align-items: center;
-        .btn {
-          display: none;
-        }
       }
       @media screen and (max-width: 800px) {
         width: 100%;
         justify-content: center;
         align-items: flex-start;
         height: 62%;
-        .btn {
-          display: none;
-        }
       }
 
       .logo {

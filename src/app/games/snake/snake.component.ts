@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -8,14 +8,13 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './snake.component.html',
   styleUrl: './snake.component.scss',
 })
-export class SnakeComponent implements OnInit, AfterViewInit {
+export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Define HTML elements
   board: HTMLElement | null | undefined;
   instructionText: HTMLElement | null | undefined;
   logo: HTMLElement | null | undefined;
   score: HTMLElement | null | undefined;
   highScoreText: HTMLElement | null | undefined;
-
   // Define game variables
   gridSize = 20;
   snake = [{ x: 10, y: 10 }];
@@ -25,23 +24,37 @@ export class SnakeComponent implements OnInit, AfterViewInit {
   gameInterval: any;
   gameSpeedDelay = 200;
   gameStarted = false;
+  private keydownHandler: ((event: KeyboardEvent) => void) | undefined;
+  private boundHandleKeyPress:
+    | ((event: { code: string; key: string }) => void)
+    | undefined;
 
   constructor() {
-    window.addEventListener('keydown', function (e) {
+    this.keydownHandler = (event) => {
       if (
-        e.code === 'Space' ||
-        e.key === 'ArrowUp' ||
-        e.key === 'ArrowDown' ||
-        e.key === 'ArrowLeft' ||
-        e.key === 'ArrowRight'
+        event.code === 'Space' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'ArrowDown' ||
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight'
       ) {
-        e.preventDefault();
+        event.preventDefault();
       }
-    });
+    };
+    window.addEventListener('keydown', this.keydownHandler);
   }
 
   ngAfterViewInit(): void {
     this.createBoard();
+  }
+
+  ngOnDestroy() {
+    if (this.keydownHandler) {
+      window.removeEventListener('keydown', this.keydownHandler);
+    }
+    if (this.boundHandleKeyPress) {
+      document.removeEventListener('keydown', this.boundHandleKeyPress);
+    }
   }
 
   createBoard() {
@@ -53,7 +66,32 @@ export class SnakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    document.addEventListener('keydown', this.handleKeyPress.bind(this));
+    this.boundHandleKeyPress = this.handleKeyPress.bind(this);
+    document.addEventListener('keydown', this.boundHandleKeyPress);
+  }
+
+  private handleKeyPress(event: { code: string; key: string }) {
+    if (
+      (!this.gameStarted && event.code === 'Space') ||
+      (!this.gameStarted && event.key === ' ')
+    ) {
+      this.startGame();
+    } else {
+      switch (event.key) {
+        case 'ArrowUp':
+          this.direction = 'up';
+          break;
+        case 'ArrowDown':
+          this.direction = 'down';
+          break;
+        case 'ArrowLeft':
+          this.direction = 'left';
+          break;
+        case 'ArrowRight':
+          this.direction = 'right';
+          break;
+      }
+    }
   }
 
   private draw() {
@@ -100,34 +138,9 @@ export class SnakeComponent implements OnInit, AfterViewInit {
     return element;
   }
 
-  private handleKeyPress(event: { code: string; key: string }) {
-    if (
-      (!this.gameStarted && event.code === 'Space') ||
-      (!this.gameStarted && event.key === ' ')
-    ) {
-      this.startGame();
-    } else {
-      switch (event.key) {
-        case 'ArrowUp':
-          this.direction = 'up';
-          break;
-        case 'ArrowDown':
-          this.direction = 'down';
-          break;
-        case 'ArrowLeft':
-          this.direction = 'left';
-          break;
-        case 'ArrowRight':
-          this.direction = 'right';
-          break;
-      }
-    }
-  }
-
   private startGame() {
     this.gameStarted = true; // Keep track of a running game
-    this.instructionText!.style.display = 'none';
-    this.logo!.style.display = 'none';
+    console.log(this.logo!.style.display);
     this.gameInterval = setInterval(() => {
       this.move();
       this.checkCollision();
@@ -223,8 +236,6 @@ export class SnakeComponent implements OnInit, AfterViewInit {
   private stopGame() {
     clearInterval(this.gameInterval);
     this.gameStarted = false;
-    this.instructionText!.style.display = 'block';
-    this.logo!.style.display = 'block';
   }
 
   private updateHighScore() {

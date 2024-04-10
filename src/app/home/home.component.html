@@ -10,28 +10,12 @@
       </header>
     </section>
     <section class="right_section" appViewportAnimation>
-      @if(playGame){ <app-snake></app-snake>} @else{
-
       <img
         appViewportAnimation
         class="logo"
         src="../../assets/images/home-image.jpg"
         oncontextmenu="return false;"
       />
-
-      <div appViewportAnimation>
-        <button
-          matTooltip="Play a Game"
-          matTooltipPosition="above"
-          class="btn"
-          mat-fab
-          (click)="playGame = true"
-          aria-label="Example icon button with a vertical three dot icon"
-        >
-          <mat-icon class="material-symbols-outlined icon">play_arrow</mat-icon>
-        </button>
-      </div>
-      }
     </section>
   </section>
   <app-about appViewportAnimation></app-about>

@@ -44,11 +44,13 @@ export const routes: Routes = [
         (m) => m.LogoutComponent
       ),
   },
-  // {
-  //   path: 'snake',
-  //   loadComponent: () =>
-  //     import('./games/snake/snake.component').then((m) => m.SnakeComponent),
-  // },
+  {
+    path: 'snake',
+    loadComponent: () =>
+      import('./games/snake/snake-container/snake-container.component').then(
+        (m) => m.SnakeContainerComponent
+      ),
+  },
   {
     path: '**',
     redirectTo: '/',
