@@ -44,6 +44,11 @@ export const routes: Routes = [
         (m) => m.LogoutComponent
       ),
   },
+  // {
+  //   path: 'snake',
+  //   loadComponent: () =>
+  //     import('./games/snake/snake.component').then((m) => m.SnakeComponent),
+  // },
   {
     path: '**',
     redirectTo: '/',

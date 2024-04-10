@@ -45,7 +45,7 @@
           space_dashboard</mat-icon
         ><span>Dashboard</span></mat-list-item
       >
-      <mat-list-item
+      <!-- <mat-list-item
         class="mat-list-item"
         [disabled]="!isAuthenticated"
         matTooltipPosition="right"
@@ -55,6 +55,11 @@
           robot_2</mat-icon
         ><span>AI Assistants</span></mat-list-item
       >
+      <mat-list-item class="mat-list-item" [routerLink]="['/snake']"
+        ><mat-icon matListItemIcon class="material-symbols-outlined">
+          conversion_path</mat-icon
+        ><span>Snake</span></mat-list-item
+      > -->
     </mat-selection-list>
   </div>
   <div>

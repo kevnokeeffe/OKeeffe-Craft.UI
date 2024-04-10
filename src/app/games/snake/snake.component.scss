@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+  font-family: "VT323", monospace;
+}
+
+#game-board {
+  border-radius: 100px;
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(20, 20px);
+  margin: 5px;
+}
+
+.game-border-1 {
+  border: #595f43 solid 10px;
+  border-radius: 30px;
+  box-shadow: inset 0 0 0 10px #595f43;
+}
+
+.game-border-2 {
+  border: #abb78a solid 8px;
+  border-radius: 26px;
+  box-shadow: inset 0 0 0 10px #abb78a;
+}
+
+.game-border-3 {
+  border: #8b966c solid 30px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 5px #8b966c;
+}
+
+#instruction-text {
+  position: absolute;
+  margin-top: 260px;
+  color: #333;
+  z-index: 1;
+  text-align: center;
+  text-transform: capitalize;
+  font-family: "VT323", monospace;
+}
+
+.scores {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 25px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+}
+.icon {
+  font-size: 1.6em;
+  width: auto;
+  height: auto;
+  margin-bottom: -12px;
+}
+#score {
+  color: #abb78a;
+}
+
+#score,
+#highScore {
+  width: 203px;
+  font-size: 40px;
+  font-weight: bolder;
+  font-family: "VT323", monospace;
+}
+
+#highScore {
+  color: #d8ddca;
+  display: none;
+  text-align: right;
+}
+
+.game-border-3,
+#logo {
+  background-color: #c4cfa3;
+}
+
+#logo {
+  position: absolute;
+  margin-top: -40px;
+}
