@@ -14,8 +14,8 @@
   </div>
   @if(!gameStarted){
   <h1 id="instruction-text">
-    <div>Press spacebar to start the game</div>
-    <div>
+    <div id="text">Press spacebar to start the game</div>
+    <div class="arror-ctr">
       <mat-icon class="material-symbols-outlined icon">
         keyboard_arrow_left
       </mat-icon>
@@ -28,7 +28,7 @@
       <mat-icon class="material-symbols-outlined icon">
         keyboard_arrow_right
       </mat-icon>
-      <span>to move</span>
+      <span id="arrow-txt">to move</span>
     </div>
   </h1>
   <img
