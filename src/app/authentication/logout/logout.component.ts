@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { AccountsActions } from '../../accounts/store/accounts.actions';
 import { LogsActions } from '../../logs/store/logs.actions';
+import { GamesActions } from '../../games/store/games.actions';
 
 @Component({
   selector: 'app-logout',
@@ -20,5 +21,6 @@ export class LogoutComponent implements OnInit {
     this.store.dispatch(AuthenticationActions.clearAll());
     this.store.dispatch(AccountsActions.clearAll());
     this.store.dispatch(LogsActions.clearAll());
+    this.store.dispatch(GamesActions.clearAll());
   }
 }

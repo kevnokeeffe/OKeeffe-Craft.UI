@@ -16,6 +16,7 @@ export interface ApiEndpointModel {
   logs: LogsEndpointsModel;
   emails: EmailEndpointsModel;
   contactMessages: ContactMessagesEndpointsModel;
+  games: GamesEndpointsModel;
   weatherForcast: WeatherForcastEndpointsModel;
 }
 
@@ -27,6 +28,20 @@ export interface EmailEndpointsModel {
 
 export interface ImagesModel {
   signature: string;
+}
+
+export interface GamesEndpointsModel {
+  getGames: string;
+  getGame: string;
+  createGame: string;
+  updateGame: string;
+  deleteGame: string;
+  snake: SnakeEndpointsModel;
+}
+
+export interface SnakeEndpointsModel {
+  getSnakeHighScore: string;
+  updateSnakeHighScore: string;
 }
 
 export interface ContactMessagesEndpointsModel {

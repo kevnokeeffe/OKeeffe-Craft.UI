@@ -63,3 +63,8 @@ export const getContactMessagesEndpoints = createSelector(
   getConfigurationState,
   (state) => (state && state.api ? state.api.endpoints.contactMessages : null)
 );
+
+export const getGamesEndpoints = createSelector(
+  getConfigurationState,
+  (state) => (state && state.api ? state.api.endpoints.games : null)
+);

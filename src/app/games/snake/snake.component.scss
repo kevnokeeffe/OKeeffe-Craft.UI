@@ -7,14 +7,14 @@
 }
 
 #game-board {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     border-radius: 50px;
     display: grid;
     grid-template-columns: repeat(20, 10px);
     grid-template-rows: repeat(20, 10px);
     margin: 2.5px;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     border-radius: 100px;
     display: grid;
     grid-template-columns: repeat(20, 20px);
@@ -24,12 +24,12 @@
 }
 
 .game-border-1 {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     border: #595f43 solid 5px;
     border-radius: 15px;
     box-shadow: inset 0 0 0 5px #595f43;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     border: #595f43 solid 10px;
     border-radius: 30px;
     box-shadow: inset 0 0 0 10px #595f43;
@@ -37,12 +37,12 @@
 }
 
 .game-border-2 {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     border: #abb78a solid 4px;
     border-radius: 13px;
     box-shadow: inset 0 0 0 5px #abb78a;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     border: #abb78a solid 8px;
     border-radius: 26px;
     box-shadow: inset 0 0 0 10px #abb78a;
@@ -50,12 +50,12 @@
 }
 
 .game-border-3 {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     border: #8b966c solid 15px;
     border-radius: 10px;
     box-shadow: inset 0 0 0 2.5px #8b966c;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     border: #8b966c solid 30px;
     border-radius: 20px;
     box-shadow: inset 0 0 0 5px #8b966c;
@@ -64,14 +64,14 @@
 
 #instruction-text {
   position: absolute;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     margin-top: 130px;
     #text {
       margin-top: 1rem;
       font-size: 0.6em;
     }
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     margin-top: 260px;
     #text {
       font-size: 1.2em;
@@ -85,12 +85,12 @@
 }
 
 .scores {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 12.5px;
+    padding-top: 8px;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 25px;
@@ -101,24 +101,24 @@
   flex-direction: row;
 }
 .arror-ctr {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     margin-top: -1rem;
   }
 }
 #arrow-txt {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     font-size: 0.6em;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     font-size: 1.2em;
   }
 }
 .icon {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     font-size: 0.8em;
     margin-bottom: -6px;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     font-size: 1.6em;
     margin-bottom: -12px;
   }
@@ -131,11 +131,11 @@
 
 #score,
 #highScore {
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     width: 101.5px;
     font-size: 15px;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     width: 203px;
     font-size: 30px;
   }
@@ -156,12 +156,38 @@
 
 #logo {
   position: absolute;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     margin-top: -20px;
     height: 125px;
   }
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 600px) {
     margin-top: -40px;
     height: 250px;
+  }
+}
+
+.btn_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .arrow_btns {
+    display: flex;
+    flex-direction: row;
+    .cntr_btns {
+      display: flex;
+      flex-direction: column;
+    }
+    .left_btns {
+      align-self: center;
+    }
+    .right_btns {
+      align-self: center;
+    }
+  }
+  .spacebar_btn {
+    background-color: #8b966c;
+    span {
+      color: var(--white);
+    }
   }
 }

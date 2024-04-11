@@ -17,6 +17,8 @@ import { AccountsEffects } from './accounts/store/accounts.effects';
 import { accountsReducer } from './accounts/store/accounts.reducer';
 import { logsReducer } from './logs/store/logs.reducer';
 import { LogsEffects } from './logs/store/logs.effects';
+import { gamesReducer } from './games/store/games.reducer';
+import { GamesEffects } from './games/store/games.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,12 +29,14 @@ export const appConfig: ApplicationConfig = {
       authentication: authenticationReducer,
       accounts: accountsReducer,
       logs: logsReducer,
+      games: gamesReducer,
     }),
     provideEffects(
       ConfigurationEffects,
       AuthenticationEffects,
       AccountsEffects,
-      LogsEffects
+      LogsEffects,
+      GamesEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(withInterceptors([tokenInterceptor, errorInterceptor])),

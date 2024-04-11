@@ -1,10 +1,18 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription, map } from 'rxjs';
+import { getSnakeHighScore } from '../store/games.selectors';
+import { ServiceResponseModel } from '../../models/service-response.model';
+import { SnakeHighScoreModel } from '../models/snake-high-score.model';
 
 @Component({
   selector: 'app-snake',
   standalone: true,
-  imports: [MatIcon],
+  imports: [MatIcon, AsyncPipe, MatButtonModule, NgClass],
   templateUrl: './snake.component.html',
   styleUrl: './snake.component.scss',
 })
@@ -15,6 +23,7 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   logo: HTMLElement | null | undefined;
   score: HTMLElement | null | undefined;
   highScoreText: HTMLElement | null | undefined;
+  isSmallScreen$: Observable<boolean> | undefined;
   // Define game variables
   gridSize = 20;
   snake = [{ x: 10, y: 10 }];
@@ -24,12 +33,20 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   gameInterval: any;
   gameSpeedDelay = 200;
   gameStarted = false;
+  highScoreData: ServiceResponseModel<SnakeHighScoreModel> | undefined;
+  getSnakeHighScoreSub: Subscription | undefined;
   private keydownHandler: ((event: KeyboardEvent) => void) | undefined;
   private boundHandleKeyPress:
     | ((event: { code: string; key: string }) => void)
     | undefined;
 
-  constructor() {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private store: Store<any>
+  ) {
+    this.isSmallScreen$ = this.breakpointObserver
+      .observe(Breakpoints.XSmall)
+      .pipe(map((result) => result.matches));
     this.keydownHandler = (event) => {
       if (
         event.code === 'Space' ||
@@ -42,6 +59,11 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     };
     window.addEventListener('keydown', this.keydownHandler);
+    this.getSnakeHighScoreSub = this.store.select(getSnakeHighScore).subscribe({
+      next: (highScoreData) => {
+        if (highScoreData) this.highScoreData = highScoreData;
+      },
+    });
   }
 
   ngAfterViewInit(): void {
@@ -54,6 +76,9 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if (this.boundHandleKeyPress) {
       document.removeEventListener('keydown', this.boundHandleKeyPress);
+    }
+    if (this.getSnakeHighScoreSub) {
+      this.getSnakeHighScoreSub.unsubscribe();
     }
   }
 
@@ -92,6 +117,14 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
           break;
       }
     }
+  }
+
+  selectDirection(direction: string) {
+    this.direction = direction;
+  }
+
+  spaceBarBtn() {
+    this.startGame();
   }
 
   private draw() {

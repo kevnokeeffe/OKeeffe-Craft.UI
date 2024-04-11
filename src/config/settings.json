@@ -40,6 +40,17 @@
         "updateContactMessage": "/ContactMessage/{id}",
         "deleteContactMessage": "/ContactMessage/{id}",
         "createContactMessage": "/ContactMessage"
+      },
+      "games": {
+        "getGames": "/Games",
+        "getGame": "/Games/{id}",
+        "updateGame": "/Games/{id}",
+        "deleteGame": "/Games/{id}",
+        "createGame": "/Games",
+        "snake": {
+          "getSnakeHighScore": "/Games/snake-high-score/{id}",
+          "updateSnakeHighScore": "/Games/snake-high-score/{id}"
+        }
       }
     }
   },
