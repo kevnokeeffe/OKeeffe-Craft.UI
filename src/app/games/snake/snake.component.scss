@@ -167,6 +167,7 @@
 }
 
 .btn_container {
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,7 +195,8 @@
     }
   }
   .spacebar_btn {
-    width: 240px;
+    margin-top: 4px;
+    width: 200px;
     background-color: #8b966c;
     span {
       color: var(--white);
