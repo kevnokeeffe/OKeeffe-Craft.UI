@@ -6,13 +6,12 @@ import { SnakeHighScoreModel } from '../models/snake-high-score.model';
 export const GamesActions = createActionGroup({
   source: 'games',
   events: {
-    getSnakeHighScore: props<{ id: string }>(),
+    getSnakeHighScore: emptyProps(),
     getSnakeHighScoreSuccess: props<{
       payload: ServiceResponseModel<SnakeHighScoreModel>;
     }>(),
     getSnakeHighScoreFailure: props<{ error: any }>(),
     updateSnakeHighScore: props<{
-      id: string;
       model: UpdateSnakeHighScoreModel;
     }>(),
     updateSnakeHighScoreSuccess: props<{

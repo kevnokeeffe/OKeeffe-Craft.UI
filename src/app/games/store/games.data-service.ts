@@ -23,15 +23,13 @@ export class GamesDataService {
       });
   }
 
-  public getSnakeHighScore(id: string) {
-    return this.api.get(
-      `${this.gamesEndpoints?.snake.getSnakeHighScore}/${id}`
-    );
+  public getSnakeHighScore() {
+    return this.api.get(`${this.gamesEndpoints?.snake.getSnakeHighScore}`);
   }
 
-  public updateSnakeHighScore(id: string, model: any) {
+  public updateSnakeHighScore(model: any) {
     return this.api.put(
-      `${this.gamesEndpoints?.snake.updateSnakeHighScore}/${id}`,
+      `${this.gamesEndpoints?.snake.updateSnakeHighScore}`,
       model
     );
   }

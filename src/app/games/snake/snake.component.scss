@@ -145,7 +145,7 @@
 
 #highScore {
   color: #d8ddca;
-  display: none;
+  //display: none;
   text-align: right;
 }
 
@@ -200,6 +200,8 @@
     background-color: #8b966c;
     span {
       color: var(--white);
+      font-family: "VT323", monospace;
+      font-size: 1.4em;
     }
   }
 }

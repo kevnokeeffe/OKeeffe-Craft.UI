@@ -46,7 +46,11 @@
         "getGame": "/Games/{id}",
         "updateGame": "/Games/{id}",
         "deleteGame": "/Games/{id}",
-        "createGame": "/Games"
+        "createGame": "/Games",
+        "snake": {
+          "getSnakeHighScore": "/Games/snake-high-score/66181df44e04c67a2a864a37",
+          "updateSnakeHighScore": "/Games/snake-high-score/66181df44e04c67a2a864a37"
+        }
       }
     }
   },

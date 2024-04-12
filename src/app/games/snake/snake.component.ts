@@ -8,6 +8,7 @@ import { Observable, Subscription, map } from 'rxjs';
 import { getSnakeHighScore } from '../store/games.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { SnakeHighScoreModel } from '../models/snake-high-score.model';
+import { GamesActions } from '../store/games.actions';
 
 @Component({
   selector: 'app-snake',
@@ -17,18 +18,15 @@ import { SnakeHighScoreModel } from '../models/snake-high-score.model';
   styleUrl: './snake.component.scss',
 })
 export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
-  // Define HTML elements
   board: HTMLElement | null | undefined;
   instructionText: HTMLElement | null | undefined;
   logo: HTMLElement | null | undefined;
   score: HTMLElement | null | undefined;
-  highScoreText: HTMLElement | null | undefined;
   isSmallScreen$: Observable<boolean> | undefined;
-  // Define game variables
   gridSize = 20;
   snake = [{ x: 10, y: 10 }];
   food = this.generateFood();
-  highScore = 0;
+  highScore: string = '0';
   direction = 'right';
   gameInterval: any;
   gameSpeedDelay = 200;
@@ -61,7 +59,10 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
     window.addEventListener('keydown', this.keydownHandler);
     this.getSnakeHighScoreSub = this.store.select(getSnakeHighScore).subscribe({
       next: (highScoreData) => {
-        if (highScoreData) this.highScoreData = highScoreData;
+        console.log('highScoreData', highScoreData);
+
+        if (highScoreData?.success === true)
+          this.highScore = highScoreData.data.score;
       },
     });
   }
@@ -87,12 +88,12 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.instructionText = document.getElementById('instruction-text');
     this.logo = document.getElementById('logo');
     this.score = document.getElementById('score');
-    this.highScoreText = document.getElementById('highScore');
   }
 
   ngOnInit(): void {
     this.boundHandleKeyPress = this.handleKeyPress.bind(this);
     document.addEventListener('keydown', this.boundHandleKeyPress);
+    this.store.dispatch(GamesActions.getSnakeHighScore());
   }
 
   private handleKeyPress(event: { code: string; key: string }) {
@@ -140,11 +141,7 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.setPosition(snakeElement, segment);
       snakeElement.style.border = '#5a5a5a 1px dotted';
       snakeElement.style.backgroundColor = '#414141';
-      // if (index === 0) {
-      // snakeElement.style.borderRadius = '25% 50%'; // Make the first snake element round
-      // } else {
       snakeElement.style.borderRadius = '50% 25%'; // Make the rest of the snake elements oval
-      // }
       this.board!.appendChild(snakeElement);
     });
   }
@@ -273,12 +270,12 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private updateHighScore() {
     const currentScore = this.snake.length - 1;
-    if (currentScore > this.highScore) {
-      this.highScore = currentScore;
-      this.highScoreText!.textContent = this.highScore
-        .toString()
-        .padStart(3, '0');
+    const highScore = Number(this.highScoreData?.data?.score) || 0;
+    if (currentScore > highScore) {
+      this.highScore = String(currentScore);
+      this.store.dispatch(
+        GamesActions.updateSnakeHighScore({ model: { score: this.highScore } })
+      );
     }
-    this.highScoreText!.style.display = 'block';
   }
 }

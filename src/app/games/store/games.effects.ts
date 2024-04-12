@@ -12,8 +12,8 @@ export class GamesEffects {
   getSnakeHighScore$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GamesActions.getSnakeHighScore),
-      exhaustMap((model) =>
-        this.gamesService.getSnakeHighScore(model.id).pipe(
+      exhaustMap(() =>
+        this.gamesService.getSnakeHighScore().pipe(
           map((payload) => ({
             type: GamesActions.getSnakeHighScoreSuccess.type, // Fix: Use the 'type' property of the action
             payload: payload,
@@ -32,7 +32,7 @@ export class GamesEffects {
     this.actions$.pipe(
       ofType(GamesActions.updateSnakeHighScore),
       exhaustMap((model) =>
-        this.gamesService.updateSnakeHighScore(model.id, model.model).pipe(
+        this.gamesService.updateSnakeHighScore(model.model).pipe(
           map((payload) => ({
             type: GamesActions.updateSnakeHighScoreSuccess.type, // Fix: Use the 'type' property of the action
             payload: payload,
