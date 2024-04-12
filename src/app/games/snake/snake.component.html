@@ -41,20 +41,32 @@
 <div class="btn_container">
   <div class="arrow_btns">
     <div class="left_btns">
-      <button mat-icon-button (click)="selectDirection('left')">
-        <mat-icon>keyboard_arrow_left</mat-icon>
+      <button
+        class="arrow_btn"
+        mat-icon-button
+        (click)="selectDirection('left')"
+      >
+        <mat-icon class="arrow_icon">keyboard_arrow_left</mat-icon>
       </button>
     </div>
     <div class="cntr_btns">
-      <button mat-icon-button (click)="selectDirection('up')">
-        <mat-icon>keyboard_arrow_up</mat-icon></button
-      ><button mat-icon-button (click)="selectDirection('down')">
-        <mat-icon>keyboard_arrow_down</mat-icon>
+      <button class="arrow_btn" mat-icon-button (click)="selectDirection('up')">
+        <mat-icon class="arrow_icon">keyboard_arrow_up</mat-icon></button
+      ><button
+        class="arrow_btn"
+        mat-icon-button
+        (click)="selectDirection('down')"
+      >
+        <mat-icon class="arrow_icon">keyboard_arrow_down</mat-icon>
       </button>
     </div>
     <div class="right_btns">
-      <button mat-icon-button (click)="selectDirection('right')">
-        <mat-icon>keyboard_arrow_right</mat-icon>
+      <button
+        class="arrow_btn"
+        mat-icon-button
+        (click)="selectDirection('right')"
+      >
+        <mat-icon class="arrow_icon">keyboard_arrow_right</mat-icon>
       </button>
     </div>
   </div>
