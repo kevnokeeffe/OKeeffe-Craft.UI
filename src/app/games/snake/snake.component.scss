@@ -1,4 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+.leader {
+  @media screen and (max-width: 600px) {
+    text-align: center;
+    font-size: 1.2em;
+  }
+  @media screen and (min-width: 600px) {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+}
+.leader-n {
+  @media screen and (max-width: 600px) {
+    text-align: center;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+  @media screen and (min-width: 600px) {
+    text-align: center;
+    font-size: 2.4em;
+    margin-bottom: 10px;
+  }
+}
 .container {
   display: flex;
   align-items: center;
@@ -145,7 +168,6 @@
 
 #highScore {
   color: #d8ddca;
-  //display: none;
   text-align: right;
 }
 
@@ -199,6 +221,28 @@
     width: 200px;
     background-color: #8b966c;
     span {
+      color: var(--white);
+      font-family: "VT323", monospace;
+      font-size: 1.4em;
+    }
+  }
+}
+.high-score-winner-text {
+  margin-top: 5px;
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.name_ctr {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  div {
+    display: flex;
+    justify-content: center;
+    .enter-btn {
+      width: 200px;
+      background-color: #8b966c;
       color: var(--white);
       font-family: "VT323", monospace;
       font-size: 1.4em;

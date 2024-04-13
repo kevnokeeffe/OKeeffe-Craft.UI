@@ -16,7 +16,7 @@ export const gamesReducer = createReducer(
   on(GamesActions.updateSnakeHighScore, (state) => state),
   on(GamesActions.updateSnakeHighScoreSuccess, (state, { payload }) => ({
     ...state,
-    updateSnakeHighScore: payload,
+    snakeHighScore: payload,
   })),
   on(GamesActions.updateSnakeHighScoreFailure, (state, { error }) => ({
     ...state,

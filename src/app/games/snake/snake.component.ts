@@ -9,15 +9,23 @@ import { getSnakeHighScore } from '../store/games.selectors';
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { SnakeHighScoreModel } from '../models/snake-high-score.model';
 import { GamesActions } from '../store/games.actions';
+import { FormFieldComponent } from '../../layout/form-field/form-field.component';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-snake',
   standalone: true,
-  imports: [MatIcon, AsyncPipe, MatButtonModule, NgClass],
+  imports: [MatIcon, AsyncPipe, MatButtonModule, NgClass, FormFieldComponent],
   templateUrl: './snake.component.html',
   styleUrl: './snake.component.scss',
 })
 export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
+  nameControl = new UntypedFormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(20),
+  ]);
   board: HTMLElement | null | undefined;
   instructionText: HTMLElement | null | undefined;
   logo: HTMLElement | null | undefined;
@@ -33,6 +41,8 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   gameStarted = false;
   highScoreData: ServiceResponseModel<SnakeHighScoreModel> | undefined;
   getSnakeHighScoreSub: Subscription | undefined;
+  isScoreHigher: boolean = false;
+  highScoreName: string = '';
   private keydownHandler: ((event: KeyboardEvent) => void) | undefined;
   private boundHandleKeyPress:
     | ((event: { code: string; key: string }) => void)
@@ -40,11 +50,29 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private store: Store<any>
+    private store: Store<any>,
+    private layoutService: LayoutService
   ) {
     this.isSmallScreen$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(map((result) => result.matches));
+    this.preventDefaultKeydowns();
+    this.getHighScoreData();
+  }
+
+  private getHighScoreData(): void {
+    this.getSnakeHighScoreSub = this.store.select(getSnakeHighScore).subscribe({
+      next: (highScoreData) => {
+        if (highScoreData?.success === true) {
+          this.highScoreName = highScoreData.data.playerName || '';
+          this.highScore = highScoreData.data.score;
+          this.nameControl.setValue(this.highScoreName);
+        }
+      },
+    });
+  }
+
+  private preventDefaultKeydowns(): void {
     this.keydownHandler = (event) => {
       if (
         event.code === 'Space' ||
@@ -57,14 +85,6 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     };
     window.addEventListener('keydown', this.keydownHandler);
-    this.getSnakeHighScoreSub = this.store.select(getSnakeHighScore).subscribe({
-      next: (highScoreData) => {
-        console.log('highScoreData', highScoreData);
-
-        if (highScoreData?.success === true)
-          this.highScore = highScoreData.data.score;
-      },
-    });
   }
 
   ngAfterViewInit(): void {
@@ -72,14 +92,18 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.removeListeners();
+    if (this.getSnakeHighScoreSub) {
+      this.getSnakeHighScoreSub.unsubscribe();
+    }
+  }
+
+  removeListeners(): void {
     if (this.keydownHandler) {
       window.removeEventListener('keydown', this.keydownHandler);
     }
     if (this.boundHandleKeyPress) {
       document.removeEventListener('keydown', this.boundHandleKeyPress);
-    }
-    if (this.getSnakeHighScoreSub) {
-      this.getSnakeHighScoreSub.unsubscribe();
     }
   }
 
@@ -91,9 +115,13 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initKeydownListener();
+    this.store.dispatch(GamesActions.getSnakeHighScore());
+  }
+
+  private initKeydownListener(): void {
     this.boundHandleKeyPress = this.handleKeyPress.bind(this);
     document.addEventListener('keydown', this.boundHandleKeyPress);
-    this.store.dispatch(GamesActions.getSnakeHighScore());
   }
 
   private handleKeyPress(event: { code: string; key: string }) {
@@ -170,7 +198,6 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private startGame() {
     this.gameStarted = true; // Keep track of a running game
-    console.log(this.logo!.style.display);
     this.gameInterval = setInterval(() => {
       this.move();
       this.checkCollision();
@@ -270,12 +297,35 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private updateHighScore() {
     const currentScore = this.snake.length - 1;
-    const highScore = Number(this.highScoreData?.data?.score) || 0;
+    const highScore = Number(this.highScore);
+    if (currentScore > highScore) {
+      this.isScoreHigher = true;
+      this.removeListeners();
+    } else {
+      this.isScoreHigher = false;
+    }
     if (currentScore > highScore) {
       this.highScore = String(currentScore);
       this.store.dispatch(
-        GamesActions.updateSnakeHighScore({ model: { score: this.highScore } })
+        GamesActions.updateSnakeHighScore({
+          model: { score: this.highScore, playerName: this.nameControl.value },
+        })
       );
     }
+  }
+
+  submitName() {
+    if (this.nameControl.invalid) {
+      return;
+    }
+    this.store.dispatch(
+      GamesActions.updateSnakeHighScore({
+        model: { score: this.highScore, playerName: this.nameControl.value },
+      })
+    );
+    this.layoutService.showMessage('High score saved!', 'Close');
+    this.isScoreHigher = false;
+    this.preventDefaultKeydowns();
+    this.initKeydownListener();
   }
 }
