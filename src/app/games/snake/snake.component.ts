@@ -56,8 +56,6 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isSmallScreen$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(map((result) => result.matches));
-    this.preventDefaultKeydowns();
-    this.getHighScoreData();
   }
 
   private getHighScoreData(): void {
@@ -115,8 +113,10 @@ export class SnakeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.preventDefaultKeydowns();
     this.initKeydownListener();
     this.store.dispatch(GamesActions.getSnakeHighScore());
+    this.getHighScoreData();
   }
 
   private initKeydownListener(): void {

@@ -1,7 +1,7 @@
 {
   "environment": "production",
   "api": {
-    "baseUrl": "https://api.kevokeeffe.ie",
+    "baseUrl": "https://okeeffecraftapi.azurewebsites.net",
     "endpoints": {
       "authentication": {
         "authenticate": "/Accounts/authenticate",

@@ -1,18 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { AccountsTableComponent } from '../accounts-table/accounts-table.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-
 import { AccountResponseModel } from '../../models/account-response.model';
 import { Store } from '@ngrx/store';
-import { AccountsActions } from '../../store/accounts.actions';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
-import { getAccountCreated } from '../../store/accounts.selectors';
 import { AccountsTabGroupComponent } from '../../accounts-tab-group/accounts-tab-group.component';
 
 @Component({
