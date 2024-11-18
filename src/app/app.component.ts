@@ -12,6 +12,7 @@ import {
   filter,
   interval,
   switchMap,
+  take,
   takeUntil,
   tap,
   timer,
@@ -85,36 +86,23 @@ export class AppComponent implements OnDestroy {
 
   private getWeatherforcast(): void {
     const tenMinutes = 300000; // 5 minutes in milliseconds
-
+    const intervalCount = 3000; // 3 seconds in milliseconds
+  
     // Create an observable that completes after 5 minutes
     const stopAfterTenMinutes$ = timer(tenMinutes);
-    let intervalCount = 3000;
-    this.getWeatherForecastSuccessSubscription = this.store
-      .select(getWeatherForecastSuccess)
-      .pipe(
-        tap((success) => {
-          if (success)
-            this.store.dispatch(AuthenticationActions.refreshToken());
-        }),
-        switchMap((success) => {
-          if (!success) {
-            return interval(intervalCount).pipe(
-              tap(() => {
-                this.store.dispatch(AuthenticationActions.weatherForcast());
-              }),
-              takeUntil(stopAfterTenMinutes$),
-              takeUntil(
-                this.store
-                  .select(getWeatherForecastSuccess)
-                  .pipe(filter((success) => success))
-              )
-            );
-          } else {
-            return EMPTY;
-          }
-        })
-      )
-      .subscribe();
+  
+    this.getWeatherForecastSuccessSubscription = interval(intervalCount).pipe(
+      switchMap(() => this.store.select(getWeatherForecastSuccess).pipe(take(1))),
+      tap((success) => {
+        if (success) {
+          this.store.dispatch(AuthenticationActions.refreshToken());
+        } else {
+          this.store.dispatch(AuthenticationActions.weatherForcast());
+        }
+      }),
+      takeUntil(stopAfterTenMinutes$),
+      takeUntil(this.store.select(getWeatherForecastSuccess).pipe(filter((success) => success)))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

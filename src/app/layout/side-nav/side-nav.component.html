@@ -26,8 +26,11 @@
       [isSmallScreen$]="isSmallScreen$"
       [drawer]="drawer"
     ></app-toolbar>
-    <router-outlet />
-    @if((isAdmin$|async)){ @if(isSmallScreen$ | async){
+    <div (click)="onSidenavContentClick()">
+      <router-outlet
+    /></div>
+    
+    <!-- @if((isAdmin$|async)){ @if(isSmallScreen$ | async){
     <button
       mat-mini-fab
       (click)="toggleChatBotDialog()"
@@ -50,6 +53,6 @@
       <mat-icon class="material-symbols-rounded">{{
         !isChatBotDialogOpen ? "comment" : "close"
       }}</mat-icon></button
-    >}}
+    >}} -->
   </div>
 </mat-drawer-container>

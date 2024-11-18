@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatButton, MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
+import { MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
 import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { AsyncPipe, NgClass, NgStyle } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { SelectionListComponent } from './selection-list/selection-list.component';
 import { SignatureComponent } from '../images/signature/signature.component';
-import { Observable, map } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -25,12 +25,10 @@ import { getIsAdmin } from '../../authentication/store/authentication.selectors'
     MatButtonModule,
     MatIconModule,
     RouterOutlet,
-    MatButton,
     SelectionListComponent,
     SignatureComponent,
     AsyncPipe,
     MatMenuModule,
-    NgClass,
   ],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
@@ -81,6 +79,18 @@ export class SideNavComponent {
         position: this.position,
       });
       this.isChatBotDialogOpen = true;
+    }
+  }
+
+  public onSidenavContentClick(): void {
+    if (this.drawer && this.drawer.opened) {
+      this.isSmallScreen$?.pipe(take(1)).subscribe({
+        next: (isSmallScreen) => {
+          if (isSmallScreen && this.drawer) {
+            this.drawer.close();
+          }
+        },
+      });
     }
   }
 }
