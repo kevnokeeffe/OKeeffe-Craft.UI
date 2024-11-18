@@ -1,9 +1,4 @@
-import {
-  HttpRequest,
-  HttpEvent,
-  HttpHandlerFn,
-  HttpErrorResponse,
-} from '@angular/common/http';
+import { HttpRequest, HttpEvent, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { LayoutService } from '../layout/layout.service';
