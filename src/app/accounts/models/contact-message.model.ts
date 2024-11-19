@@ -3,6 +3,6 @@ export interface ContactMessageModel {
   email: string;
   subject: string;
   message: string;
-  created?: Date;
-  updated?: Date;
+  createdDate?: Date;
+  updatedDate?: Date;
 }

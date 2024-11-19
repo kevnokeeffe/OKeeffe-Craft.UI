@@ -117,6 +117,22 @@ export class AccountsEffects {
     )
   );
 
+  getContactMessages$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountsActions.getContactMessages),
+      switchMap(() =>
+        this.accountsService.getContactMessages().pipe(
+          map((response) =>
+            AccountsActions.getContactMessagesSuccess({ payload: response })
+          ),
+          catchError((error) =>
+            of(AccountsActions.getContactMessagesFailed({ error }))
+          )
+        )
+      )
+    )
+  );
+
   createContactMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AccountsActions.createContactMessage),

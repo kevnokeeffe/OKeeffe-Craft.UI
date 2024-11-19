@@ -73,3 +73,8 @@ export const getContactMessageCreated = createSelector(
   getAccountsState,
   (state: AccountsState) => state.contactMessageCreated
 );
+
+export const getContactMessages = createSelector(
+  getAccountsState,
+  (state: AccountsState) => state.contactMessages
+);

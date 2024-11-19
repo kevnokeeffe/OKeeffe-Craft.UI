@@ -18,6 +18,7 @@ import { UpdateAccountModel } from '../models/update-account.model';
 import { Utils } from '../../utilities/utils';
 import { CreateAccountModel } from '../models/create-account.model';
 import { EmailModel } from '../models/email.model';
+import { ContactMessageModel } from '../models/contact-message.model';
 
 export class AccountsDataService {
   accountsEndpoints!: AccountsEndpointsModel;
@@ -107,6 +108,12 @@ export class AccountsDataService {
     return this.api.post<ServiceResponseModel<string>>(
       this.contactMessageEndpoints?.createContactMessage,
       model
+    );
+  }
+
+  getContactMessages(): Observable<ServiceResponseModel<Array<ContactMessageModel>>> {
+    return this.api.get<ServiceResponseModel<Array<ContactMessageModel>>>(
+      this.contactMessageEndpoints?.getContactMessages
     );
   }
 }

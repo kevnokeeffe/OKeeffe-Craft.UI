@@ -17,7 +17,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorLogDetailsDialogComponent } from '../../dialogs/error-log-details-dialog/error-log-details-dialog.component';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { getIsAdmin } from '../../../authentication/store/authentication.selectors';
 import { Utils } from '../../../utilities/utils';
@@ -34,13 +34,14 @@ import { Utils } from '../../../utilities/utils';
     MatIcon,
     MatIconButton,
     AsyncPipe,
+    DatePipe,
   ],
   templateUrl: './error-logs-table.component.html',
   styleUrl: './error-logs-table.component.scss',
 })
 export class ErrorLogsTableComponent implements AfterViewInit, OnChanges {
   @Input() errorLogs: ErrorLogModel[] | null | undefined;
-  displayedColumns: string[] = ['logDetails', 'actions'];
+  displayedColumns: string[] = ['logDetails', 'date', 'actions'];
   dataSource: MatTableDataSource<ErrorLogModel>;
   isAdmin$: Observable<boolean> | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;

@@ -96,7 +96,6 @@ export class AuthenticationDataService {
   }
 
   getWeatherForcast(): Observable<any> {
-    console.log(this.weatherForcastEndpoints?.getWeatherForcast);
     return this.api.get<any>(
       this.weatherForcastEndpoints?.getWeatherForcast ?? ''
     );

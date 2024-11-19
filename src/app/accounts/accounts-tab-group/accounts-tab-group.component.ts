@@ -4,11 +4,19 @@ import { AccountsTableComponent } from '../accounts/accounts-table/accounts-tabl
 import { Observable } from 'rxjs';
 import { AccountResponseModel } from '../models/account-response.model';
 import { EmailsComponent } from '../emails/emails.component';
+import { ContactMessagesComponent } from '../contact-messages/contact-messages.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-accounts-tab-group',
   standalone: true,
-  imports: [MatTabsModule, AccountsTableComponent, EmailsComponent],
+  imports: [
+    MatTabsModule,
+    AccountsTableComponent,
+    EmailsComponent,
+    ContactMessagesComponent,
+    NgIf,
+  ],
   templateUrl: './accounts-tab-group.component.html',
   styleUrl: './accounts-tab-group.component.scss',
 })

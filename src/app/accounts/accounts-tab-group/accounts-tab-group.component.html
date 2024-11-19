@@ -5,6 +5,9 @@
       [accounts]="accounts"
     ></app-accounts-table>
   </mat-tab>
+  <mat-tab label="Messages" *ngIf="isAdmin$"
+    ><app-contact-messages></app-contact-messages>
+  </mat-tab>
   <mat-tab label="Emais">
     <app-emails></app-emails>
   </mat-tab>

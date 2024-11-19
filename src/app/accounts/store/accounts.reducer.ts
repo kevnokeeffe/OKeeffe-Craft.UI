@@ -112,6 +112,18 @@ export const accountsReducer = createReducer(
     ...state,
     error,
   })),
+  on(AccountsActions.getContactMessages, (state) => state),
+  on(AccountsActions.getContactMessagesSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      contactMessages: payload,
+      contactMessagesLoaded: payload.success,
+    };
+  }),
+  on(AccountsActions.getContactMessagesFailed, (state, { error }) => ({
+    ...state,
+    error,
+  })),
   on(AccountsActions.createContactMessage, (state) => state),
   on(AccountsActions.createContactMessageSuccess, (state, { payload }) => {
     return {

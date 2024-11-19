@@ -14,7 +14,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivityLogModel } from '../../models/activity-log.model';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
-import { AsyncPipe, NgStyle } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityLogDetailsDialogComponent } from '../../dialogs/activity-log-details-dialog/activity-log-details-dialog.component';
 import { Observable } from 'rxjs';
@@ -33,15 +33,15 @@ import { Utils } from '../../../utilities/utils';
     MatPaginatorModule,
     MatIconButton,
     MatIcon,
-    NgStyle,
     AsyncPipe,
+    DatePipe,
   ],
   templateUrl: './activity-logs-table.component.html',
   styleUrl: './activity-logs-table.component.scss',
 })
 export class ActivityLogsTableComponent implements AfterViewInit, OnChanges {
   @Input() activityLogs: ActivityLogModel[] | null | undefined;
-  displayedColumns: string[] = ['logDetails', 'actions'];
+  displayedColumns: string[] = ['logDetails',"date", 'actions'];
   dataSource: MatTableDataSource<ActivityLogModel>;
   isAdmin$: Observable<boolean> | undefined;
 

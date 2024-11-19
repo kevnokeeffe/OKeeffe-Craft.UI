@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+  }
+  .container {
+    padding-top: 20px;
+  }
+  .section {
+    overflow: auto;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-column-actions {
+    text-align: right;
+  }
+  .mat-mdc-header-row {
+    background-color: var(--primary-color);
+    color: var(--white);
+    height: 2.6rem;
+  }
+  
+  ::ng-deep .mat-sort-header-container .mat-sort-header-arrow {
+    color: var(--white);
+  }
+  

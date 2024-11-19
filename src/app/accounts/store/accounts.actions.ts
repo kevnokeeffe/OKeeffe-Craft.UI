@@ -45,6 +45,11 @@ export const AccountsActions = createActionGroup({
       payload: ServiceResponseModel<EmailModel>;
     }>(),
     getEmailFailed: props<{ error: any }>(),
+    getContactMessages: emptyProps(),
+    getContactMessagesSuccess: props<{
+      payload: ServiceResponseModel<Array<ContactMessageModel>>;
+    }>(),
+    getContactMessagesFailed: props<{ error: any }>(),
     createContactMessage: props<{ model: ContactMessageModel }>(),
     createContactMessageSuccess: props<{
       payload: ServiceResponseModel<string>;

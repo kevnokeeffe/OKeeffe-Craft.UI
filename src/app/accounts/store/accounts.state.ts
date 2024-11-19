@@ -1,5 +1,6 @@
 import { ServiceResponseModel } from '../../models/service-response.model';
 import { AccountResponseModel } from '../models/account-response.model';
+import { ContactMessageModel } from '../models/contact-message.model';
 import { EmailModel } from '../models/email.model';
 
 export interface AccountsState {
@@ -15,6 +16,7 @@ export interface AccountsState {
   emailLoaded: boolean;
   emailsLoaded: boolean;
   error: any | null;
+  contactMessages: ServiceResponseModel<Array<ContactMessageModel>> | null;
   contactMessageResponse: ServiceResponseModel<string> | null;
   contactMessageCreated: boolean;
 }
@@ -32,6 +34,7 @@ export const initialAccountsState: AccountsState = {
   emailLoaded: false,
   emailsLoaded: false,
   error: null,
+  contactMessages: null,
   contactMessageResponse: null,
   contactMessageCreated: false,
 };

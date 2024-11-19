@@ -47,7 +47,7 @@ export class AppComponent implements OnDestroy {
       {
         name: 'keywords',
         content:
-          'Waterford, Waterford Tech, Angular Developer, Web Developer, Kevin O Keeffe, Waterford Tech, Angular Developer, Dot Net Core, .Net Core, C#, Full Stack Engineer, Irish Tech, Software Developer, Web Development, Coding Life, Tech Community, Irish Coder, Software Engineering, Kevin O Keeffe, Waterford Developer, Code Wizard, Problem Solver, Tech Enthusiast, Team Player, Innovative Coder, Debugging Expert, Continuous Learner',
+          'Waterford, Waterford Tech, Angular Developer, Web Developer, Web Dev, Kevin O Keeffe, Waterford Tech, Angular Developer, Dot Net Core, .Net Core, C#, Full Stack Engineer, Irish Tech, Software Developer, Web Development, Coding Life, Tech Community, Irish Coder, Software Engineer, Software Engineering, Waterford, Ireland, Software Engineer Waterford, Kevin O Keeffe, Waterford Developer, Code Wizard, Problem Solver, Tech Enthusiast, Team Player, Innovative Coder, Debugging Expert, Continuous Learner',
       },
       { name: 'author', content: "Kevin O'Keeffe" },
       { rel: 'canonical', href: 'https://kevokeeffe.ie' },
