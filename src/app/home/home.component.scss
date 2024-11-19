@@ -23,7 +23,7 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        height: 38%;
+        height: 35%;
       }
       .home_header {
         display: flex;
@@ -75,6 +75,7 @@
             font-size: 1.4em;
             line-height: 1.4rem;
             width: 80%;
+            padding-top: 20px;
           }
           color: var(--gray);
           font-family: "Nunito", sans-serif;
