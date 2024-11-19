@@ -279,9 +279,13 @@
     .subtitle {
       display: flex;
       justify-content: center;
-
       p {
-        text-align: center;
+        @media screen and (min-width: 800px) {
+          text-align: center;
+        }
+        @media screen and (max-width: 800px) {
+          text-align: start;
+        }
         color: var(--white);
         line-height: 2rem;
         font-family: "Nunito", sans-serif;
