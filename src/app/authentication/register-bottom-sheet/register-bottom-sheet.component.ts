@@ -108,6 +108,7 @@ export class RegisterBottomSheetComponent implements OnDestroy, OnInit {
       this.loading = false;
       this.registerForm.enable();
       this._bottomSheetRef.dismiss();
+      this.layoutService.closeDrawer();
       this.layoutService.showMessage(
         'Thank you for registering! Your account setup is complete. Please check your email for confirmation.',
         'Close'

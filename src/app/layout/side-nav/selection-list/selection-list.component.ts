@@ -21,6 +21,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SettingsBottomSheetComponent } from '../../../settings/settings-bottom-sheet/settings-bottom-sheet.component';
 import { AccountBottomSheetComponent } from '../../../accounts/dialogs/account-bottom-sheet/account-bottom-sheet.component';
 import { ContactBottomSheetComponent } from '../../../home/contact-bottom-sheet/contact-bottom-sheet.component';
+import { LayoutService } from '../../layout.service';
 
 @Component({
   selector: 'app-selection-list',
@@ -33,7 +34,6 @@ import { ContactBottomSheetComponent } from '../../../home/contact-bottom-sheet/
     MatMenuModule,
     FaIconComponent,
     MatTooltipModule,
-    AsyncPipe,
     RouterModule,
   ],
   templateUrl: './selection-list.component.html',
@@ -50,7 +50,8 @@ export class SelectionListComponent implements OnDestroy {
   constructor(
     private _bottomSheet: MatBottomSheet,
     private store: Store<any>,
-    private router: Router
+    private router: Router,
+    private layoutService: LayoutService
   ) {
     this.isAuthenticatedSubscription = this.store
       .select(getIsAuthenticated)
@@ -79,7 +80,11 @@ export class SelectionListComponent implements OnDestroy {
     }
   }
 
-  public navigateToWebsite(item: string = 'api' || 'ui' || 'swagger'): void {
+  public closeDrawer(): void {
+    this.layoutService.closeDrawer();
+  }
+
+  public navigateToWebsite(item: string = 'api'): void {
     if (item === 'api')
       window.open('https://github.com/kevnokeeffe/OKeeffe-Craft.Api', '_blank');
     if (item === 'ui')

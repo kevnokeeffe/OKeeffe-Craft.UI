@@ -39,6 +39,7 @@
         class="mat-list-item"
         [disabled]="!isAuthenticated"
         matTooltipPosition="right"
+        (click)="closeDrawer();"
         [routerLink]="isAuthenticated ? ['/dashboard'] : null"
         [matTooltip]="getTooltipText(undefined, isAuthenticated)"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
@@ -55,7 +56,7 @@
           robot_2</mat-icon
         ><span>AI Assistants</span></mat-list-item
       > -->
-      <mat-list-item class="mat-list-item" [routerLink]="['/snake']"
+      <mat-list-item (click)="closeDrawer();" class="mat-list-item" [routerLink]="['/snake']"
         ><mat-icon matListItemIcon class="material-symbols-outlined">
           conversion_path</mat-icon
         ><span>Snake II</span></mat-list-item
