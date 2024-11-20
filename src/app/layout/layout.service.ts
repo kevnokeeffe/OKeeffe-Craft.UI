@@ -17,7 +17,7 @@ export class LayoutService {
     private breakpointObserver: BreakpointObserver
   ) {
     this.isSmallScreen$ = this.breakpointObserver
-      .observe(Breakpoints.Small)
+      .observe(Breakpoints.XSmall)
       .pipe(map((result) => result.matches));
   }
 
