@@ -48,7 +48,7 @@ export class SideNavComponent {
     private layoutService: LayoutService
   ) {
     this.isSmallScreen$ = this.breakpointObserver
-      .observe(Breakpoints.XSmall)
+      .observe(Breakpoints.Small)
       .pipe(
         map((result) => {
           // if (result.matches) {

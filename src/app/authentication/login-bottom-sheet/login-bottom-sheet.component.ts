@@ -70,6 +70,7 @@ export class LoginBottomSheetComponent implements OnDestroy, OnInit {
       ),
     });
     this._store.dispatch(AuthenticationActions.clearAuthResponse());
+    
   }
 
   closeDrawer(): void {
