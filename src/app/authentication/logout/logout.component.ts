@@ -16,11 +16,14 @@ import { GamesActions } from '../../games/store/games.actions';
 export class LogoutComponent implements OnInit {
   constructor(private store: Store, private router: Router) {}
   ngOnInit(): void {
-    this.router.navigate(['/']);
+    
     this.store.dispatch(AuthenticationActions.logout());
     this.store.dispatch(AuthenticationActions.clearAll());
     this.store.dispatch(AccountsActions.clearAll());
     this.store.dispatch(LogsActions.clearAll());
     this.store.dispatch(GamesActions.clearAll());
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
   }
 }

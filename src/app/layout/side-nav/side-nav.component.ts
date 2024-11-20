@@ -14,6 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatBotDialogComponent } from '../../chat-gpt/chat-bot-dialog/chat-bot-dialog.component';
 import { Store } from '@ngrx/store';
 import { getIsAdmin } from '../../authentication/store/authentication.selectors';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -43,28 +44,38 @@ export class SideNavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
-    private store: Store
+    private store: Store,
+    private layoutService: LayoutService
   ) {
     this.isSmallScreen$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(
         map((result) => {
-          if (result.matches) {
-            this.position = {
-              bottom: '80px',
-              right: '40px',
-            };
-          } else {
-            this.position = {
-              bottom: '100px',
-              right: '70px',
-            };
-          }
+          // if (result.matches) {
+          //   this.position = {
+          //     bottom: '80px',
+          //     right: '40px',
+          //   };
+          // } else {
+          //   this.position = {
+          //     bottom: '100px',
+          //     right: '70px',
+          //   };
+          // }
           return result.matches;
         })
       );
 
     this.isAdmin$ = this.store.select(getIsAdmin);
+    this.drawerToggleClickListener();
+  }
+
+  drawerToggleClickListener(): void {
+    this.layoutService.closeDrawer$.subscribe(() => {
+      if (this.drawer) {
+        this.drawer.close();
+      }
+    });
   }
 
   toggleChatBotDialog() {

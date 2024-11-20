@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AbstractControl, UntypedFormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { JsonPipe, NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 
@@ -23,7 +23,6 @@ import { MatProgressBar } from '@angular/material/progress-bar';
     MatButtonModule,
     NgStyle,
     NgFor,
-    JsonPipe,
     NgIf,
     MatDivider,
     MatProgressBar,
@@ -41,8 +40,7 @@ export class FormFieldComponent {
   @Input() errors: any | undefined;
   @Input() errorMessage: string | undefined;
   @Input() hint: string | undefined;
-  @Input() appearance: MatFormFieldAppearance =
-    'outline' || 'fill' || 'standard';
+  @Input() appearance: MatFormFieldAppearance = 'outline';
   @Input() prefixIcon: string | undefined;
   @Input() suffixIcon: string | undefined;
   @Input() showPasswordVisibility: boolean = false;

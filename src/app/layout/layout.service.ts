@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar instead of MatSnackBarModule
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SnackbarErrorComponent } from './snackbar/snackbar-error/snackbar-error.component';
+import { Observable, Subject, take } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutService {
-  constructor(private snackbar: MatSnackBar) {}
+  private closeDrawerSubject = new Subject<void>();
+  closeDrawer$ = this.closeDrawerSubject.asObservable();
+  isSmallScreen$: Observable<boolean> | undefined;
+  constructor(private snackbar: MatSnackBar,    private breakpointObserver: BreakpointObserver,) {}
+
   showMessage(message: string, action?: string) {
     this.snackbar.openFromComponent(SnackbarComponent, {
       data: { message, action: action },
@@ -26,4 +32,15 @@ export class LayoutService {
       panelClass: ['error-snackbar'],
     });
   }
+
+  closeDrawer(): void {
+    this.isSmallScreen$?.pipe(take(1)).subscribe({
+      next: (isSmallScreen) => {
+        if (isSmallScreen) {
+          this.closeDrawerSubject.next();
+        }
+      },
+    })
+  }
 }
+

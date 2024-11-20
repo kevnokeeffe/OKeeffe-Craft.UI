@@ -18,15 +18,13 @@ import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sh
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
-import { Subscription, combineLatest, take } from 'rxjs';
+import { Observable, Subscription, combineLatest, map, take } from 'rxjs';
 import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../layout/layout.service';
-import {
-  getAuthenticationResponse,
-  getIsAuthenticated,
-} from '../store/authentication.selectors';
+import { getAuthenticationResponse } from '../store/authentication.selectors';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-login-bottom-sheet',
@@ -74,6 +72,11 @@ export class LoginBottomSheetComponent implements OnDestroy, OnInit {
     this._store.dispatch(AuthenticationActions.clearAuthResponse());
   }
 
+  closeDrawer(): void {
+          this.layoutService.closeDrawer();
+        
+  }
+
   ngOnInit(): void {
     this.getAuthResponse();
   }
@@ -101,6 +104,7 @@ export class LoginBottomSheetComponent implements OnDestroy, OnInit {
       this.loginForm.enable();
       this.router.navigate(['/dashboard']);
       this._bottomSheetRef.dismiss();
+      this.closeDrawer();
     } else if (response.success === false) {
       this.layoutService.showErrorMessage(response.message);
       this.loading = false;
