@@ -141,8 +141,8 @@ export const authenticationReducer = createReducer(
     ...state,
     authenticationResponse: null,
   })),
-  on(AuthenticationActions.clearRegResponse, (state) => ({
+  on(AuthenticationActions.clearForgotPasswordResponse, (state) => ({
     ...state,
-    registrationResponse: null,
-  }))
+    forgotPasswordResponse: null,
+  })),
 );

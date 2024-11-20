@@ -50,6 +50,7 @@ export class ForgotPasswordBottomSheetComponent implements OnDestroy, OnInit {
         Validators.required,
       ]),
     });
+    this.store.dispatch(AuthenticationActions.clearForgotPasswordResponse());
   }
 
   ngOnInit(): void {

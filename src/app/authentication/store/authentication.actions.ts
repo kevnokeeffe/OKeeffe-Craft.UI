@@ -54,5 +54,6 @@ export const AuthenticationActions = createActionGroup({
     }>(),
     clearAuthResponse: emptyProps(),
     clearRegResponse: emptyProps(),
+    clearForgotPasswordResponse: emptyProps(),  
   },
 });
