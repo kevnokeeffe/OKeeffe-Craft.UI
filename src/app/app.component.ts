@@ -90,18 +90,19 @@ export class AppComponent implements OnDestroy {
   
     // Create an observable that completes after 5 minutes
     const stopAfterTenMinutes$ = timer(tenMinutes);
-  
+
     this.getWeatherForecastSuccessSubscription = interval(intervalCount).pipe(
       switchMap(() => this.store.select(getWeatherForecastSuccess).pipe(take(1))),
       tap((success) => {
-        if (success) {
-          this.store.dispatch(AuthenticationActions.refreshToken());
-        } else {
+        if (!success) {
           this.store.dispatch(AuthenticationActions.weatherForcast());
         }
       }),
       takeUntil(stopAfterTenMinutes$),
-      takeUntil(this.store.select(getWeatherForecastSuccess).pipe(filter((success) => success)))
+      takeUntil(this.store.select(getWeatherForecastSuccess).pipe(
+        filter(success => success),
+        tap(() => this.store.dispatch(AuthenticationActions.refreshToken()))
+      ))
     ).subscribe();
   }
 
