@@ -4,8 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBar } from '@angular/material/progress-bar';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-chat-bot-dialog',
@@ -16,7 +15,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
     MatIconModule,
     MatCardModule,
     MatDivider,
-    MatProgressBar,
     RouterModule,
   ],
   templateUrl: './chat-bot-dialog.component.html',

@@ -1,5 +1,4 @@
 import {
-  AsyncPipe,
   DatePipe,
   JsonPipe,
   NgStyle,
@@ -18,7 +17,6 @@ import { Component, Input } from '@angular/core';
     NgSwitchDefault,
     JsonPipe,
     DatePipe,
-    AsyncPipe,
     NgStyle,
   ],
   templateUrl: './description-value.component.html',

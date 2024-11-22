@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
-  MatDialogRef,
 } from '@angular/material/dialog';
 import { ActivityLogModel } from '../../models/activity-log.model';
 import { DescriptionValueComponent } from '../../../layout/description-value/description-value.component';
@@ -17,7 +16,6 @@ import { DescriptionValueComponent } from '../../../layout/description-value/des
 })
 export class ActivityLogDetailsDialogComponent {
   constructor(
-    private dialog: MatDialogRef<ActivityLogDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ActivityLogModel
   ) {}
 }

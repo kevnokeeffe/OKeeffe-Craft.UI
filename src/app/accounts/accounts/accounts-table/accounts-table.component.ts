@@ -22,9 +22,8 @@ import { AccountsActions } from '../../store/accounts.actions';
 import { Store } from '@ngrx/store';
 import {
   getAccountDeleted,
-  getAccountUpdated,
 } from '../../store/accounts.selectors';
-import { Observable, Subscription, combineLatest } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { AccountBottomSheetComponent } from '../../dialogs/account-bottom-sheet/account-bottom-sheet.component';
 import { getAccountId } from '../../../authentication/store/authentication.selectors';

@@ -18,13 +18,12 @@ import { ForgotPasswordBottomSheetComponent } from '../forgot-password-bottom-sh
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '../store/authentication.actions';
 import { AuthenticateRequestModel } from '../models/authentication-request.model';
-import { Observable, Subscription, combineLatest, map, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Utils } from '../../utilities/utils';
 import { ProgressBarComponent } from '../../layout/progress-bar/progress-bar.component';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../layout/layout.service';
 import { getAuthenticationResponse } from '../store/authentication.selectors';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-login-bottom-sheet',

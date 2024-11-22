@@ -7,7 +7,6 @@ import { getConfigurationLoaded } from './configuration/store/configuration.sele
 import { AuthenticationActions } from './authentication/store/authentication.actions';
 import { Utils } from './utilities/utils';
 import {
-  EMPTY,
   Subscription,
   filter,
   interval,

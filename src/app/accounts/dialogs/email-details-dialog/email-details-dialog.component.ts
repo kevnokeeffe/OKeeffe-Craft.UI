@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { EmailModel } from '../../models/email.model';
 import {
-  MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogModule,
 } from '@angular/material/dialog';
@@ -17,7 +16,6 @@ import { DescriptionValueComponent } from '../../../layout/description-value/des
 })
 export class EmailDetailsDialogComponent {
   constructor(
-    private dialog: MatDialogRef<EmailDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EmailModel
   ) {}
 }

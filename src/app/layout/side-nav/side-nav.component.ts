@@ -51,17 +51,6 @@ export class SideNavComponent {
       .observe(Breakpoints.XSmall)
       .pipe(
         map((result) => {
-          // if (result.matches) {
-          //   this.position = {
-          //     bottom: '80px',
-          //     right: '40px',
-          //   };
-          // } else {
-          //   this.position = {
-          //     bottom: '100px',
-          //     right: '70px',
-          //   };
-          // }
           return result.matches;
         })
       );

@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
-  MatDialogRef,
 } from '@angular/material/dialog';
 import { ErrorLogModel } from '../../models/error-log.model';
 import { DescriptionValueComponent } from '../../../layout/description-value/description-value.component';
@@ -17,7 +16,6 @@ import { DescriptionValueComponent } from '../../../layout/description-value/des
 })
 export class ErrorLogDetailsDialogComponent {
   constructor(
-    private dialog: MatDialogRef<ErrorLogDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ErrorLogModel
   ) {}
 }
