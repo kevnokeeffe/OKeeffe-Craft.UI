@@ -21,7 +21,7 @@ To get started with O'Keeffe Craft UI, follow these steps:
 
 ## Usage
 
-O'Keeffe Craft UI provides a user-friendly interface for managing crafting projects. Users can perform various actions such as creating new projects, adding tasks, tracking progress, and more.
+O'Keeffe Craft UI provides a user-friendly interface. Users can view projects, create an account and visualize an internalised system management dashboard.
 
 ## Contributing
 
